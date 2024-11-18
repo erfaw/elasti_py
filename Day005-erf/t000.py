@@ -31,4 +31,9 @@ def main():  # for main program
     print(end_pass)
     print(end_pass_string)
 
-main()
+
+while True:
+    main()
+    if input("restart?(y/n)").lower() != 'y':
+        break        
+

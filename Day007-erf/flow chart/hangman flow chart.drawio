@@ -1,0 +1,108 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="24.8.6">
+  <diagram name="Page-1" id="CgE8JMo7amufwWvzYqkJ">
+    <mxGraphModel dx="1195" dy="658" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HPt2mHobExvSCtmHTbuj-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-1" target="HPt2mHobExvSCtmHTbuj-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-1" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;pick a random word&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-52" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-5" target="HPt2mHobExvSCtmHTbuj-51">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-5" value="enough blanks for each char of word to show and work with&amp;nbsp;" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-7" target="HPt2mHobExvSCtmHTbuj-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-7" target="HPt2mHobExvSCtmHTbuj-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-7" value="&lt;div&gt;are we have it in our word?&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-9" target="HPt2mHobExvSCtmHTbuj-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-9" value="fill one of blanks at right index based on the word" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-14" target="HPt2mHobExvSCtmHTbuj-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-14" value="draw one piece of hangman shape" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-16" target="HPt2mHobExvSCtmHTbuj-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-16" value="there is a fully shape?&lt;div&gt;means are we haven&#39;t any hp more?&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-20" value="no&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="100" y="590" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-21" value="yes&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="160" y="630" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-55" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-16" target="HPt2mHobExvSCtmHTbuj-51">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" y="720" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="160" y="600" />
+              <mxPoint x="80" y="600" />
+              <mxPoint x="80" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-23" value="Game Over!!!" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="690" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-73" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-25" target="HPt2mHobExvSCtmHTbuj-72">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-25" value="are we filled all blanks? and word shows up?" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-29" value="" style="shape=waypoint;sketch=0;size=6;pointerEvents=1;points=[];fillColor=default;resizable=0;rotatable=0;perimeter=centerPerimeter;snapToPoint=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="130" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-31" value="no" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="700" y="575" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-51" target="HPt2mHobExvSCtmHTbuj-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-51" value="take user guess. (a char)&amp;nbsp;" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-57" value="no" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="300" y="420" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-58" value="yes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="500" y="420" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-59" value="&lt;b&gt;&lt;i&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;Hangman Flow Chart&lt;/font&gt;&lt;/i&gt;&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="40" y="13" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-70" value="" style="endArrow=classic;html=1;rounded=0;exitX=1.007;exitY=0.631;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="HPt2mHobExvSCtmHTbuj-25" target="HPt2mHobExvSCtmHTbuj-51">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="480" as="sourcePoint" />
+            <mxPoint x="610" y="430" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="760" y="598" />
+              <mxPoint x="760" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HPt2mHobExvSCtmHTbuj-72" value="gz You win :)" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="690" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

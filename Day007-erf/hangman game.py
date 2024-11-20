@@ -1,76 +1,7 @@
 import random
-import os
-import subprocess
-
-
-word_list = ["aardvark", "baboon", "camel", "erfan", "asghar", "akbar"]
-chosen_word = random.choice(word_list) # gerefane kalame random az word_list
-
-stages = [ # ascii arts
-  r'''
-    +-------+
-    O       |
-   /|\      |
-   / \      |
-            |
-            |
-    =========
-''', #0 
-  r'''
-    +-------+
-    O       |
-   /|\      |
-   /        |
-            |
-            |
-    =========
-''', #1
-  r'''
-    +-------+
-    O       |
-   /|\      |
-            |
-            |
-            |
-    =========
-''', #2
-  r'''
-    +-------+
-    O       |
-   / \      |
-            |
-            |
-            |
-    =========
-''', #3
-  r'''
-    +-------+
-    O       |
-   /        |
-            |
-            |
-            |
-    =========
-''', #4
-  r'''
-    +-------+
-    O       |
-            |
-            |
-            |
-            |
-    =========
-''', #5
-  r'''
-    +-------+
-            |
-            |
-            |
-            |
-            |
-    =========
-''', #6
-]
+import os, subprocess
+import hangman_words, hangman_art
+chosen_word = random.choice(hangman_words.word_list) # gerefane kalame random az word_list
 
 def main(): # MAIN 
   def blank_maker(word): # a func baraye sakhtane blank ha bar asas kalame vorodi ke random entekhab shde az ghabl
@@ -103,22 +34,35 @@ def main(): # MAIN
         subprocess.call('clear', shell=True)
   
   lives = 6 # our HP actually :)
+  letter_guessed = []
   
   blanked_word = blank_maker(chosen_word) # a List
 
+  # game base
   while lives > 0:
     clear_screen()
+    print(f"******************<{lives}/6 LEFT>***********************")
     print(f"the word is: {''.join(blanked_word)}")
-    print(stages[lives])
+    print(hangman_art.stages[lives])
     guess = input("guess a char:  ").lower()
-    
-    if guess not in chosen_word: # ghalat hads zade
+    if guess in letter_guessed:
+      input(f"you've guessed '{guess}' before , guess another letter")
+      continue
+    elif guess not in chosen_word: # ghalat hads zade
       lives -= 1
-    
+      input(f"the '{guess}' is wrong")
+    if '_' not in blank_filler():
+      break
+    letter_guessed.append(guess)
     print(blank_filler())
+
+
   clear_screen()
   if lives == 0:
-      print(f"You lost! the man just executed! \n {stages[0]}\n\t GAME OVER")
+      print(f"******************< - - LOSE - - >***********************\nYou lose! the man just executed! \n {hangman_art.stages[0]}\nthe '{guess}' was wrong word was --> {chosen_word}\n  << << GAME OVER >> >>")
+      input(f"")
+  elif '_' not in blank_filler():
+      print(f"******************< - - WON - - >***********************\nYou WON! your guess was correct --> {chosen_word} \n {hangman_art.stages[lives]}\n  << << WIN WIN >> >>")    
   
 
 
@@ -126,6 +70,6 @@ def main(): # MAIN
 while True: # make program repeatable 
   print("___________________________________________________________\n")
   main()
-  if input("\nrestart? (y/n)").lower() != 'y':
+  if input("\n Would you like to restart? (y/n)").lower() != 'y':
     break
 

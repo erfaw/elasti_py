@@ -2,7 +2,7 @@ import random
 import os, subprocess
 import hangman_words, hangman_art
 chosen_word = random.choice(hangman_words.word_list) # gerefane kalame random az word_list
-
+input("\n\t\twelcome to Hangman game, \n press any to continue...")
 def main(): # MAIN 
   def blank_maker(word): # a func baraye sakhtane blank ha bar asas kalame vorodi ke random entekhab shde az ghabl
     blank_var =[]

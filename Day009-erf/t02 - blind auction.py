@@ -15,12 +15,13 @@ def main():
         bid_info[bidder_name] = int(bid_amount)
         is_anymore = input("there is anymore?(y/n): ").lower()
     
-    highest_bidder = ''
-    for person in bid_info:
-        if highest_bidder == '':
-            highest_bidder = person
-        elif bid_info[person] > bid_info[highest_bidder] :
-            highest_bidder = person 
+    # highest_bidder = ''
+    # for person in bid_info:
+    #     if highest_bidder == '':
+    #         highest_bidder = person
+    #     elif bid_info[person] > bid_info[highest_bidder] :
+    #         highest_bidder = person 
+    highest_bidder = max(bid_info, key=bid_info.get)
 
     clear_screen()
     input(f"{logo} \nwinner is {highest_bidder} with {bid_info[highest_bidder]}$ bid amount")

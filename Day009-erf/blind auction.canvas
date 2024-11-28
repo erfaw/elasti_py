@@ -1,0 +1,24 @@
+{
+	"nodes":[
+		{"id":"efd2ee750c7fe8f1","type":"text","text":"start","x":-205,"y":-460,"width":250,"height":60},
+		{"id":"2ea7077a73022acb","x":-205,"y":-340,"width":250,"height":60,"type":"text","text":"print logo and welcome start main after this"},
+		{"id":"e7d8c5758d3cdd0b","type":"text","text":"pick bid","x":-205,"y":-59,"width":250,"height":60},
+		{"id":"2ccd462f1df9972e","type":"text","text":"clear screen(other one couldn't see details from last ones)","x":-583,"y":-100,"width":250,"height":101},
+		{"id":"11eed0cf45114413","type":"text","text":"pick name","x":-205,"y":-160,"width":250,"height":60},
+		{"id":"e633b4653b077056","type":"text","text":"check whom bidder has highest bid (return)","x":-208,"y":316,"width":250,"height":60},
+		{"id":"0387b62e1c7a4b18","type":"text","text":"end","x":-206,"y":481,"width":250,"height":60},
+		{"id":"e91ecc1a1f81c1e9","x":-205,"y":40,"width":250,"height":60,"type":"text","text":"store at a dictionary"},
+		{"id":"1dffd112f4515bda","type":"text","text":"ask about other ones (yes/no)","x":-205,"y":140,"width":250,"height":60}
+	],
+	"edges":[
+		{"id":"d84847b083b860ae","fromNode":"efd2ee750c7fe8f1","fromSide":"bottom","toNode":"2ea7077a73022acb","toSide":"top"},
+		{"id":"626c4b16d603375d","fromNode":"11eed0cf45114413","fromSide":"bottom","toNode":"e7d8c5758d3cdd0b","toSide":"top"},
+		{"id":"67cdf08a21ef3468","fromNode":"e7d8c5758d3cdd0b","fromSide":"bottom","toNode":"e91ecc1a1f81c1e9","toSide":"top"},
+		{"id":"d0631db67531559c","fromNode":"1dffd112f4515bda","fromSide":"bottom","toNode":"e633b4653b077056","toSide":"top"},
+		{"id":"81972c8b4c33cc57","fromNode":"e633b4653b077056","fromSide":"bottom","toNode":"0387b62e1c7a4b18","toSide":"top"},
+		{"id":"4f8afb8e6320f1db","fromNode":"1dffd112f4515bda","fromSide":"left","toNode":"2ccd462f1df9972e","toSide":"bottom","label":"yes"},
+		{"id":"638a9bdfd6811cd4","fromNode":"2ccd462f1df9972e","fromSide":"top","toNode":"11eed0cf45114413","toSide":"left"},
+		{"id":"dcf27e24adcc964e","fromNode":"2ea7077a73022acb","fromSide":"bottom","toNode":"11eed0cf45114413","toSide":"top","label":"main"},
+		{"id":"01c5bd88d14ff93e","fromNode":"e91ecc1a1f81c1e9","fromSide":"bottom","toNode":"1dffd112f4515bda","toSide":"top"}
+	]
+}

@@ -23,7 +23,10 @@ def main():
     number1 = float(input("What's the first number?: "))
     while want_continue == 'y':
         
-        operator = input("+\n-\n*\n/\nPick an operation:\t")
+        # operator = input("+\n-\n*\n/\nPick an operation:\t")
+        for symbol in operators:
+            print(symbol)
+        operator = input("Pick an operation:")
         while operator not in operators:
             print("WRONG VALUE!! try again")
             operator = input("Pick an operation:\t")

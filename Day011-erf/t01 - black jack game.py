@@ -1,7 +1,6 @@
 from clear_sc import clear_screen
 from art import logo
 import random
-import sys, os
 
 main_cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 #            [A , 2, 3, 4, 5, 6, 7, 8, 9, 10, J , Q , K ]  
@@ -33,27 +32,26 @@ def show_end_scors():
     
 def pick_1_card_both():
     """operate adding one card value to each player and computer list"""
-    picked_cards['computer'].append(random.choice(main_cards))
+    computer_card = random.choice(main_cards)
+    player_card = random.choice(main_cards)
+
+    if computer_card == 11 and sum(picked_cards['computer']) + computer_card > 21:
+            computer_card = 1
+    if player_card == 11 and sum(picked_cards['player']) + computer_card > 21:
+            player_card = 1
+
+    picked_cards['computer'].append(computer_card)
     picked_cards['player'].append(random.choice(main_cards))
-
-
-def pick_card():
-    if input('pick a card?! (y/n)').lower() != 'y':
-        picked_cards['computer'].append(random.choice(main_cards))
-    else:
-        pick_1_card_both()
-
-
-# def want_play():
-#     if input("\n\n do u want to play a round? :) : ").lower() != 'y':
-#         print("have a nice day")
-#         return 'n'
-#     else:
-#         return 'y'
     
 
 def calculate_winer():
     """check end situation and release the winner (for using this function user hasn't to  want pick a card)"""
+    if sum(picked_cards['computer']) < 17 :
+        computer_card = random.choice(main_cards)
+        if computer_card == 11 and sum(picked_cards['computer']) + computer_card > 21:
+            computer_card = 1
+        picked_cards['computer'].append(computer_card)
+
     if sum(picked_cards['player']) > 21 :
         show_end_scors()
         print("you Lose")
@@ -89,39 +87,29 @@ def reset_values():
     picked_cards['player'] = []
 
 
-
 def main():
-    # intrudoction
-    # clear_screen() 
-    # print(logo)
-    # print("welcome to Black jack\n\n")
-
-    # play_or_not = input("play a round?(y/n)").lower()
-    # if play_or_not == 'n' :
-    #     print("have a nice day, goodbye!")
-
  #actualy start game
-        pick_1_card_both()
-        pick_1_card_both()
-        show_scors()
+    pick_1_card_both()
+    pick_1_card_both()
+    show_scors()
+    
+    while True:
+        want_pick = input("pick a card? (y/n)")
+        if want_pick == 'n' :
+            calculate_winer()
+            input("press any to continue...")
+            break
         
-        while True:
-            want_pick = input("pick a card? (y/n)")
-            if want_pick == 'n' :
+        elif want_pick == 'y' :
+            pick_1_card_both()
+            show_scors()
+            if sum(picked_cards['player']) >= 21:
                 calculate_winer()
-                input("press any to continue...")
+                input("press any to continue")
                 break
             
-            elif want_pick == 'y' :
-                pick_1_card_both()
-                show_scors()
-                if sum(picked_cards['player']) >= 21:
-                    calculate_winer()
-                    input("press any to continue")
-                    break
-                
-                else: # player < 21
-                    continue
+            else: # player < 21
+                continue
                 
 
 while True :
@@ -138,4 +126,3 @@ while True :
         main()
     else: 
         print("you chose wrong answer")
-

@@ -1,0 +1,75 @@
+data = [ # made by GPT
+    {
+        "name": "Cristiano Ronaldo", 
+        "from": "Portugal", 
+        "follower": 600000000
+        },
+    {
+        "name": "Lionel Messi",
+        "from": "Argentina", 
+        "follower": 500000000
+        },
+    {
+        "name": "Kylie Jenner", 
+        "from": "USA", 
+        "follower": 400000000
+        },
+    {
+        "name": "Dwayne 'The Rock' Johnson", 
+        "from": "USA", 
+        "follower": 400000000
+        },
+    {"name": "Kim Kardashian", "from": "USA", "follower": 350000000},
+    {"name": "Ariana Grande", "from": "USA", "follower": 350000000},
+    {"name": "Beyoncé", "from": "USA", "follower": 300000000},
+    {"name": "Selena Gomez", "from": "USA", "follower": 300000000},
+    {"name": "Justin Bieber", "from": "Canada", "follower": 270000000},
+    {"name": "Taylor Swift", "from": "USA", "follower": 250000000},
+    {"name": "Kendall Jenner", "from": "USA", "follower": 250000000},
+    {"name": "Shakira", "from": "Colombia", "follower": 250000000},
+    {"name": "Lebron James", "from": "USA", "follower": 150000000},
+    {"name": "Rihanna", "from": "Barbados", "follower": 150000000},
+    {"name": "Demi Lovato", "from": "USA", "follower": 150000000},
+    {"name": "Billie Eilish", "from": "USA", "follower": 150000000},
+    {"name": "Zac Efron", "from": "USA", "follower": 120000000},
+    {"name": "Emma Watson", "from": "UK", "follower": 120000000},
+    {"name": "Will Smith", "from": "USA", "follower": 100000000},
+    {"name": "Chris Hemsworth", "from": "Australia", "follower": 100000000},
+    {"name": "Zendaya", "from": "USA", "follower": 100000000},
+    {"name": "Kourtney Kardashian", "from": "USA", "follower": 100000000},
+    {"name": "Miley Cyrus", "from": "USA", "follower": 100000000},
+    {"name": "Harry Styles", "from": "UK", "follower": 100000000},
+    {"name": "Jennifer Lopez", "from": "USA", "follower": 100000000},
+    {"name": "Khloé Kardashian", "from": "USA", "follower": 100000000},
+    {"name": "Cardi B", "from": "USA", "follower": 100000000},
+    {"name": "Katy Perry", "from": "USA", "follower": 100000000},
+    {"name": "Post Malone", "from": "USA", "follower": 100000000},
+    {"name": "Shawn Mendes", "from": "Canada", "follower": 100000000},
+    {"name": "Neymar Jr.", "from": "Brazil", "follower": 100000000},
+    {"name": "Megan Thee Stallion", "from": "USA", "follower": 100000000},
+    {"name": "Snoop Dogg", "from": "USA", "follower": 100000000},
+    {"name": "Oprah Winfrey", "from": "USA", "follower": 100000000},
+    {"name": "Tom Holland", "from": "UK", "follower": 100000000},
+    {"name": "Ellen DeGeneres", "from": "USA", "follower": 100000000},
+    {"name": "Kylie Minogue", "from": "Australia", "follower": 100000000},
+    {"name": "Blake Lively", "from": "USA", "follower": 100000000},
+    {"name": "Gigi Hadid", "from": "USA", "follower": 100000000},
+    {"name": "Priyanka Chopra", "from": "India", "follower": 100000000},
+    {"name": "Virat Kohli", "from": "India", "follower": 100000000},
+    {"name": "Cristiano Ronaldo Jr.", "from": "Portugal", "follower": 100000000},
+    {"name": "BTS (Bangtan Boys)", "from": "South Korea", "follower": 150000000},
+    {"name": "Blackpink", "from": "South Korea", "follower": 100000000},
+    {"name": "EXO", "from": "South Korea", "follower": 100000000},
+    {"name": "James Charles", "from": "USA", "follower": 100000000},
+    {"name": "Charlie D'Amelio", "from": "USA", "follower": 100000000},
+    {"name": "Addison Rae", "from": "USA", "follower": 100000000},
+    {"name": "Lizzo", "from": "USA", "follower": 100000000},
+    {"name": "David Beckham", "from": "UK", "follower": 100000000},
+    {"name": "Adele", "from": "UK", "follower": 100000000},
+    {"name": "Sidharth Malhotra", "from": "India", "follower": 100000000},
+    {"name": "Mahesh Babu", "from": "India", "follower": 100000000},
+    {"name": "Jacqueline Fernandez", "from": "Sri Lanka", "follower": 100000000}
+]
+    
+
+

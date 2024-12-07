@@ -1,4 +1,4 @@
-data = [ # made by GPT
+data = [ # made by chatGPT
     {
         "name": "Cristiano Ronaldo", 
         "from": "Portugal", 

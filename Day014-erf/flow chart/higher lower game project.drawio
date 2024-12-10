@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="25.0.1">
   <diagram name="Page-1" id="sFIz2I3Zh-JMAakOE-er">
-    <mxGraphModel dx="1500" dy="853" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1038" dy="406" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -72,7 +72,7 @@
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="C15Ary5vUv0SSAsWMrOM-19" value="which one was true? a or b" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="C15Ary5vUv0SSAsWMrOM-19" value="which one was higher? a or b" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="640" y="898.5" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="C15Ary5vUv0SSAsWMrOM-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="C15Ary5vUv0SSAsWMrOM-21" target="C15Ary5vUv0SSAsWMrOM-13">
@@ -84,7 +84,7 @@
         <mxCell id="C15Ary5vUv0SSAsWMrOM-51" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="C15Ary5vUv0SSAsWMrOM-23" target="C15Ary5vUv0SSAsWMrOM-42">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="C15Ary5vUv0SSAsWMrOM-23" value="&lt;div&gt;remove a from database&lt;/div&gt;put B in place of A" style="whiteSpace=wrap;html=1;gradientColor=none;" vertex="1" parent="1">
+        <mxCell id="C15Ary5vUv0SSAsWMrOM-23" value="&lt;div&gt;remove A from database&lt;/div&gt;put B in place of A" style="whiteSpace=wrap;html=1;gradientColor=none;" vertex="1" parent="1">
           <mxGeometry x="410" y="490" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="C15Ary5vUv0SSAsWMrOM-27" value="end" style="whiteSpace=wrap;html=1;rounded=1;glass=0;shadow=0;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;" vertex="1" parent="1">

@@ -29,7 +29,7 @@ MENU = {
 resources = {
     "water": 300,
     "milk": 200,
-    "coffee": 100,
+    "coffee": 23,
     "money": 0,
 }
 
@@ -45,8 +45,17 @@ def print_report():
             unit = '$'
         print(f"{x.title()}: {resources[x]}{unit}")
 
-subprocess.call('cls', shell=True) # clear console
+def is_possible_to_make(order):
+    """Return boolian value, agar beshe TRUE agar nashe FALSE"""
+    needs = MENU[order]["ingredients"]
+    for need in needs: # inja iterate miknim dakhel niaz haye 'order' harkodom ke bargharar nabod false hame hm bargharar  bashan ke True
+        if resources[need] < needs[need]:
+            return False
+    return True
+    
 
+subprocess.call('cls', shell=True) # clear console
+print(is_possible_to_make('latte'))
 user_choice = input(
     "What would you like? (espresso/latte/cappuccino): "
 )
@@ -58,7 +67,8 @@ if user_choice in MENU:
     nickles = int(input('How many nickles??: '))
     pennies = int(input('How many pennies??: '))
     all_money = 0.25*quarters + 0.10*dimes + 0.05*nickles + 0.01*pennies
-    in_change = all_money - MENU[user_choice.lower()]["cost"]
+    is_possible_to_make()
+    in_change = all_money - MENU[user_choice.lower()]["cost"] # change is money which left from your paid money
     print(f"Here is ${in_change:.2f} in change")
 elif user_choice.lower() == 'report' :
     print_report()
@@ -67,7 +77,11 @@ else: input(
 )
 
 
-
+# TODO 1. check kardan inke aya user_choice ba resource haye feli ke darim ghable anjame ya na. 
+# TODO 2. check kardan inke aya pooli ke sekke i vared shde kafie ya na
+# TODO 3. coffee ro drst mikne dastgah , bayad be mizan chizi ke drst karde az resource ha kam beshe
+# TODO 4. vaghti sefaresh tamom shd, amade sefaresh badi beshe. 
+# TODO 5. agar resource ha be hadi nist ke hichkodom az taste haro drst kne benevise ke nadarim . (plus)
 
 
 

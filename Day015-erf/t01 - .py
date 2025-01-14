@@ -53,7 +53,12 @@ def is_possible_to_make(order):
             return False
     return True
     
-
+def is_enough_money(order, paid_money):
+    """Return a boolian value, agar pooli ke ba coin ha vared shde baraye price order kafee bashe >> True, dar gheyr in sorat False"""
+    if MENU[order]['cost'] > paid_money:
+        return False    
+    else: 
+        return True
 
 subprocess.call('cls', shell=True) # clear console
 
@@ -70,10 +75,13 @@ if user_choice in MENU:
         dimes = int(input('How many dimes?: '))
         nickles = int(input('How many nickles?: '))
         pennies = int(input('How many pennies?: '))
-        all_money = 0.25*quarters + 0.10*dimes + 0.05*nickles + 0.01*pennies
-        is_enough_money()
-        in_change = all_money - MENU[user_choice.lower()]["cost"] # change is money which left from your paid money
-        print(f"Here is ${in_change:.2f} in change")
+        all_money = 0.25*quarters + 0.10*dimes + 0.05*nickles + 0.01*pennies # inja pool be vahed dollar tabdil mishe. chera ke cost order ha hm be dollare
+        if not is_enough_money(user_choice, all_money):
+            input ("Sorry, these coins aren't enough...")
+        else: # inja hame shart ha check shdn o tamome. 
+            in_change = all_money - MENU[user_choice.lower()]["cost"] # change is money which left from your paid money
+            print(f"Here is ${in_change:.2f} in change")
+            print(f"here is your {user_choice}, Enjoy! :) ")
 elif user_choice.lower() == 'report' :
     print_report()
 else: input(

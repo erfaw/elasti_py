@@ -30,4 +30,3 @@ resources = {
     "coffee": 100,
 }
 
-# TODO: 2. salam

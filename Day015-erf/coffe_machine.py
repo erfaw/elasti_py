@@ -27,7 +27,8 @@ MENU = {
 }
 
 resources = {
-    "water": 300,
+    "water": 20,
+    # "water": 300,
     "milk": 200,
     "coffee": 100,
     "money": 0,
@@ -46,12 +47,18 @@ def print_report():
         print(f"{x.title()}: {resources[x]}{unit}")
 
 def is_possible_to_make(order):
-    """Return boolian value,check kardan resource mored niaz 'order' va resource haye feli i ke darim. agar beshe TRUE agar nashe FALSE"""
+    """return 1 if resources is enough to make 'order' , otherwise if isnt enough, return a list of out of resources."""
     needs = MENU[order]["ingredients"]
+    empty_resources = []
     for need in needs: # inja iterate miknim dakhel niaz haye 'order' harkodom ke bargharar nabod false hame hm bargharar  bashan ke True
         if resources[need] < needs[need]:
-            return False
-    return True
+            empty_resources.append(need)
+        # else: print('else')
+
+    if len(empty_resources) == 0 :
+        return 1
+    else: 
+        return empty_resources
     
 def is_enough_money(order, paid_money):
     """Return a boolian value, agar pooli ke ba coin ha vared shde baraye price order kafee bashe >> True, dar gheyr in sorat False"""
@@ -71,14 +78,15 @@ def update_resources(order):
     
 
 subprocess.call('cls', shell=True) # clear console
-
+print(is_possible_to_make('latte'))
 while True:
     user_choice = input(
         "What would you like? (espresso/latte/cappuccino): "
     )
 
     if user_choice in MENU:
-        if not is_possible_to_make(user_choice):
+        possibility = is_possible_to_make(user_choice)
+        if possibility != 1 : #############
             input ("Sorry, machine is out of resources!!!")
         else:
             print('please insert coins.')

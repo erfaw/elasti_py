@@ -96,6 +96,9 @@ while True:
                 print(f"here is your {user_choice}, Enjoy! :) ")
     elif user_choice.lower() == 'report' :
         print_report()
+    elif user_choice.lower() == 'off' : # this will shut down the machine or actually close the program.
+        print("shuting down...")
+        break
     else: input(
         'your choice isnt in menu'
     )
@@ -103,8 +106,8 @@ while True:
 
 # DONE 1. check kardan inke aya user_choice ba resource haye feli ke darim ghable anjame ya na. 
 # DONE 2. check kardan inke aya pooli ke sekke i vared shde kafie ya na
-# TODO 3. coffee ro drst mikne dastgah , bayad be mizan chizi ke drst karde az resource ha kam beshe
-# TODO 4. vaghti sefaresh tamom shd, amade sefaresh badi beshe. 
+# DONE 3. coffee ro drst mikne dastgah , bayad be mizan chizi ke drst karde az resource ha kam beshe
+# DONE 4. vaghti sefaresh tamom shd, amade sefaresh badi beshe. 
 # TODO 5. agar resource ha be hadi nist ke hichkodom az taste haro drst kne benevise ke nadarim . (plus)
 
 

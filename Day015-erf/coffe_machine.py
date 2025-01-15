@@ -53,7 +53,6 @@ def is_possible_to_make(order):
     for need in needs: # inja iterate miknim dakhel niaz haye 'order' harkodom ke bargharar nabod false hame hm bargharar  bashan ke True
         if resources[need] < needs[need]:
             empty_resources.append(need)
-        # else: print('else')
 
     if len(empty_resources) == 0 :
         return 1
@@ -78,7 +77,7 @@ def update_resources(order):
     
 
 subprocess.call('cls', shell=True) # clear console
-print(is_possible_to_make('latte'))
+
 while True:
     user_choice = input(
         "What would you like? (espresso/latte/cappuccino): "
@@ -87,7 +86,7 @@ while True:
     if user_choice in MENU:
         possibility = is_possible_to_make(user_choice)
         if possibility != 1 : #############
-            input ("Sorry, machine is out of resources!!!")
+            input (f"Sorry, machine is out of {possibility[0]}!!!")
         else:
             print('please insert coins.')
             quarters = int(input('How many quarters?: '))

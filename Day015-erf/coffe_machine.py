@@ -3,7 +3,7 @@ import subprocess
 MENU = {
     "espresso": {
         "ingredients": {
-            "water": 50,
+            "water": 50, # unit: mg
             "coffee": 18,
         },
         "cost": 1.5,
@@ -74,9 +74,9 @@ def update_resources(order):
     # poole ezafe shde
     resources["money"] += MENU[order]["cost"]
     
-
 subprocess.call('cls', shell=True) # clear console
 
+# Starting main program
 while True:
     user_choice = input(
         "What would you like? (espresso/latte/cappuccino): "
@@ -84,7 +84,7 @@ while True:
 
     if user_choice in MENU:
         possibility = is_possible_to_make(user_choice)
-        if possibility != 1 : 
+        if possibility != 1 : # so we have a List
             input(f"Sorry, machine is out of {' and '.join(possibility)}!!!")
         else:
             print('please insert coins.')

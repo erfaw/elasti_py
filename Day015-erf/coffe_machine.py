@@ -94,12 +94,12 @@ while True:
             pennies = int(input('How many pennies?: '))
             all_money = 0.25*quarters + 0.10*dimes + 0.05*nickles + 0.01*pennies # inja pool be vahed dollar tabdil mishe. chera ke cost order ha hm be dollare, arzesh har type i az coin ha hm baghaleshon zarb shde ke be dollar tabdil beshan
             if not is_enough_money(user_choice, all_money):
-                input ("Sorry, these coins aren't enough...")
+                input ("Sorry, these coins aren't enough..., money refunded")
             else: # inja hame shart ha check shdn o tamome. 
                 in_change = all_money - MENU[user_choice.lower()]["cost"] # change is money which left from your paid money
                 update_resources(user_choice)
                 print(f"Here is ${in_change:.2f} in change")
-                print(f"here is your {user_choice}, Enjoy! :) ")
+                print(f"here is your ☕{user_choice}☕, Enjoy! :) ")
     elif user_choice.lower() == 'report' :
         print_report()
     elif user_choice.lower() == 'off' : # this will shut down the machine or actually close the program.

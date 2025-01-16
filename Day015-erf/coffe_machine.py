@@ -27,8 +27,7 @@ MENU = {
 }
 
 resources = {
-    "water": 20,
-    # "water": 300,
+    "water": 300,
     "milk": 200,
     "coffee": 100,
     "money": 0,
@@ -85,8 +84,8 @@ while True:
 
     if user_choice in MENU:
         possibility = is_possible_to_make(user_choice)
-        if possibility != 1 : #############
-            input (f"Sorry, machine is out of {possibility[0]}!!!")
+        if possibility != 1 : 
+            input(f"Sorry, machine is out of {' and '.join(possibility)}!!!")
         else:
             print('please insert coins.')
             quarters = int(input('How many quarters?: '))

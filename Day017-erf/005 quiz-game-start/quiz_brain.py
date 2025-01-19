@@ -6,15 +6,12 @@ class QuizBrain:
 
     def still_has_questions(self):
         """return a boolian , True >> there is more question to ask, False >> the quiz ran out of questions."""
-        self.q_list_len = len(self.question_list)
-        if self.question_number >= self.q_list_len:
-            return False
-        else: 
-            return True
+        return self.question_number < len(self.question_list)
 
 
     def next_question(self):
-        self.user_answer = input(
-            f"Q.{self.question_number + 1}: {self.question_list[self.question_number].text} (true/false): "
-        )
+        current_question = self.question_list[self.question_number].text
         self.question_number += 1
+        self.user_answer = input(
+            f"Q.{self.question_number}: {current_question} (true/false): "
+        )

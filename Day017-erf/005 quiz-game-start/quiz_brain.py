@@ -6,5 +6,5 @@ class QuizBrain:
 
     def next_question(self):
         self.user_answer = input(
-            f"Q{self.question_number}. {self.question_list[self.question_number]["text"]} (true/false)"
+            f"Q.{self.question_number + 1}: {self.question_list[self.question_number].text} (true/false)"
         )

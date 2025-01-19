@@ -13,4 +13,5 @@ for each_dict in question_data: #make and append question objects to 'question_b
     )
 
 quiz = QuizBrain(question_bank)
-quiz.next_question()
+while quiz.still_has_questions():
+    quiz.next_question()

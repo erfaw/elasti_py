@@ -7,7 +7,7 @@ class QuizBrain:
     def still_has_questions(self):
         """return a boolian , True >> there is more question to ask, False >> the quiz ran out of questions."""
         self.q_list_len = len(self.question_list)
-        if (self.question_number + 1) >= self.q_list_len:
+        if self.question_number >= self.q_list_len:
             return False
         else: 
             return True

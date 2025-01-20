@@ -10,12 +10,12 @@ class QuizBrain:
 
 
     def next_question(self):
-        current_question = self.question_list[self.question_number].text
+        current_question = self.question_list[self.question_number]
         self.question_number += 1
         user_answer = input(
-            f"Q.{self.question_number}: {current_question} (true/false): "
+            f"Q.{self.question_number}: {current_question.text} (true/false): "
         )
-        self.check_answer(user_answer, self.question_list[self.question_number].answer)
+        self.check_answer(user_answer, current_question.answer)
 
     def check_answer(self, user_answer, right_answer):
         if user_answer.lower() == right_answer.lower():

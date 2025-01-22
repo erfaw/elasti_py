@@ -1,4 +1,5 @@
 from turtle import Turtle, Screen
+import random
 
 tim = Turtle()
 tim.shape('turtle')
@@ -35,8 +36,19 @@ def draw_by_number_side():
         for _ in range(number_side): # drawing based on how many sides the shape has
             tim.forward(100)
             tim.right(360/number_side)
-draw_by_number_side()
+# draw_by_number_side()
 
+# Draw a random walk 
+def draw_random_walk(how_many):
+    tim.pensize(5)
+    for _ in range(how_many):
+        tim.pencolor(
+            random.choice(colors)
+        )
+        for _ in range(random.randint(1,4)):
+            tim.left(90)
+        tim.forward(25)
+draw_random_walk(50)
 
 # baraye inke nemayesh bedim o ba click az safhe kharej beshe :
 my_screen = Screen()

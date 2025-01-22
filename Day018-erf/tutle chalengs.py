@@ -25,16 +25,17 @@ def draw_dashed_line(how_many):
 # draw_dashed_line(15)
 
 # draw triangle, square, pentagon, ..., decagon with a side common
-colors = ['red', 'green', 'blue', 'orange', 'black', 'purple', 'DarkRed', 'yellow',]
-for number_side in range(3,10): # 3 for triangle, 4 for square etc. 
-    tim.setpos(0,0)
-    tim.pencolor(
-        colors[number_side-3] # get right index 
-    )
-    for _ in range(number_side): # drawing based on how many sides the shape has
-        tim.forward(100)
-        tim.right(360/number_side)
-
+colors = ['red', 'green', 'blue', 'orange', 'black', 'purple', 'DarkRed', 'yellow', 'grey']
+def draw_by_number_side():
+    for number_side in range(3,11): # 3 for triangle, 4 for square etc. 
+        tim.setpos(0,0)
+        tim.pencolor(
+            colors[number_side-3] # get right index 
+        )
+        for _ in range(number_side): # drawing based on how many sides the shape has
+            tim.forward(100)
+            tim.right(360/number_side)
+draw_by_number_side()
 
 
 # baraye inke nemayesh bedim o ba click az safhe kharej beshe :

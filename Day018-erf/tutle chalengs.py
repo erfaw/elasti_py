@@ -14,11 +14,11 @@ def draw_square():
         tim.forward(100)
 
 # Draw a dashed line:
-def draw_dashed_line(how_many):
+def draw_dashed_line(degree):
     """draw a dashed line with turtle."""
     tim.penup()
     tim.setpos(-300, 0) # change first position of turtle to -100x.
-    for _ in range(how_many):
+    for _ in range(degree):
         tim.pendown()
         tim.forward(20)
         tim.penup()
@@ -39,17 +39,28 @@ def draw_by_number_side():
 # draw_by_number_side()
 
 # Draw a random walk 
-def draw_random_walk(how_many):
+def draw_random_walk(degree):
     tim.pensize(5)
-    for _ in range(how_many):
+    for _ in range(degree):
         tim.pencolor(
             random.choice(colors)
         )
         for _ in range(random.randint(1,4)):
             tim.left(90)
         tim.forward(25)
-draw_random_walk(50)
+# draw_random_walk(50)
 
+def draw_spirograph(degree):
+    tim.pensize(3)
+    tim.speed("fastest")
+    for _ in range(int(360/degree)):
+        # tim.pencolor(random.choice(colors))
+        tim.pencolor(random.random(),random.random(),random.random())
+        tim.circle(100)
+        tim.left(degree)
+
+draw_spirograph(7)
+    
 # baraye inke nemayesh bedim o ba click az safhe kharej beshe :
 my_screen = Screen()
 my_screen.exitonclick()

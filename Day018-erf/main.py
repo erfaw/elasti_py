@@ -10,6 +10,8 @@ colors = [
 
 tim = turtle.Turtle()
 tim.penup()
+tim.hideturtle()
+tim.speed("fastest")
 tim.setpos(-300, -250)
 my_screen = Screen()
 my_screen.colormode(255)

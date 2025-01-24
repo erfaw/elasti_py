@@ -1,5 +1,6 @@
 import colorgram, turtle
 from turtle import Screen
+import random
 
 colors_of_pic = colorgram.extract(r"C:\Users\ErF\Desktop\python\elasti_py\Day018-erf\image.jpg", 30)
 
@@ -15,7 +16,7 @@ my_screen.colormode(255)
 
 for _ in range(10):
     for _ in range(10):
-        tim.dot(20, colors[0])
+        tim.dot( 20 , random.choice(colors) )
         tim.forward(50)
     tim.setpos(
     -300 , tim.ycor() + 50

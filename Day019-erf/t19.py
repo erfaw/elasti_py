@@ -17,6 +17,9 @@ def turn_right():
     
 def clear_drawing():
     arsh.clear()
+    arsh.penup()
+    arsh.home()
+    arsh.pendown()
 
 my_sc.onkey(move_forward, "w")
 my_sc.onkey(move_backward, "s")

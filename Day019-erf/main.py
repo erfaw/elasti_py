@@ -29,7 +29,20 @@ for _ in range(6): # a loop for make, set color, set right position to turtles a
     trtl.color(colors[_])
     trtl.goto(x= -(current_x/2)+40, y=true_height())
     turtles.append(trtl)
+winner = ''
+while is_race_on:
+    for trtl in turtles:
+        if trtl.xcor() > my_sc.window_width()/2 -50:
+            is_race_on = False
+            winner = trtl.pencolor()
+        trtl.forward(
+            random.randint(0,10)
+        )
 
+if user_bet.lower() == winner :
+    my_sc.textinput(title= "Game Over", prompt=f"GZ, you won, winner is {winner} turtle")
+else: 
+    my_sc.textinput(title= "Game Over", prompt=f"Sorry you lost, winner is {winner} turtle")
 
-
+print(f"You lose, winner was (({winner}))")
 my_sc.exitonclick()

@@ -12,14 +12,8 @@ def true_height():
     current_y += 50
     return current_y - 50
 
-turtles = []
-current_x = my_sc.window_width()
-current_y = -(my_sc.window_height()/2) + 50
-def true_height():
-    global current_y
-    current_y += 50
-    return current_y - 50
-for _ in range(6):
+turtles = [] # list for store turtles
+for _ in range(6): # a loop for make, set color, set right position to turtles and store them in 'turtles'
     trtl = Turtle(shape="turtle")
     trtl.penup()
     trtl.color(colors[_])

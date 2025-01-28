@@ -1,4 +1,5 @@
 from turtle import Turtle, Screen
+import random
 my_sc = Screen()
 my_sc.setup(width= 800, height=500)
 #build 6 turtle
@@ -11,21 +12,12 @@ def true_height():
     current_y += 50
     return current_y - 50
 
-trtl_1 = Turtle(shape="turtle")
-trtl_1.goto(x= -(current_x/2)+40, y=true_height())
-trtl_2 = Turtle(shape="turtle")
-trtl_2.goto(x= -(current_x/2)+40, y=true_height())
-trtl_3 = Turtle(shape="turtle")
-trtl_3.goto(x= -(current_x/2)+40, y=true_height())
-trtl_4 = Turtle(shape="turtle")
-trtl_4.goto(x= -(current_x/2)+40, y=true_height())
-trtl_5 = Turtle(shape="turtle")
-trtl_5.goto(x= -(current_x/2)+40, y=true_height())
-trtl_6 = Turtle(shape="turtle")
-trtl_6.goto(x= -(current_x/2)+40, y=true_height())
-# set colors
+turtles = []
+for _ in range(6):
+    trtl = Turtle(shape="turtle")
+    trtl.color(colors[_])
+    turtles.append(trtl)
 
-# Move them to left side , lined.
-
+print(len(turtles))
 
 my_sc.exitonclick()

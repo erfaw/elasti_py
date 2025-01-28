@@ -18,6 +18,4 @@ for _ in range(6):
     trtl.color(colors[_])
     turtles.append(trtl)
 
-print(len(turtles))
-
 my_sc.exitonclick()

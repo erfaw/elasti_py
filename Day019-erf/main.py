@@ -1,7 +1,9 @@
 from turtle import Turtle, Screen
 import random
 my_sc = Screen()
-my_sc.setup(width= 800, height=500)
+my_sc.setup(width= 500, height=400)
+
+user_bet = my_sc.textinput(title="Make a bet", prompt="which turtle will be first one(color)?")
 #build 6 turtle
 colors = ["red", "orange", "yellow", "green", "blue", "purple"]
 

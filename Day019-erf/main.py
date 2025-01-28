@@ -13,9 +13,18 @@ def true_height():
     return current_y - 50
 
 turtles = []
+current_x = my_sc.window_width()
+current_y = -(my_sc.window_height()/2) + 50
+def true_height():
+    global current_y
+    current_y += 50
+    return current_y - 50
 for _ in range(6):
     trtl = Turtle(shape="turtle")
+    trtl.penup()
     trtl.color(colors[_])
+    trtl.goto(x= -(current_x/2)+40, y=true_height())
     turtles.append(trtl)
+
 
 my_sc.exitonclick()

@@ -10,7 +10,7 @@ def true_height():
     global current_y
     current_y += 50
     return current_y - 50
-# age age kire
+
 trtl_1 = Turtle(shape="turtle")
 trtl_1.goto(x= -(current_x/2)+40, y=true_height())
 trtl_2 = Turtle(shape="turtle")

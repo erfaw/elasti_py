@@ -72,22 +72,27 @@ def call_back_move(x_togo, y_togo):
         counter_call_back = 1
 
 # add food by random
-food = Turtle('circle')
-food.penup()
-food.color('blue')
-food.shapesize(0.7, 0.7)
-food.goto(
-    random.randint(-250, 250),
-    random.randint(-250, 250)
-)
-food_position = food.pos()
+def make_food():
+    """make a food object, move it to a random place, return position"""
+    food = Turtle('circle')
+    food.penup()
+    food.color('blue')
+    food.shapesize(0.8, 0.8)
+    food.goto(
+        random.randint(-250, 250),
+        random.randint(-250, 250)
+    )
+    food_position = food.pos()
+    return food_position
 
-
+food_pos = make_food()
 # Loop baraye harekat khodkar be jelo
 while not is_game_over:
     first_position_x = turtles[0].xcor()
     first_position_y = turtles[0].ycor()
     turtles[0].fd(10)
+    
+    # ye if , baraye check kardan food_position ba position sare snake, age bod score += 1 va ye food jadid 
     
     call_back_move(
         first_position_x, first_position_y

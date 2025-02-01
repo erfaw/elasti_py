@@ -13,6 +13,8 @@ for turtle_index in range(4):
     new_turtle.penup()
     new_turtle.color('white')
     new_turtle.speed("fastest")
+    new_turtle.shapesize(0.5,0.5)
+
     if not turtle_index == 0:
         new_turtle.goto(
             turtles[turtle_index-1].xcor()-18, 0
@@ -21,6 +23,7 @@ for turtle_index in range(4):
 
 # set specific color and shape to head of snake
 turtles[0].shape('triangle')
+# turtles[0].shapesize(0.4,0.4)
 turtles[0].color('orange')
 
 # some variable and function to move turtle
@@ -98,6 +101,7 @@ while not is_game_over:
     # ye if , baraye check kardan food_position ba position sare snake, age bod score += 1 va ye food jadid 
     if food_pos[0]-5 <= turtles[0].xcor() <= food_pos[0]+5 and food_pos[1]-5 <= turtles[1].ycor() <= food_pos[1]+5 :
         score +=1
+        food_pos = make_food()
     print(score)
     call_back_move(
         first_position_x, first_position_y

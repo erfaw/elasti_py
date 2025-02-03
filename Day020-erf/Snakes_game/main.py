@@ -2,8 +2,8 @@ from turtle import Turtle, Screen
 import random
 my_sc = Screen()
 my_sc.bgcolor('black')
-my_sc.setup(width=550, height=550)
-
+my_sc.setup(width=600, height=600)
+my_sc.title("my Snake game")
 score = 0
 
 # make the body of snake (4 square)

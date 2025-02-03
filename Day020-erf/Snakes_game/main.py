@@ -81,10 +81,11 @@ def make_food():
     food.penup()
     food.color('blue')
     food.shapesize(0.8, 0.8)
-    food.goto(
+    food.teleport(
         random.randint(-250, 250),
         random.randint(-250, 250)
     )
+    food.speed("fastest")
     # food_position_x = food.xcor()
     # food_position_y = food.ycor()
     

@@ -1,9 +1,11 @@
 from turtle import Turtle, Screen
 import random
+import time
 my_sc = Screen()
 my_sc.bgcolor('black')
 my_sc.setup(width=600, height=600)
 my_sc.title("my Snake game")
+my_sc.tracer(0)
 score = 0
 
 # make the body of snake (4 square)
@@ -26,6 +28,7 @@ for turtle_index in range(4):
         )
     turtles.append(new_turtle)
 
+
 # set specific color and shape to head of snake
 turtles[0].shape('triangle')
 # turtles[0].shapesize(0.4,0.4)
@@ -37,22 +40,25 @@ def h_left():
     """set heading to """
     if not turtles[0].heading() == 0 :
         turtles[0].setheading(180)
+        
     else: pass
 def h_right():
     """set heading to """
-    
     if not turtles[0].heading() == 180 :
         turtles[0].setheading(0)
+        
     else: pass
 def h_up():
     """set heading to """
     if not turtles[0].heading() == 270 :
         turtles[0].setheading(90)
+        
     else: pass    
 def h_down():
     """set heading to """
     if not turtles[0].heading() == 90 :
         turtles[0].setheading(270)
+        
     else: pass 
 
 # adding event listener to some keys (W,A,S,D) to direct turtle
@@ -91,40 +97,54 @@ def make_food():
         random.randint(-250, 250)
     )
     food.speed("fastest")
+    
     return food
 
 food_pos = make_food()
 
 # Loop baraye harekat khodkar be jelo
+my_sc.update()
 while not is_game_over:
+    # my_sc.tracer(1)
     first_position_x = turtles[0].xcor()
     first_position_y = turtles[0].ycor()
+    my_sc.update()
+    time.sleep(0.1)
     turtles[0].fd(10)
     
     # ye if , baraye check kardan food_position ba position sare snake, age bod score += 1 va ye food jadid 
     if food_pos.xcor()-5 <= turtles[0].xcor() <= food_pos.xcor()+5 and food_pos.ycor()-5 <= turtles[1].ycor() <= food_pos.ycor()+5 :
+        
+
         score +=1
         growth_snake = make_new_turtle()
         growth_snake.teleport(
             turtles[len(turtles)-1].xcor(),
             turtles[len(turtles)-1].ycor()
         )
+        
+
         turtles.append(
             growth_snake
         )
         food_pos.hideturtle()
         food_pos = make_food()
+        
 
     raw_prev_position = 0
     for snake_body in range(len(turtles)) :
         if snake_body == 0 : 
             pass
         else: 
+            
+
             raw_prev_position = turtles[snake_body].position()
             turtles[snake_body].teleport(
                 first_position_x, first_position_y
             )
+            
+
             first_position_x = raw_prev_position[0]
             first_position_y = raw_prev_position[1]
-
+    
 my_sc.exitonclick()

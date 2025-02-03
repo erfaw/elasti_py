@@ -91,9 +91,6 @@ def make_food():
         random.randint(-250, 250)
     )
     food.speed("fastest")
-    # food_position_x = food.xcor()
-    # food_position_y = food.ycor()
-    
     return food
 
 food_pos = make_food()
@@ -107,6 +104,14 @@ while not is_game_over:
     # ye if , baraye check kardan food_position ba position sare snake, age bod score += 1 va ye food jadid 
     if food_pos.xcor()-5 <= turtles[0].xcor() <= food_pos.xcor()+5 and food_pos.ycor()-5 <= turtles[1].ycor() <= food_pos.ycor()+5 :
         score +=1
+        growth_snake = make_new_turtle()
+        growth_snake.teleport(
+            turtles[len(turtles)-1].xcor(),
+            turtles[len(turtles)-1].ycor()
+        )
+        turtles.append(
+            growth_snake
+        )
         food_pos.hideturtle()
         food_pos = make_food()
 

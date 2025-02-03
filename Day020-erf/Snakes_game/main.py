@@ -115,10 +115,16 @@ while not is_game_over:
         food_pos.hideturtle()
         food_pos = make_food()
 
-    print(score)
-    call_back_move(
-        first_position_x, first_position_y
-    )
-            
+    raw_prev_position = 0
+    for snake_body in range(len(turtles)) :
+        if snake_body == 0 : 
+            pass
+        else: 
+            raw_prev_position = turtles[snake_body].position()
+            turtles[snake_body].teleport(
+                first_position_x, first_position_y
+            )
+            first_position_x = raw_prev_position[0]
+            first_position_y = raw_prev_position[1]
 
 my_sc.exitonclick()

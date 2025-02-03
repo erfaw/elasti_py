@@ -9,6 +9,7 @@ score = 0
 # make the body of snake (4 square)
 turtles = []
 def make_new_turtle():
+    """make a turtle with white color and fastest speed and shapesize 0.5, 0.5 and return that object"""
     new_turtle = Turtle('square')
     new_turtle.penup()
     new_turtle.color('white')

@@ -9,41 +9,14 @@ my_sc.title("my Snake game")
 my_sc.tracer(0)
 score = 0
 
-snake = Snake()
-# my_sc.update()
-
-# some variable and function to move turtle
-# def h_left():
-#     """set heading to """
-#     if not turtles[0].heading() == 0 :
-#         turtles[0].setheading(180)
-        
-#     else: pass
-# def h_right():
-#     """set heading to """
-#     if not turtles[0].heading() == 180 :
-#         turtles[0].setheading(0)
-        
-#     else: pass
-# def h_up():
-#     """set heading to """
-#     if not turtles[0].heading() == 270 :
-#         turtles[0].setheading(90)
-        
-#     else: pass    
-# def h_down():
-#     """set heading to """
-#     if not turtles[0].heading() == 90 :
-#         turtles[0].setheading(270)
-        
-#     else: pass 
+snake = Snake() 
 
 # adding event listener to some keys (W,A,S,D) to direct turtle
-# my_sc.onkey(fun=h_up, key="w")
-# my_sc.onkey(fun=h_left, key="a")
-# my_sc.onkey(fun=h_down, key="s")
-# my_sc.onkey(fun=h_right, key="d")
-# my_sc.listen()
+my_sc.onkey(fun=snake.h_up, key="w")
+my_sc.onkey(fun=snake.h_left, key="a")
+my_sc.onkey(fun=snake.h_down, key="s")
+my_sc.onkey(fun=snake.h_right, key="d")
+my_sc.listen()
 
 # add food by random
 # def make_food():

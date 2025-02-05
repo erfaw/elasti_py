@@ -38,3 +38,24 @@ class Snake():
                 )
                 first_position_x = raw_prev_position[0]
                 first_position_y = raw_prev_position[1]
+                
+    def h_left(self):
+        """set heading to """
+        if not self.turtles[0].heading() == 0 :
+            self.turtles[0].setheading(180) 
+        
+    def h_right(self):
+        """set heading to """
+        if not self.turtles[0].heading() == 180 :
+            self.turtles[0].setheading(0)
+        
+    def h_up(self):
+        """set heading to """
+        if not self.turtles[0].heading() == 270 :
+            self.turtles[0].setheading(90)
+          
+    def h_down(self):
+        """set heading to """
+        if not self.turtles[0].heading() == 90 :
+            self.turtles[0].setheading(270)
+        

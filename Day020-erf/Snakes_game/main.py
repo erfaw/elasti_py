@@ -2,6 +2,7 @@ from turtle import Turtle, Screen
 import random
 import time
 from snake import Snake
+from food import Food
 my_sc = Screen()
 my_sc.bgcolor('black')
 my_sc.setup(width=600, height=600)
@@ -10,6 +11,7 @@ my_sc.tracer(0)
 score = 0
 
 snake = Snake() 
+food = Food()
 
 # adding event listener to some keys (W,A,S,D) to direct turtle
 my_sc.onkey(fun=snake.h_up, key="w")
@@ -43,21 +45,17 @@ while not is_game_over:
     snake.move()
     
     # ye if , baraye check kardan food_position ba position sare snake, age bod score += 1 va ye food jadid 
-    # if food_pos.xcor()-5 <= turtles[0].xcor() <= food_pos.xcor()+5 and food_pos.ycor()-5 <= turtles[1].ycor() <= food_pos.ycor()+5 :
-        
-
-    #     score +=1
-    #     growth_snake = make_new_turtle()
-    #     growth_snake.teleport(
-    #         turtles[len(turtles)-1].xcor(),
-    #         turtles[len(turtles)-1].ycor()
-    #     )
-        
-
-    #     turtles.append(
-    #         growth_snake
-    #     )
-    #     food_pos.hideturtle()
-    #     food_pos = make_food()
+    if food.xcor()-10 <= snake.turtles[0].xcor() <= food.xcor()+10 and food.ycor()-10 <= snake.turtles[0].ycor() <= food.ycor()+10 :
+        score +=1
+        print(score)
+        # growth_snake = make_new_turtle()
+        # growth_snake.teleport(
+        #     turtles[len(turtles)-1].xcor(),
+        #     turtles[len(turtles)-1].ycor()
+        # )
+        # turtles.append(
+        #     growth_snake
+        # )
+        food.move_random_place()
     
 my_sc.exitonclick()

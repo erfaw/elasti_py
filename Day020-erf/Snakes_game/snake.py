@@ -22,3 +22,19 @@ class Snake():
             # set specific color and shape to head of snake
             self.turtles[0].shape('triangle')
             self.turtles[0].color('orange')
+
+    def move(self):
+        first_position_x = self.turtles[0].xcor()
+        first_position_y = self.turtles[0].ycor()    
+        self.turtles[0].fd(10)
+        raw_prev_position = 0
+        for snake_body in range(len(self.turtles)) :
+            if snake_body == 0 : 
+                pass
+            else: 
+                raw_prev_position = self.turtles[snake_body].position()
+                self.turtles[snake_body].teleport(
+                    first_position_x, first_position_y
+                )
+                first_position_x = raw_prev_position[0]
+                first_position_y = raw_prev_position[1]

@@ -106,13 +106,13 @@ my_sc.update()
 
 # Loop baraye harekat khodkar be jelo
 # my_sc.update()
-is_game_over = True
+is_game_over = False
 while not is_game_over:
     # first_position_x = turtles[0].xcor()
     # first_position_y = turtles[0].ycor()
     my_sc.update()
     time.sleep(0.1)
-    # snake.move()
+    snake.move()
     # turtles[0].fd(10)
     
     # ye if , baraye check kardan food_position ba position sare snake, age bod score += 1 va ye food jadid 

@@ -7,6 +7,7 @@ class Snake():
     def __init__(self):
         self.turtles = []
         self.create_snake()
+        self.head = self.turtles[0]
 
     def create_snake(self):
         for position in STARTING_POSITION:
@@ -41,21 +42,21 @@ class Snake():
                 
     def h_left(self):
         """set heading to """
-        if not self.turtles[0].heading() == 0 :
-            self.turtles[0].setheading(180) 
+        if not self.head.heading() == 0 :
+            self.head.setheading(180) 
         
     def h_right(self):
         """set heading to """
-        if not self.turtles[0].heading() == 180 :
-            self.turtles[0].setheading(0)
+        if not self.head.heading() == 180 :
+            self.head.setheading(0)
         
     def h_up(self):
         """set heading to """
-        if not self.turtles[0].heading() == 270 :
-            self.turtles[0].setheading(90)
+        if not self.head.heading() == 270 :
+            self.head.setheading(90)
           
     def h_down(self):
         """set heading to """
-        if not self.turtles[0].heading() == 90 :
-            self.turtles[0].setheading(270)
+        if not self.head.heading() == 90 :
+            self.head.setheading(270)
         

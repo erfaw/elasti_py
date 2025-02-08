@@ -26,8 +26,7 @@ while not is_game_over:
     my_sc.update()
     time.sleep(0.1)
     snake.move()
-    # ye if , baraye check kardan food_position ba position sare snake, age bod score += 1 va ye food jadid 
-    if food.food.xcor()-18 <= snake.turtles[0].xcor() <= food.food.xcor()+18 and food.food.ycor()-18 <= snake.turtles[0].ycor() <= food.food.ycor()+18 :
+    if food.is_ate(head= snake.head):
         score +=1
         snake.growth()
         print(score)

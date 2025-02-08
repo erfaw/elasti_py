@@ -56,10 +56,7 @@ while not is_game_over:
         # turtles.append(
         #     growth_snake
         # )
-        # food.hidden()
         food.move_random_place()
-        # food = Food()
-        # my_sc.update()
     else: 
         continue
 my_sc.exitonclick()

@@ -12,7 +12,13 @@ score = 0
 
 snake = Snake() 
 food = Food()
-
+scoreboard = Turtle()
+scoreboard.penup()
+scoreboard.teleport(0,270)
+scoreboard.hideturtle()
+scoreboard.color("white")
+scoreboard.pendown()
+scoreboard.write(f"Score: {score}", False, "center", ("Arial", 14, "normal"))
 # adding event listener to some keys (W,A,S,D) to direct turtle
 my_sc.onkey(fun=snake.h_up, key="w")
 my_sc.onkey(fun=snake.h_left, key="a")
@@ -28,8 +34,9 @@ while not is_game_over:
     snake.move()
     if food.is_ate(head= snake.head):
         score +=1
+        scoreboard.clear()
+        scoreboard.write(f"Score: {score}", False, "center", ("Arial", 14, "normal"))
         snake.growth()
-        print(score)
         food.move_random_place()
     else: 
         continue

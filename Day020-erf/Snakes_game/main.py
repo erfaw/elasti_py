@@ -45,7 +45,7 @@ while not is_game_over:
     snake.move()
     
     # ye if , baraye check kardan food_position ba position sare snake, age bod score += 1 va ye food jadid 
-    if food.xcor()-10 <= snake.turtles[0].xcor() <= food.xcor()+10 and food.ycor()-10 <= snake.turtles[0].ycor() <= food.ycor()+10 :
+    if food.food.xcor()-18 <= snake.turtles[0].xcor() <= food.food.xcor()+18 and food.food.ycor()-18 <= snake.turtles[0].ycor() <= food.food.ycor()+18 :
         score +=1
         print(score)
         # growth_snake = make_new_turtle()
@@ -56,6 +56,10 @@ while not is_game_over:
         # turtles.append(
         #     growth_snake
         # )
+        # food.hidden()
         food.move_random_place()
-    
+        # food = Food()
+        # my_sc.update()
+    else: 
+        continue
 my_sc.exitonclick()

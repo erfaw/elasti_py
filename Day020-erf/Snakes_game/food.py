@@ -19,3 +19,11 @@ class Food:
             random.randint(-250, 250)
         )
         
+    def is_ate(self, head):
+        head_x = head.xcor()
+        head_y = head.ycor()
+        if self.food.xcor()-18 <= head_x <= self.food.xcor()+18 and self.food.ycor()-18 <= head_y <= self.food.ycor()+18:
+            return True
+        else: 
+            return False
+        

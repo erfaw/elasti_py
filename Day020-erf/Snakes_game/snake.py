@@ -60,3 +60,12 @@ class Snake():
         if not self.head.heading() == 90 :
             self.head.setheading(270)
         
+    def growth(self):
+        growth_snake = self.make_new_turtle()
+        growth_snake.teleport(
+            self.turtles[len(self.turtles)-1].xcor(),
+            self.turtles[len(self.turtles)-1].ycor()
+        )
+        self.turtles.append(
+            growth_snake
+        )

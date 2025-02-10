@@ -41,7 +41,7 @@ my_sc.listen()
 is_game_over = False
 while not is_game_over:
     my_sc.update()
-    time.sleep(0.1)
+    time.sleep(0.15)
     snake.move()
     if food.is_ate(head= snake.head):
         scoreboard.score +=1
@@ -49,8 +49,13 @@ while not is_game_over:
         snake.growth()
         food.move_random_place()
     else: 
-        continue
-    
-    
+        # continue 
+        if not -295 <= snake.head.xcor() <= 287 or not -285 <= snake.head.ycor() <= 280 :
+            is_game_over = True
+            for sq in snake.turtles:
+                sq.color('red')
+                my_sc.update()
+
+        else: continue
     
 my_sc.exitonclick()

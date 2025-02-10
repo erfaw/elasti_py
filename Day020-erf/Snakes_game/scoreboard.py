@@ -8,7 +8,7 @@ class Scoreboard:
     def make_scoreboard(self): 
         new_board = Turtle()
         new_board.penup()
-        new_board.teleport(0,270)
+        new_board.teleport(0,280)
         new_board.hideturtle()
         new_board.color("white")
         new_board.pendown()

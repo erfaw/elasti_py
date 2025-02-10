@@ -4,29 +4,33 @@ import time
 from snake import Snake
 from food import Food
 from scoreboard import Scoreboard
+from box import Box
 my_sc = Screen()
 my_sc.bgcolor('black')
-my_sc.setup(width=600, height=600)
+my_sc.setup(width=700, height=700)
 my_sc.title("my Snake game")
 my_sc.tracer(0)
 
 snake = Snake() 
 food = Food()
 scoreboard = Scoreboard()
-
+box = Box(
+    screen_width= my_sc.window_width() ,
+    screen_height= my_sc.window_height()
+)
 # Prepare a box 
-box = Turtle()
-box.penup()
-box.teleport(-280, 280)
-box.hideturtle()
-box.pendown()
-box.color('white')
-box.pensize(10)
-box.pencolor('white')
-box.goto(280, 280)
-box.goto(280, -280)
-box.goto(-280, -280)
-box.goto(-280, 280)
+# box = Turtle()
+# box.penup()
+# box.teleport(-280, 280)
+# box.hideturtle()
+# box.pendown()
+# box.color('white')
+# box.pensize(10)
+# box.pencolor('white')
+# box.goto(280, 280)
+# box.goto(280, -280)
+# box.goto(-280, -280)
+# box.goto(-280, 280)
 
 # adding event listener to some keys (W,A,S,D) to direct turtle
 my_sc.onkey(fun=snake.h_up, key="w")

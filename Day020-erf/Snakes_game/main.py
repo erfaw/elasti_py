@@ -7,7 +7,7 @@ from scoreboard import Scoreboard
 from box import Box
 my_sc = Screen()
 my_sc.bgcolor('black')
-my_sc.setup(width=700, height=700)
+my_sc.setup(width=600, height=600)
 my_sc.title("my Snake game")
 my_sc.tracer(0)
 

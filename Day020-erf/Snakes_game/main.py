@@ -17,18 +17,16 @@ scoreboard = Scoreboard()
 # Prepare a box 
 box = Turtle()
 box.penup()
-box.teleport(-295, 280)
+box.teleport(-280, 280)
 box.hideturtle()
 box.pendown()
 box.color('white')
+box.pensize(10)
 box.pencolor('white')
-box.fd(582)
-box.right(90)
-box.fd(565)
-box.right(90)
-box.fd(582)
-box.right(90)
-box.fd(565)
+box.goto(280, 280)
+box.goto(280, -280)
+box.goto(-280, -280)
+box.goto(-280, 280)
 
 # adding event listener to some keys (W,A,S,D) to direct turtle
 my_sc.onkey(fun=snake.h_up, key="w")
@@ -49,13 +47,13 @@ while not is_game_over:
         snake.growth()
         food.move_random_place()
     else: 
-        # continue 
-        if not -295 <= snake.head.xcor() <= 287 or not -285 <= snake.head.ycor() <= 280 :
-            is_game_over = True
-            for sq in snake.turtles:
-                sq.color('red')
-                my_sc.update()
+        continue 
+        # if not -295 <= snake.head.xcor() <= 287 or not -285 <= snake.head.ycor() <= 280 :
+        #     is_game_over = True
+        #     for sq in snake.turtles:
+        #         sq.color('red')
+        #         my_sc.update()
 
-        else: continue
+        # else: continue
     
 my_sc.exitonclick()

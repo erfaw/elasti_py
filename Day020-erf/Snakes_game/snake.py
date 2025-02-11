@@ -74,8 +74,10 @@ class Snake():
         for sq in self.turtles:
             sq.color(color)
             
-    def is_hit_wall(self, wide_cor=275):
-        if not -wide_cor <= self.head.xcor() <= wide_cor or not -wide_cor <= self.head.ycor() <= wide_cor :
+    def is_hit_wall(self, wide_cor):
+        domain_x = wide_cor[0]-5 
+        domain_y = wide_cor[1]-5
+        if not -domain_x <= self.head.xcor() <= domain_x or not -domain_y <= self.head.ycor() <= domain_y :
             return True
         else: 
             return False

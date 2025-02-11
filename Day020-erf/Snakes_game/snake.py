@@ -69,3 +69,7 @@ class Snake():
         self.turtles.append(
             growth_snake
         )
+        
+    def change_body_color(self, color):
+        for sq in self.turtles:
+            sq.color(color)

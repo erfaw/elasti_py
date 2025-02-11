@@ -18,19 +18,6 @@ box = Box(
     screen_width= my_sc.window_width() ,
     screen_height= my_sc.window_height()
 )
-# Prepare a box 
-# box = Turtle()
-# box.penup()
-# box.teleport(-280, 280)
-# box.hideturtle()
-# box.pendown()
-# box.color('white')
-# box.pensize(10)
-# box.pencolor('white')
-# box.goto(280, 280)
-# box.goto(280, -280)
-# box.goto(-280, -280)
-# box.goto(-280, 280)
 
 # adding event listener to some keys (W,A,S,D) to direct turtle
 my_sc.onkey(fun=snake.h_up, key="w")

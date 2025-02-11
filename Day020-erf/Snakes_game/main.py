@@ -39,9 +39,9 @@ while not is_game_over:
         food.move_random_place()
     elif not -275 <= snake.head.xcor() <= 275 or not -275 <= snake.head.ycor() <= 275 :
         is_game_over = True
-        for sq in snake.turtles:
-            sq.color('red')
-            my_sc.update()
+        snake.change_body_color(color= 'red')
+        my_sc.update()
+
 
     else: continue
     

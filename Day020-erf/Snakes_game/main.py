@@ -37,7 +37,7 @@ while not is_game_over:
         scoreboard.update()
         snake.growth()
         food.move_random_place()
-    elif snake.is_hit_wall() :
+    elif snake.is_hit_wall(wide_cor= box.wide_cor) :
         is_game_over = True
         snake.change_body_color(color= 'red')
         my_sc.update()

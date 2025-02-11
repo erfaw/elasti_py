@@ -5,6 +5,7 @@ from snake import Snake
 from food import Food
 from scoreboard import Scoreboard
 from box import Box
+from game_over_message import Game_over_message
 my_sc = Screen()
 my_sc.bgcolor('black')
 my_sc.setup(width=600, height=600)
@@ -18,6 +19,7 @@ box = Box(
     screen_width= my_sc.window_width() ,
     screen_height= my_sc.window_height()
 )
+game_over_message = Game_over_message()
 
 # adding event listener to some keys (W,A,S,D) to direct turtle
 my_sc.onkey(fun=snake.h_up, key="w")
@@ -46,5 +48,5 @@ while not is_game_over:
         snake.change_body_color(color= 'red')
         my_sc.update()
     else: continue
-    
+    game_over_message.make_game_over_message()
 my_sc.exitonclick()

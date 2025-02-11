@@ -73,3 +73,9 @@ class Snake():
     def change_body_color(self, color):
         for sq in self.turtles:
             sq.color(color)
+            
+    def is_hit_wall(self):
+        if not -275 <= self.head.xcor() <= 275 or not -275 <= self.head.ycor() <= 275 :
+            return True
+        else: 
+            return False

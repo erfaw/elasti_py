@@ -8,6 +8,7 @@ class Snake():
         self.turtles = []
         self.create_snake()
         self.head = self.turtles[0]
+        self.is_hit = self.is_hit_tail()
 
     def create_snake(self):
         for position in STARTING_POSITION:
@@ -28,6 +29,7 @@ class Snake():
         first_position_x = self.turtles[0].xcor()
         first_position_y = self.turtles[0].ycor()    
         self.turtles[0].fd(MOVE_DISTANCE)
+        self.is_hit = self.is_hit_tail()
         raw_prev_position = 0
         for snake_body in range(len(self.turtles)) :
             if snake_body == 0 : 
@@ -82,3 +84,19 @@ class Snake():
             return True
         else: 
             return False
+
+    def is_hit_tail(self):
+        for sq in self.turtles:
+            if sq == self.turtles[0]:
+                continue
+            sq_x = sq.pos()[0]
+            sq_y = sq.pos()[1]
+            head_x = self.head.pos()[0]
+            head_y = self.head.pos()[1]
+            
+            # if self.head.pos() == sq.pos():
+            if sq_x-10 <= head_x <= sq_x+10 and sq_y-10 <= head_y <= sq_y+10 :
+                return True
+            else: 
+                continue
+        return False

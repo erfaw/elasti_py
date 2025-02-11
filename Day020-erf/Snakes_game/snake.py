@@ -75,6 +75,7 @@ class Snake():
             sq.color(color)
             
     def is_hit_wall(self, wide_cor):
+        """arg: wide_cor, 'wide_cor' bayad ye tuple bashe ke doamin_x va domain_y white box ro dakhelesh dre. tuple = (domain_x , domain_y)"""
         domain_x = wide_cor[0]-5 
         domain_y = wide_cor[1]-5
         if not -domain_x <= self.head.xcor() <= domain_x or not -domain_y <= self.head.ycor() <= domain_y :

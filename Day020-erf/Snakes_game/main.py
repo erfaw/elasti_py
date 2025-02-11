@@ -41,8 +41,10 @@ while not is_game_over:
         is_game_over = True
         snake.change_body_color(color= 'red')
         my_sc.update()
-
-
+    elif snake.is_hit_tail():
+        is_game_over = True
+        snake.change_body_color(color= 'red')
+        my_sc.update()
     else: continue
     
 my_sc.exitonclick()

@@ -1,4 +1,5 @@
 from turtle import Screen, Turtle
+# it's so important to set widht and height from here.
 WIDTH = 1000
 HEIGHT = 650
 DOMAIN_X = WIDTH/2

@@ -15,12 +15,12 @@ class Paddle(Turtle):
         # teleport to right side by argument 'position'
         if self.position == "left":
             self.teleport(
-                -(screen.WIDTH/2) + 20 ,
+                -(screen.DOMAIN_X) + 20 ,
                 0
             )
         elif self.position == "right":
             self.teleport(
-               - (-(screen.WIDTH/2) + 25),
+               - (-(screen.DOMAIN_X) + 25),
                 0
             )
         else:

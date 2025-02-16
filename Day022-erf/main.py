@@ -1,9 +1,11 @@
 from screen import my_sc, white_box
 from paddle import Paddle
 import time
+from ball import Ball
 
 left_paddle = Paddle(position="left")
 right_paddle = Paddle(position="right")
+ball = Ball()
 
 # add event listeners
 my_sc.onkey(

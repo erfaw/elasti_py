@@ -23,6 +23,7 @@ my_sc.onkey(
 my_sc.listen()
 
 while True:
+    ball.move()
     time.sleep(0.1)
     my_sc.update()
     

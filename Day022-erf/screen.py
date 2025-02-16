@@ -1,7 +1,8 @@
 from turtle import Screen, Turtle
 WIDTH = 1000
 HEIGHT = 650
-
+DOMAIN_X = WIDTH/2
+DOMAIN_Y = HEIGHT/2
 my_sc = Screen()
 my_sc.tracer(0)
 my_sc.setup(width=WIDTH, height=HEIGHT)
@@ -20,4 +21,23 @@ while mid_line.ycor() > -325:
     mid_line.fd(10)
     mid_line.pendown()
     
+white_box = Turtle()
+white_box.hideturtle()
+white_box.pencolor('white')
+white_box.pensize(3)
+white_box.teleport(
+    -DOMAIN_X,+DOMAIN_Y
+)
+white_box.goto(
+    +DOMAIN_X, +DOMAIN_Y
+)
+white_box.goto(
+    +DOMAIN_X, -DOMAIN_Y
+)
+white_box.goto(
+    -DOMAIN_X, -DOMAIN_Y
+)
+white_box.goto(
+    -DOMAIN_X, +DOMAIN_Y
+)
 my_sc.update()

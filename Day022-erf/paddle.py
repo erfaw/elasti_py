@@ -35,3 +35,5 @@ class Paddle(Turtle):
             self.sety(self.ycor()-MOVING_DISTANCE)
         elif direction.lower() == "up":
             self.sety(self.ycor()+MOVING_DISTANCE)
+        else:
+            raise ValueError("only move 'up' or 'down'")

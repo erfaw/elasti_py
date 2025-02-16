@@ -1,4 +1,4 @@
-from screen import my_sc
+from screen import my_sc, white_box
 from paddle import Paddle
 
 left_paddle = Paddle("left")

@@ -30,6 +30,7 @@ class Paddle(Turtle):
             raise ValueError("incorrect side, only 'right' and 'left' ")
         
     def move(self, direction):
+        """move up or down based 'direction' """
         if direction.lower() == "down":
             self.sety(self.ycor()-MOVING_DISTANCE)
         elif direction.lower() == "up":

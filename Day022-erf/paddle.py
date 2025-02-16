@@ -1,5 +1,8 @@
 from turtle import Turtle
 import screen
+
+MOVING_DISTANCE = 30
+
 class Paddle(Turtle):
     """make a paddle for pong game, catch a arg: position , which helps move paddle to right side"""
     def __init__(self, position):
@@ -25,3 +28,9 @@ class Paddle(Turtle):
             )
         else:
             raise ValueError("incorrect side, only 'right' and 'left' ")
+        
+    def move(self, direction):
+        if direction.lower() == "down":
+            self.sety(self.ycor()-MOVING_DISTANCE)
+        elif direction.lower() == "up":
+            self.sety(self.ycor()+MOVING_DISTANCE)

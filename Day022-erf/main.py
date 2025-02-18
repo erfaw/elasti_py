@@ -1,4 +1,4 @@
-from screen import my_sc, white_box
+from screen import my_sc, white_box, DOMAIN_X, DOMAIN_Y
 from paddle import Paddle
 import time
 from ball import Ball
@@ -23,7 +23,14 @@ my_sc.onkey(
 my_sc.listen()
 
 while True:
-    ball.move()
+    if ball.is_stop == True:
+        ball.reflect_wall()
+        ball.is_stop = False
+    else:
+        print("else")
+        ball.move()
+
+        
     time.sleep(0.1)
     my_sc.update()
     

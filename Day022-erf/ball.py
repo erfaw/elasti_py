@@ -15,14 +15,13 @@ class Ball(Turtle):
         self.color('red')
         self.speed('fastest')
         self.penup()
+        
         #random for first move toward left side.
-        self.setheading(290) 
-        # self.setheading(random.randint(135, 225)) 
+        self.setheading(random.randint(135, 225)) 
         self.teleport(
             x=-5,
-            y= 0
-            # y= random.randint
-            # (-int(DOMAIN_Y-80),+int(DOMAIN_Y-80))
+            y= random.randint
+            (-int(DOMAIN_Y-80),+int(DOMAIN_Y-80))
             )
 
     def move(self):
@@ -31,10 +30,9 @@ class Ball(Turtle):
             self.fd(MOVE_DISTANCE)
         else: 
             self.is_stop = True
-            print("out of box!!!")
         
-    def reflect_paddle(self):
-        """must change heading to a number that would be reflect of hiting something"""
+    def reflect_paddle(self): #besyar kasif neveshte shde
+        """must change heading to a number that would be reflect of hiting paddle"""
         if 0 < self.heading() < 90:
             reflect_heading = 180 - self.heading() 
         elif 90 < self.heading() < 180:
@@ -50,10 +48,10 @@ class Ball(Turtle):
             pass
         
         self.setheading(reflect_heading)
-        self.fd(20)
+        self.fd(MOVE_DISTANCE)
         
-    def reflect_wall(self):
-        """must change heading to a number that would be reflect of hiting something"""
+    def reflect_wall(self): #besyar kasif neveshte shde
+        """must change heading to a number that would be reflect of hiting wall"""
         if 0 < self.heading() < 90:
             teta = 90 - self.heading()
             reflect_heading = self.heading() + 180 + teta + teta
@@ -72,4 +70,4 @@ class Ball(Turtle):
             pass
         
         self.setheading(reflect_heading)
-        self.fd(20)
+        self.fd(MOVE_DISTANCE)

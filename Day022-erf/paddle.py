@@ -1,5 +1,6 @@
 from turtle import Turtle
 import screen
+from screen import DOMAIN_X, DOMAIN_Y
 
 MOVING_DISTANCE = 30
 
@@ -31,6 +32,8 @@ class Paddle(Turtle):
             raise ValueError("incorrect side, only 'right' and 'left' ")
         
     def move_up(self):
-        self.sety(self.ycor()+MOVING_DISTANCE)
+        if not self.ycor() >= DOMAIN_Y-54:
+            self.sety(self.ycor()+MOVING_DISTANCE)
     def move_down(self):
-        self.sety(self.ycor()-MOVING_DISTANCE)
+        if not self.ycor() <= -(DOMAIN_Y-54):
+            self.sety(self.ycor()-MOVING_DISTANCE)

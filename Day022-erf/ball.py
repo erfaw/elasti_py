@@ -45,10 +45,11 @@ class Ball(Turtle):
         elif 270 < self.heading() < 360:
             reflect_heading = 180 + abs(self.heading() - 360)           
         else:
-            pass
+            reflect_heading = self.heading()+180
         
         self.setheading(reflect_heading)
         self.fd(MOVE_DISTANCE)
+        self.is_stop = False
         
     def reflect_wall(self): #besyar kasif neveshte shde
         """must change heading to a number that would be reflect of hiting wall"""

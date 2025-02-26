@@ -29,8 +29,8 @@ while game_over == False:
     if (ball.ycor() >= DOMAIN_Y-20 or ball.ycor() <= -(DOMAIN_Y-20) ) and ball.is_stop == True:
         ball.reflect_wall()
     # tayin reflect paddle
-    elif left_paddle.xcor() < ball.xcor() <= left_paddle.xcor()+20 :
-        if left_paddle.ycor()-3 < ball.ycor() < left_paddle.ycor()+3 :
+    elif left_paddle.xcor() < ball.xcor() <= left_paddle.xcor()+20 and left_paddle.ycor()-30 < ball.ycor() < left_paddle.ycor()+30 :
+    # or right_paddle.xcor() < ball.xcor() <= right_paddle.xcor()-40 and right_paddle.ycor()-30 < ball.ycor() < right_paddle.ycor()+30
             ball.reflect_paddle()
 
     # elif left_paddle.distance(ball) <= 20:

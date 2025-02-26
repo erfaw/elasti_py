@@ -71,3 +71,4 @@ class Ball(Turtle):
         
         self.setheading(reflect_heading)
         self.fd(MOVE_DISTANCE)
+        self.is_stop = False

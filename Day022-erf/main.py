@@ -21,13 +21,12 @@ my_sc.onkey(
     right_paddle.move_down
     ,'Down')
 my_sc.listen()
-
+ball.setheading(75)
 while True:
-    if ball.is_stop == True:
+    #tayin reflect baraye divar ha
+    if (ball.ycor() >= DOMAIN_Y-20 or ball.ycor() <= -(DOMAIN_Y-20) ) and ball.is_stop == True:
         ball.reflect_wall()
-        ball.is_stop = False
     else:
-        print("else")
         ball.move()
 
         

@@ -6,6 +6,7 @@ from ball import Ball
 left_paddle = Paddle(position="left")
 right_paddle = Paddle(position="right")
 ball = Ball()
+game_over = False
 
 # add event listeners
 my_sc.onkey(
@@ -22,10 +23,11 @@ my_sc.onkey(
     ,'Down')
 my_sc.listen()
 ball.setheading(75)
-while True:
+while game_over == False:
     #tayin reflect baraye divar ha
     if (ball.ycor() >= DOMAIN_Y-20 or ball.ycor() <= -(DOMAIN_Y-20) ) and ball.is_stop == True:
         ball.reflect_wall()
+    # tayin reflect paddle
     else:
         ball.move()
 

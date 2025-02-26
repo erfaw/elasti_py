@@ -22,19 +22,16 @@ my_sc.onkey(
     right_paddle.move_down
     ,'Down')
 my_sc.listen()
-ball.sety(0)
-ball.setheading(180)
+
 while game_over == False:
     #tayin reflect baraye divar ha
     if (ball.ycor() >= DOMAIN_Y-20 or ball.ycor() <= -(DOMAIN_Y-20) ) and ball.is_stop == True:
         ball.reflect_wall()
     # tayin reflect paddle
-    elif left_paddle.xcor() < ball.xcor() <= left_paddle.xcor()+20 and left_paddle.ycor()-30 < ball.ycor() < left_paddle.ycor()+30 :
-    # or right_paddle.xcor() < ball.xcor() <= right_paddle.xcor()-40 and right_paddle.ycor()-30 < ball.ycor() < right_paddle.ycor()+30
-            ball.reflect_paddle()
-
-    # elif left_paddle.distance(ball) <= 20:
-    #     ball.reflect_paddle()
+    elif (left_paddle.xcor() < ball.xcor() <= left_paddle.xcor()+20 and left_paddle.ycor()-30 < ball.ycor() < left_paddle.ycor()+30 ):
+        ball.reflect_paddle()
+    elif right_paddle.xcor()-21 < ball.xcor() <= right_paddle.xcor() and right_paddle.ycor()-30 < ball.ycor() < right_paddle.ycor()+30 :
+        ball.reflect_paddle()
         
     ball.move()
 

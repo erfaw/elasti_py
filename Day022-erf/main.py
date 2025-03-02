@@ -22,8 +22,9 @@ my_sc.onkey(
     right_paddle.move_down
     ,'Down')
 my_sc.listen()
-ball.seth(0)
-ball.sety(0)
+
+# Right paddle x_cor = 475
+# Left paddle x_cor = -480
 while game_over == False:
     #tayin reflect baraye divar ha
     if ball.is_near_wall() and ball.is_stop == True:

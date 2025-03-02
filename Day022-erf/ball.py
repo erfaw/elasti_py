@@ -26,7 +26,7 @@ class Ball(Turtle):
 
     def move(self):
         if -DOMAIN_X < self.xcor() < DOMAIN_X and -DOMAIN_Y < self.ycor() < DOMAIN_Y:
-            self.is_stop = False
+            # self.is_stop = False
             self.fd(MOVE_DISTANCE)
         else: 
             self.is_stop = True

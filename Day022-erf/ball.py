@@ -73,3 +73,11 @@ class Ball(Turtle):
         self.setheading(reflect_heading)
         self.fd(MOVE_DISTANCE)
         self.is_stop = False
+
+    def is_near_wall(self):
+        """return True if ball is near wall"""
+        if self.ycor() >= DOMAIN_Y-20 or self.ycor() <= -(DOMAIN_Y-20):
+            return True
+        else:
+            return False
+        

@@ -25,7 +25,7 @@ my_sc.listen()
 
 while game_over == False:
     #tayin reflect baraye divar ha
-    if (ball.ycor() >= DOMAIN_Y-20 or ball.ycor() <= -(DOMAIN_Y-20) ) and ball.is_stop == True:
+    if ball.is_near_wall() and ball.is_stop == True:
         ball.reflect_wall()
     # tayin reflect paddle
     elif (left_paddle.xcor() < ball.xcor() <= left_paddle.xcor()+20 and left_paddle.ycor()-30 < ball.ycor() < left_paddle.ycor()+30 ):

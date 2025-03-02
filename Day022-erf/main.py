@@ -36,8 +36,11 @@ while game_over == False:
     elif not left_paddle.xcor() <= ball.xcor() <= right_paddle.xcor():
         if ball.xcor() < left_paddle.xcor() and ball.is_stop:
             print('score for right')
+            game_over = True
         elif ball.xcor() > right_paddle.xcor() and ball.is_stop:
             print('score for left')
+            game_over = True
+
     ball.move()
 
         

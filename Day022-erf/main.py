@@ -32,6 +32,12 @@ while game_over == False:
     # tayin reflect paddle
     elif right_paddle.is_hit_ball(ball.pos()) or left_paddle.is_hit_ball(ball.pos()) :
         ball.reflect_paddle()
+    # tayin game over va scoring
+    elif not left_paddle.xcor() <= ball.xcor() <= right_paddle.xcor():
+        if ball.xcor() < left_paddle.xcor() and ball.is_stop:
+            print('score for right')
+        elif ball.xcor() > right_paddle.xcor() and ball.is_stop:
+            print('score for left')
     ball.move()
 
         

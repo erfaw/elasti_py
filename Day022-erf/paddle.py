@@ -37,3 +37,16 @@ class Paddle(Turtle):
     def move_down(self):
         if not self.ycor() <= -(DOMAIN_Y-54):
             self.sety(self.ycor()-MOVING_DISTANCE)
+
+    def is_hit_ball(self, ball_pos):
+        """check if paddle hit ball, return True, ball_pos must be 'ball.pos()' (a tuple with (x,y) cordinates)"""
+        ball_xcor = ball_pos[0]
+        ball_ycor = ball_pos[1]
+        if self.position == 'right':
+            if self.xcor()-21 < ball_xcor <= self.xcor() and self.ycor()-30 < ball_ycor < self.ycor()+30:
+                return True
+        elif self.position == 'left':
+            if (self.xcor() < ball_xcor <= self.xcor()+20 and self.ycor()-30 < ball_ycor < self.ycor()+30 ):
+                return True
+        else:
+            return False

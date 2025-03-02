@@ -2,10 +2,12 @@ from screen import my_sc, white_box, DOMAIN_X, DOMAIN_Y
 from paddle import Paddle
 import time
 from ball import Ball
+from scoreboard import Scoreboard
 
 left_paddle = Paddle(position="left")
 right_paddle = Paddle(position="right")
 ball = Ball()
+scoreboard = Scoreboard()
 game_over = False
 
 # add event listeners

@@ -19,5 +19,5 @@ class Scoreboard:
         # prepare left
         self.left.hideturtle()
         self.left.color('white')
-        self.left.teleport(70,DOMAIN_Y-120)
+        self.left.teleport(-75,DOMAIN_Y-120)
         self.left.write(0,False, 'center', (FONT, NUMBER_SIZE, "bold"))

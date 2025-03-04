@@ -15,8 +15,10 @@ class Ball(Turtle):
         self.color('red')
         self.speed('fastest')
         self.penup()
-        
-        #random for first move toward left side.
+        self.first_place()
+    
+    def first_place(self):
+        """set the place for first of round"""
         self.setheading(random.randint(135, 225)) 
         self.teleport(
             x=-5,

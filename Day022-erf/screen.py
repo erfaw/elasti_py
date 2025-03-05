@@ -6,7 +6,7 @@ DOMAIN_X = WIDTH/2
 DOMAIN_Y = HEIGHT/2
 my_sc = Screen()
 my_sc.tracer(0)
-my_sc.setup(width=WIDTH, height=HEIGHT)
+my_sc.setup(width=WIDTH, height=HEIGHT+50)
 my_sc.bgcolor('black')
 
 # baraye jelogiri az change size window e bazi , toplevel ro dakhele ye variable mirizim o baad method 'resizable()' ro call  miknim va width o height ro False gharar midim.
@@ -45,4 +45,18 @@ white_box.goto(
 white_box.goto(
     -DOMAIN_X, +DOMAIN_Y
 )
+my_sc.update()
+
+details = Turtle()
+# details.penup()
+details.hideturtle()
+details.pencolor('white')
+details.teleport(-DOMAIN_X+10, DOMAIN_Y)
+
+details.write(
+    "Up=W    Down=S",
+    False,
+    "left",
+    ("Arial", 12, "bold")
+    )
 my_sc.update()

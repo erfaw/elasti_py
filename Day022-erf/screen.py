@@ -65,4 +65,10 @@ details.write(
     "right",
     ("Arial", 12, "bold")
 )
+
+delay_notif = Turtle()
+delay_notif.hideturtle()
+delay_notif.teleport(-15,0)
+delay_notif.pencolor('white')
+
 my_sc.update()

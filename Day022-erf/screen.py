@@ -9,6 +9,10 @@ my_sc.tracer(0)
 my_sc.setup(width=WIDTH, height=HEIGHT)
 my_sc.bgcolor('black')
 
+# baraye jelogiri az change size window e bazi , toplevel ro dakhele ye variable mirizim o baad method 'resizable()' ro call  miknim va width o height ro False gharar midim.
+root_window = my_sc.getcanvas().winfo_toplevel()
+root_window.resizable(False, False)
+
 mid_line = Turtle()
 mid_line.teleport(-5, 325)
 mid_line.hideturtle()

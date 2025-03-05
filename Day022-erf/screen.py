@@ -12,27 +12,17 @@ class Sc:
         self.white_box = Turtle()
         self.details = Turtle()
         self.delay_notif = Turtle()
-        self.__prepare_screen()
+        self.__prepare_()
         self.window_size_lock()
-        self.__prepare_mid_line()
-        self.__prepare_white_box()
-        self.__prepare_details()
-        self.__prepare_delay_notif()
         self.my_sc.update()
 
 
-    def __prepare_screen(self):
+    def __prepare_(self):
+        # my_sc
         self.my_sc.tracer(0)
         self.my_sc.setup(width=WIDTH, height=HEIGHT+50)
         self.my_sc.bgcolor('black')
-
-    def window_size_lock(self):
-        self.root_window.resizable(False, False)
-
-    def window_size_unlock(self):
-        self.root_window.resizable(True, True)
-
-    def __prepare_mid_line(self):
+        # mid_line
         self.mid_line.teleport(-5, 325)
         self.mid_line.hideturtle()
         self.mid_line.pencolor('white')
@@ -43,8 +33,7 @@ class Sc:
             self.mid_line.penup()
             self.mid_line.fd(10)
             self.mid_line.pendown()
-
-    def __prepare_white_box(self):
+        # white_box
         self.white_box.hideturtle()
         self.white_box.pencolor('white')
         self.white_box.pensize(3)
@@ -63,8 +52,7 @@ class Sc:
         self.white_box.goto(
             -DOMAIN_X, +DOMAIN_Y
         )
-    
-    def __prepare_details(self):
+        # details
         self.details.hideturtle()
         self.details.pencolor('white')
         self.details.teleport(-DOMAIN_X+10, DOMAIN_Y)
@@ -81,8 +69,14 @@ class Sc:
             "right",
             ("Arial", 12, "bold")
         )
-
-    def __prepare_delay_notif(self):
+        # delay_notif
         self.delay_notif.hideturtle()
         self.delay_notif.teleport(-15,0)
         self.delay_notif.pencolor('white')
+
+    def window_size_lock(self):
+        self.root_window.resizable(False, False)
+
+    def window_size_unlock(self):
+        self.root_window.resizable(True, True)
+

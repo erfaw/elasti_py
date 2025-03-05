@@ -1,9 +1,10 @@
-from screen import my_sc, white_box, DOMAIN_X, DOMAIN_Y,details, delay_notif
+from screen import Sc
 from paddle import Paddle
 import time
 from ball import Ball
 from scoreboard import Scoreboard
 
+screen = Sc()
 left_paddle = Paddle(position="left")
 right_paddle = Paddle(position="right")
 ball = Ball()
@@ -22,28 +23,28 @@ def on_escape_pressed():
     if not round_over:
         escape_pressed = True
 # add event listeners
-my_sc.onkey(
+screen.my_sc.onkey(
     left_paddle.move_up
     ,'w')
-my_sc.onkey(
+screen.my_sc.onkey(
     left_paddle.move_down
     ,'s')
-my_sc.onkey(
+screen.my_sc.onkey(
     right_paddle.move_up
     ,'Up')
-my_sc.onkey(
+screen.my_sc.onkey(
     right_paddle.move_down
     ,'Down')
-my_sc.onkey(
+screen.my_sc.onkey(
     on_enter_pressed
     ,'Return') # 'enter' key on keyboard
-my_sc.onkey(
+screen.my_sc.onkey(
     on_escape_pressed
     ,'Escape') # 'enter' key on keyboard
-my_sc.listen()
+screen.my_sc.listen()
 
 def game_round():
-    my_sc.update()
+    screen.my_sc.update()
     round_over = False
     ball.first_place()
     while not round_over:
@@ -67,13 +68,13 @@ def game_round():
             
         ball.move()
         time.sleep(0.1)
-        my_sc.update()
+        screen.my_sc.update()
 
-my_sc.update()
+screen.my_sc.update()
 while not game_over:
-    delay_notif.write("ENTER ==> Play\n     ESC ==> Exit", False, "center", ("Arial", 20, "bold"))
+    screen.delay_notif.write("ENTER ==> Play\n     ESC ==> Exit", False, "center", ("Arial", 20, "bold"))
     if enter_pressed:
-        delay_notif.clear()
+        screen.delay_notif.clear()
         game_round()
         enter_pressed = False
     elif escape_pressed:
@@ -81,4 +82,4 @@ while not game_over:
     else: 
         pass
     time.sleep(0.1)
-    my_sc.update()
+    screen.my_sc.update()

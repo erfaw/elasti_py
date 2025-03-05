@@ -1,4 +1,4 @@
-from screen import my_sc,details, white_box, DOMAIN_X, DOMAIN_Y
+from screen import my_sc, white_box, DOMAIN_X, DOMAIN_Y,details, delay_notif
 from paddle import Paddle
 import time
 from ball import Ball
@@ -71,7 +71,9 @@ def game_round():
 
 my_sc.update()
 while not game_over:
+    delay_notif.write("ENTER ==> Play\n     ESC ==> Exit", False, "center", ("Arial", 20, "bold"))
     if enter_pressed:
+        delay_notif.clear()
         game_round()
         enter_pressed = False
     elif escape_pressed:

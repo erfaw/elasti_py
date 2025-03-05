@@ -1,4 +1,4 @@
-from screen import my_sc, white_box, DOMAIN_X, DOMAIN_Y
+from screen import my_sc,details, white_box, DOMAIN_X, DOMAIN_Y
 from paddle import Paddle
 import time
 from ball import Ball

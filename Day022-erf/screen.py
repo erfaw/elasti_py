@@ -52,11 +52,17 @@ details = Turtle()
 details.hideturtle()
 details.pencolor('white')
 details.teleport(-DOMAIN_X+10, DOMAIN_Y)
-
 details.write(
     "Up=W    Down=S",
     False,
     "left",
     ("Arial", 12, "bold")
     )
+details.teleport(-(-DOMAIN_X+10), DOMAIN_Y)
+details.write(
+    "Up=↑    Down=↓",
+    False,
+    "right",
+    ("Arial", 12, "bold")
+)
 my_sc.update()

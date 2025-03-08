@@ -15,7 +15,7 @@ class Paddle(Turtle):
         self.color('white')
         self.penup()
         self.shape('square')
-        self.turtlesize(stretch_len=1, stretch_wid=5)
+        self.turtlesize (stretch_len=1, stretch_wid=5)
         
         # teleport to right side by argument 'position'
         if self.position == "left":

@@ -2,7 +2,7 @@ from turtle import Turtle
 import screen
 from screen import DOMAIN_X, DOMAIN_Y
 
-MOVING_DISTANCE = 30
+MOVING_DISTANCE = 20
 
 class Paddle(Turtle):
     """make a paddle for pong game, catch a arg: position , which helps move paddle to right side"""
@@ -15,7 +15,7 @@ class Paddle(Turtle):
         self.color('white')
         self.penup()
         self.shape('square')
-        self.turtlesize(stretch_len=0.7, stretch_wid=3)
+        self.turtlesize(stretch_len=1, stretch_wid=5)
         
         # teleport to right side by argument 'position'
         if self.position == "left":

@@ -15,11 +15,15 @@ class Ball(Turtle):
         self.color('red')
         self.speed('fastest')
         self.penup()
-        self.first_place()
+        self.first_place('l')
     
-    def first_place(self):
+    def first_place(self, last_win):
         """set the place for first of round"""
-        self.setheading(random.randint(135, 225)) 
+        if last_win == 'l':
+            self.setheading(random.randint(135, 225)) 
+        elif last_win == 'r':
+            self.setheading(random.randint(315, 405)) 
+ 
         self.teleport(
             x=-5,
             y= random.randint

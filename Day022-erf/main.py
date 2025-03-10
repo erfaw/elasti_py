@@ -13,6 +13,7 @@ round_over = False
 game_over = False
 enter_pressed = False
 escape_pressed = False
+last_round_winner = 'r'
 
 def on_enter_pressed():
     global enter_pressed
@@ -44,9 +45,10 @@ screen.my_sc.onkey(
 screen.my_sc.listen()
 
 def game_round():
+    global last_round_winner
     screen.my_sc.update()
     round_over = False
-    ball.first_place()
+    ball.first_place(last_win = last_round_winner)
     while not round_over:
         #tayin reflect baraye divar ha
         if ball.is_near_wall() and ball.is_stop == True:
@@ -59,11 +61,13 @@ def game_round():
             if ball.xcor() < left_paddle.xcor() and ball.is_stop:
                 print('score for right')
                 scoreboard.score_for_right()
+                last_round_winner = 'r'
                 round_over = True
                 
             elif ball.xcor() > right_paddle.xcor() and ball.is_stop:
                 print('score for left')
                 scoreboard.score_for_left()
+                last_round_winner = 'l'
                 round_over = True
             
         ball.move()

@@ -1,6 +1,6 @@
 import time
 from turtle import Screen
-from player import Player, FINISH_LINE_Y
+from player import Player, FINISH_LINE_Y, STARTING_POSITION
 from car_manager import CarManager, MOVE_INCREMENT
 from scoreboard import Scoreboard
 
@@ -20,8 +20,9 @@ i = 1
 while game_is_on:
     if player.ycor() > FINISH_LINE_Y:
         print('it reached!!!')
+        player.teleport(STARTING_POSITION)
     for car in cars.list:
-        if car.distance(player) <= 45 and car.ycor()-10 <= player.ycor() <= car.ycor()+10:
+        if car.distance(player) <= 45 and car.ycor()-14 <= player.ycor() <= car.ycor()+14:
             game_is_on = False
             break
     if i % 6 == 0:

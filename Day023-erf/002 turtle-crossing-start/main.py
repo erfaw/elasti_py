@@ -18,6 +18,10 @@ cars = CarManager()
 game_is_on = True
 i = 1
 while game_is_on:
+    for car in cars.list:
+        if car.distance(player) <= 45:
+            game_is_on = False
+            break
     if i % 6 == 0:
         cars.make_car()
         for car in cars.list:
@@ -29,3 +33,5 @@ while game_is_on:
     time.sleep(0.1)
     screen.update()
     i += 1
+
+screen.exitonclick()

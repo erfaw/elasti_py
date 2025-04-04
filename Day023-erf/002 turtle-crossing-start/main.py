@@ -19,12 +19,12 @@ game_is_on = True
 i = 1
 while game_is_on:
     if player.ycor() > FINISH_LINE_Y:
-        print('it reached!!!')
         player.teleport(STARTING_POSITION[0],STARTING_POSITION[1])
-    for car in cars.list:
-        if car.distance(player) <= 45 and car.ycor()-14 <= player.ycor() <= car.ycor()+14:
-            game_is_on = False
-            break
+        MOVE_INCREMENT *= 1.2
+    # for car in cars.list:
+    #     if car.distance(player) <= 45 and car.ycor()-14 <= player.ycor() <= car.ycor()+14:
+    #         game_is_on = False
+    #         break
     if i % 6 == 0:
         cars.make_car()
         for car in cars.list:

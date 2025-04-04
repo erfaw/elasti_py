@@ -14,13 +14,13 @@ screen.listen()
 
 cars = CarManager()
 
-
+TIME_SLEEP = 0.1
 game_is_on = True
 i = 1
 while game_is_on:
     if player.ycor() > FINISH_LINE_Y:
         player.teleport(STARTING_POSITION[0],STARTING_POSITION[1])
-        MOVE_INCREMENT *= 1.2
+        TIME_SLEEP *= 0.9
     for car in cars.list:
         if car.distance(player) <= 45 and car.ycor()-14 <= player.ycor() <= car.ycor()+14:
             game_is_on = False
@@ -33,7 +33,7 @@ while game_is_on:
                 cars.list.remove(car)
     for car in cars.list:
         car.fd(MOVE_INCREMENT)
-    time.sleep(0.1)
+    time.sleep(TIME_SLEEP)
     screen.update()
     i += 1
 

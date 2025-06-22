@@ -6,6 +6,8 @@ from scoreboard import Scoreboard
 from box import Box
 from game_over_message import Game_over_message
 
+
+scoreboard = Scoreboard()
 my_sc = Screen()
 
 # Loop baraye harekat khodkar be jelo
@@ -15,10 +17,9 @@ def main():
     my_sc.setup(width=600, height=600)
     my_sc.title("my Snake game")
     my_sc.tracer(0)
-    
+    scoreboard.update()
     snake = Snake() 
     food = Food()
-    scoreboard = Scoreboard()
     box = Box(
         screen_width= my_sc.window_width() ,
         screen_height= my_sc.window_height()
@@ -44,10 +45,12 @@ def main():
         elif snake.is_hit_wall(wide_cor= box.wide_cor) :
             is_game_over = True
             snake.change_body_color(color= 'red')
+            scoreboard.check_highest_score()
             my_sc.update()
         elif snake.is_hit_tail():
             is_game_over = True
             snake.change_body_color(color= 'red')
+            scoreboard.check_highest_score()
             my_sc.update()
         else: continue
     game_over_message.make_game_over_message()

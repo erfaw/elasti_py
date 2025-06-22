@@ -18,7 +18,7 @@ scoreboard = Scoreboard()
 
 TIME_SLEEP = 0.1
 game_is_on = True
-i = 1
+i = 1 # i could be 6
 while game_is_on:
     if player.ycor() > FINISH_LINE_Y:
         player.teleport(STARTING_POSITION[0],STARTING_POSITION[1])

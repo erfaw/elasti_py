@@ -62,6 +62,7 @@ while reset_game:
     main()
     
     if not my_sc.textinput("Play again?!", "write 'yes' if you want play again...").lower() == 'yes':
+        scoreboard.store_highest_score()
         reset_game = False
 
 # my_sc.exitonclick()

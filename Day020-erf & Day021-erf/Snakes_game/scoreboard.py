@@ -3,7 +3,7 @@ from turtle import Turtle
 class Scoreboard:
     def __init__(self):
         self.score = 0
-        self.highest_score = 0
+        self.highest_score = self.load_highest_score()
         self.my_board = self.make_scoreboard()
     
     def make_scoreboard(self): 
@@ -26,3 +26,12 @@ class Scoreboard:
             self.score = 0
         else: 
             self.score = 0
+
+    def store_highest_score(self):
+        with open("highest_score.txt",mode='w') as f:
+            f.write(f"{self.highest_score}")
+
+    def load_highest_score(self):
+        with open("highest_score.txt", mode='r') as f:
+            previous_highest_score = int(f.read())
+        return previous_highest_score

@@ -5,7 +5,7 @@
     
 
 # open invited_names.txt for catch names in a list first
-with open("g:/myDocuments/Programming/Python/elasti_py/Day024-erf/Mail Merge Project Start/invited_names.txt", mode='r') as f:
+with open("g:/myDocuments/Programming/Python/elasti_py/Day024-erf/Mail Merge Project Start/Input/Names/invited_names.txt", mode='r') as f:
     names = f.readlines()
 
 i=0

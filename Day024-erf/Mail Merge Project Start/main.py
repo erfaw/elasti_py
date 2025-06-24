@@ -3,6 +3,13 @@
 #Replace the [name] placeholder with the actual name.
 #Save the letters in the folder "ReadyToSend".
     
-#Hint1: This method will help you: https://www.w3schools.com/python/ref_file_readlines.asp
-    #Hint2: This method will also help you: https://www.w3schools.com/python/ref_string_replace.asp
-        #Hint3: THis method will help you: https://www.w3schools.com/python/ref_string_strip.asp
+
+# open invited_names.txt for catch names in a list first
+with open("g:/myDocuments/Programming/Python/elasti_py/Day024-erf/Mail Merge Project Start/invited_names.txt", mode='r') as f:
+    names = f.readlines()
+
+i=0
+for name in names:
+    names[i] = name.replace('\n', '')
+    i += 1
+

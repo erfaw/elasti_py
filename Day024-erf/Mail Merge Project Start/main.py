@@ -7,5 +7,5 @@ basic_letter = load.basic_letter()
 
 for name in names:
     output_letter = basic_letter.replace('[name]', name)
-    with open(f"./Output/ReadyToSend/{name}.txt", mode='w') as f:
+    with open(f"./Day024-erf/Mail Merge Project Start/Output/ReadyToSend/{name}.txt", mode='w') as f:
         f.write(output_letter)

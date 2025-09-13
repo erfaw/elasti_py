@@ -26,12 +26,12 @@ turtle_write = CorrectNameWriter()
 
 
 correct_list = set()
-wrong_guess = 0
-tries_num = 0
+# wrong_guess = 0
+# tries_num = 0
 def process_user_guess():
+    # global tries_num, wrong_guess
     for sn in states_data["state"]:
-        if answer_state == sn and answer_state not in correct_list:
-            tries_num += 1
+        if answer_state == sn and answer_state not in correct_list: 
             print(f"GZ✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔")
             turtle_write.on_map(answer_state)
             correct_list.add(answer_state)
@@ -39,7 +39,8 @@ def process_user_guess():
         elif answer_state == sn and answer_state in correct_list:
             print(f"you correctly guessed {answer_state} already")
         else:
-            wrong_guess += 1
+            pass
+    # tries_num += 1
 
 def normalize_fa_ar(text):
     return (
@@ -47,12 +48,17 @@ def normalize_fa_ar(text):
             .replace("ك", "ک")
     )
 
+answer_state = normalize_fa_ar(
+    sc.textinput("حدس بزنید...",prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
+    )
 while True:
     #get guess from user
-    answer_state = normalize_fa_ar(
-        sc.textinput("حدس بزنید...",prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
-        )
-    os.system('cls')
     process_user_guess()
+    answer_state = normalize_fa_ar(
+    sc.textinput(
+        f"corrects {len(correct_list)}/{len(states_data['state'])}",
+        prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
+    )
+    os.system('cls')
 
 sc.exitonclick()

@@ -14,6 +14,7 @@ class CorrectNameWriter(turtle.Turtle):
         super().__init__()
         self.hideturtle()
         self.penup()
+        self.color("red")
     def on_map(self, state_name):
         self.goto(
             int(states_data[states_data["state"] == state_name]["xcor"]),

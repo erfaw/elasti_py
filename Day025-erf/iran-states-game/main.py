@@ -25,16 +25,21 @@ class CorrectNameWriter(turtle.Turtle):
 turtle_write = CorrectNameWriter()
 
 
-corrects = 0
+correct_list = set()
+wrong_guess = 0
+tries_num = 0
 def process_user_guess():
     for sn in states_data["state"]:
-        if answer_state == sn:
+        if answer_state == sn and answer_state not in correct_list:
+            tries_num += 1
             print(f"GZ✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔")
             turtle_write.on_map(answer_state)
-            # 2. append to a list named {right list}
-            # 3. increase number of correct states
+            correct_list.add(answer_state)
+            break  
+        elif answer_state == sn and answer_state in correct_list:
+            print(f"you correctly guessed {answer_state} already")
         else:
-            pass
+            wrong_guess += 1
 
 def normalize_fa_ar(text):
     return (

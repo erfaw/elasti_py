@@ -56,12 +56,17 @@ while True:
     process_user_guess()
     tries_num += 1
     wrong_guess = int(tries_num - len(correct_list))
-
+    if len(correct_list) == len(states_data['state']):
+        break
     answer_state = normalize_fa_ar(
         sc.textinput(
             f"corrects {len(correct_list)}/{len(states_data['state'])} | wrongs: {wrong_guess} | tries: {tries_num}",
             prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
     )
-    os.system('cls')
+
+#calculate score
+raw_score = 100 - (wrong_guess * 2) - (tries_num - 31)
+normalize_score = max(0,raw_score)/100 #normalize between 0 and 1
+stars=  round(normalize_score * 5)
 
 sc.exitonclick()

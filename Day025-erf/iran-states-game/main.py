@@ -59,6 +59,32 @@ def normalize_fa_ar(text):
             .replace("ك", "ک")
     )
 
+def calculate_stars(tries_num, wrong_guess, whole_time):
+    """
+    MADE BY GPT
+    محاسبه تعداد ستاره‌ها بر اساس:
+    - tries_num: تعداد تلاش‌های کاربر
+    - wrong_guess: تعداد جواب‌های غلط
+    - whole_time: زمان کل بازی بر حسب ثانیه
+    """
+    # --- نرمال‌سازی فاکتورها ---
+    efficiency_score = 31 / tries_num
+    accuracy_score = max(0, (31 - wrong_guess) / 31)
+    # فرض: بهترین زمان 10 دقیقه، بدترین 30 دقیقه
+    time_score = max(0, min(1, (1800 - whole_time) / 1200))
+
+    # --- ترکیب وزن‌دار ---
+    final_score = (0.5 * efficiency_score) + (0.3 * accuracy_score) + (0.2 * time_score)
+
+    # --- تبدیل به ستاره ---
+    stars = round(final_score * 5)
+
+    # اطمینان از بازه 0 تا 5
+    stars = max(0, min(5, stars))
+
+    return stars
+
+
 answer_state = normalize_fa_ar(
     sc.textinput("حدس بزنید...",prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
     )
@@ -75,10 +101,8 @@ while True:
             f"corrects {len(correct_list)}/{len(states_data['state'])} | wrongs: {wrong_guess} | tries: {tries_num}",
             prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
     )
-
-#calculate score
-raw_score = 100 - (wrong_guess * 2) - (tries_num - 31)
-normalize_score = max(0,raw_score)/100 #normalize between 0 and 1
-stars=  round(normalize_score * 5)
+whole_time = time.time()-start_time
+star_score = calculate_stars(tries_num, wrong_guess, whole_time)
+print(star_score)
 
 sc.exitonclick()

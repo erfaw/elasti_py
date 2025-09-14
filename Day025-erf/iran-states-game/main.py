@@ -1,4 +1,4 @@
-import turtle, os; os.system('cls');
+import turtle, os, time; os.system('cls');
 import pandas as pd
 image = "./Day025-erf/iran-states-game/bg_resized.gif"
 
@@ -28,6 +28,17 @@ turtle_write = CorrectNameWriter()
 correct_list = set()
 wrong_guess = 0
 tries_num = 0
+start_time = time.time()
+
+def update_timer():
+    elapsed = int(time.time() - start_time)
+    formated = time.strftime("%H:%M:%S", time.gmtime(elapsed))
+    sc.title(f"Iran States Game | Time elapsed: {formated}")
+    sc.ontimer(
+        update_timer,
+        1000
+    )
+    
 def process_user_guess():
     # global tries_num, wrong_guess
     for sn in states_data["state"]:
@@ -53,6 +64,7 @@ answer_state = normalize_fa_ar(
     )
 while True:
     #get guess from user
+    update_timer()
     process_user_guess()
     tries_num += 1
     wrong_guess = int(tries_num - len(correct_list))

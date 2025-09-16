@@ -102,7 +102,17 @@ while True:
             prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
     )
 whole_time = time.time()-start_time
+whole_time_formated = time.strftime("%H:%M:%S", time.gmtime(whole_time))
 star_score = calculate_stars(tries_num, wrong_guess, whole_time)
-print(star_score)
+star_char = '★'
+
+#textinput baryae neshon dadane etelaat score o zaman va porsidane inke aya mikhay mojadad bazi kni?
+play_again = sc.numinput(
+    "Try Again? | شروع مجدد؟",
+    f"Score:\t{star_score*star_char}\t\t\t\n\nElapsed time: {whole_time_formated}\nAll tries: {tries_num}\nWrong guesses: {wrong_guess}\n\n:برای شروع مجدد 1 را وارد کنید",
+    1,
+    0,
+    1
+) # ==> int num 1 or 0
 
 sc.exitonclick()

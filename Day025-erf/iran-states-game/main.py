@@ -70,8 +70,8 @@ def calculate_stars(tries_num, wrong_guess, whole_time):
     # --- نرمال‌سازی فاکتورها ---
     efficiency_score = 31 / tries_num
     accuracy_score = max(0, (31 - wrong_guess) / 31)
-    # فرض: بهترین زمان 10 دقیقه، بدترین 30 دقیقه
-    time_score = max(0, min(1, (1800 - whole_time) / 1200))
+    # فرض: بهترین زمان 5 دقیقه، بدترین 20 دقیقه
+    time_score = max(0, min(1, (900 - whole_time) / 300))
 
     # --- ترکیب وزن‌دار ---
     final_score = (0.5 * efficiency_score) + (0.3 * accuracy_score) + (0.2 * time_score)

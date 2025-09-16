@@ -21,10 +21,10 @@ def main():
 
 
     def decide_info():
-        '''print infos from A and B to choose at specific situation'''
-        print(f"A follower == > {A["follower"]}")
-        print(f"B follower == > {B["follower"]}")
-        print(f"higher is ============= >{calculate_higher(A, B)["name"]}")
+        '''print infos from A and B to choose at specific situation, maded for test during development'''
+        # print(f"A follower == > {A["follower"]}")
+        # print(f"B follower == > {B["follower"]}")
+        # print(f"higher is ============= >{calculate_higher(A, B)["name"]}")
         print(f"Compare A:\n\t<< {A["name"]}, {A["job"]}, from {A["from"]}. >>{art.vs_logo}Against B:\n\t<< {B["name"]}, {B["job"]}, from {B["from"]}. >>")
 
 

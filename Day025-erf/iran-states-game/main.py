@@ -25,10 +25,10 @@ class CorrectNameWriter(turtle.Turtle):
 turtle_write = CorrectNameWriter()
 
 
-correct_list = set()
-wrong_guess = 0
-tries_num = 0
-start_time = time.time()
+# correct_list = set()
+# wrong_guess = 0
+# tries_num = 0
+# start_time = time.time()
 
 def update_timer():
     elapsed = int(time.time() - start_time)
@@ -39,16 +39,15 @@ def update_timer():
         1000
     )
     
-def process_user_guess():
-    # global tries_num, wrong_guess
+def process_user_guess(answer, correct_list):
     for sn in states_data["state"]:
-        if answer_state == sn and answer_state not in correct_list: 
+        if answer == sn and answer not in correct_list: 
             print(f"GZ✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔")
-            turtle_write.on_map(answer_state)
-            correct_list.add(answer_state)
+            turtle_write.on_map(answer)
+            correct_list.add(answer)
             break  
-        elif answer_state == sn and answer_state in correct_list:
-            print(f"you correctly guessed {answer_state} already")
+        elif answer == sn and answer in correct_list:
+            print(f"you correctly guessed {answer} already")
         else:
             pass
     # tries_num += 1
@@ -84,35 +83,48 @@ def calculate_stars(tries_num, wrong_guess, whole_time):
 
     return stars
 
-
-answer_state = normalize_fa_ar(
-    sc.textinput("حدس بزنید...",prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
-    )
-while True:
-    #get guess from user
-    update_timer()
-    process_user_guess()
-    tries_num += 1
-    wrong_guess = int(tries_num - len(correct_list))
-    if len(correct_list) == len(states_data['state']):
-        break
+start_time = time.time()
+end_game_message = ""
+def main():
+    correct_list = set()
+    tries_num = 0
+    wrong_guess = 0
+    global start_time, end_game_message
+    
     answer_state = normalize_fa_ar(
-        sc.textinput(
-            f"corrects {len(correct_list)}/{len(states_data['state'])} | wrongs: {wrong_guess} | tries: {tries_num}",
-            prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
-    )
-whole_time = time.time()-start_time
-whole_time_formated = time.strftime("%H:%M:%S", time.gmtime(whole_time))
-star_score = calculate_stars(tries_num, wrong_guess, whole_time)
-star_char = '★'
+        sc.textinput("حدس بزنید...",prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
+        )
+    while True:
+        #get guess from user
+        update_timer()
+        process_user_guess(answer_state, correct_list)
+        tries_num += 1
+        wrong_guess = int(tries_num - len(correct_list))
+        if len(correct_list) == len(states_data['state']):
+            break
+        answer_state = normalize_fa_ar(
+            sc.textinput(
+                f"corrects {len(correct_list)}/{len(states_data['state'])} | wrongs: {wrong_guess} | tries: {tries_num}",
+                prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
+        )
+    whole_time = time.time()-start_time
+    whole_time_formated = time.strftime("%H:%M:%S", time.gmtime(whole_time))
+    star_score = calculate_stars(tries_num, wrong_guess, whole_time)
+    star_char = '★'
+    end_game_message = f"Score:\t{star_score*star_char}\t\t\t\n\nElapsed time: {whole_time_formated}\nAll tries: {tries_num}\nWrong guesses: {wrong_guess}\n\n:برای شروع مجدد 1 را وارد کنید"
 
-#textinput baryae neshon dadane etelaat score o zaman va porsidane inke aya mikhay mojadad bazi kni?
-play_again = sc.numinput(
-    "Try Again? | شروع مجدد؟",
-    f"Score:\t{star_score*star_char}\t\t\t\n\nElapsed time: {whole_time_formated}\nAll tries: {tries_num}\nWrong guesses: {wrong_guess}\n\n:برای شروع مجدد 1 را وارد کنید",
-    1,
-    0,
-    1
-) # ==> int num 1 or 0
+play_again = 1
+while play_again == 1:
+    turtle_write.clear()
+    main()
+    #textinput baryae neshon dadane etelaat score o zaman va porsidane inke aya mikhay mojadad bazi kni?
+    play_again = sc.numinput(
+        "Try Again? | شروع مجدد؟",
+        # f"Score:\t{star_score*star_char}\t\t\t\n\nElapsed time: {whole_time_formated}\nAll tries: {tries_num}\nWrong guesses: {wrong_guess}\n\n:برای شروع مجدد 1 را وارد کنید",
+        end_game_message,
+        1,
+        0,
+        1
+    ) # ==> int num 1 or 0
 
 sc.exitonclick()

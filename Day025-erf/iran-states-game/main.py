@@ -1,4 +1,4 @@
-import turtle, os, time; os.system('cls');
+import turtle, subprocess, time; subprocess.call("cls", shell=True);
 import pandas as pd
 image = "./Day025-erf/iran-states-game/bg_resized.gif"
 
@@ -95,7 +95,8 @@ def main():
         process_user_guess(answer_state, correct_list)
         tries_num += 1
         wrong_guess = int(tries_num - len(correct_list))
-        if len(correct_list) == len(states_data['state']):
+        if 31 == len(states_data['state']):
+        # if len(correct_list) == len(states_data['state']):
             break
         answer_state = normalize_fa_ar(
             sc.textinput(
@@ -120,5 +121,17 @@ while play_again == 1:
         0,
         1
     ) # ==> int num 1 or 0
+
+# prepare closing message
+turtle_write.clear()
+sc.clear()
+sc.bgcolor("black")
+turtle_write.goto(0,0)
+turtle_write.color("white")
+turtle_write.write(arg="Have a Nice Day! | !روز خوبی داشته باشید", 
+                   move=False,
+                   align = "center",
+                   font=("Arial",22,"normal")
+                   )
 
 sc.exitonclick()

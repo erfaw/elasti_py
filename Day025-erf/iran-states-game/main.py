@@ -21,6 +21,13 @@ class CorrectNameWriter(turtle.Turtle):
             int(states_data[states_data["state"] == state_name]["ycor"]),
         )
         self.write(f"{state_name}", False, "center", ("Arial", 12, "bold"))
+    def all_miss(self, misses):
+        #print all miss with another color
+        self.color("green")
+        for sn in misses:
+            self.on_map(sn)
+        self.color("red")
+
 
 turtle_write = CorrectNameWriter()
 
@@ -37,12 +44,12 @@ def update_timer():
 def process_user_guess(answer, correct_list):
     for sn in states_data["state"]:
         if answer == sn and answer not in correct_list: 
-            print(f"GZ✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔✔")
             turtle_write.on_map(answer)
             correct_list.add(answer)
             break  
         elif answer == sn and answer in correct_list:
             print(f"you correctly guessed {answer} already")
+            sc.textinput("Warning", f"you correctly guessed {answer} already, try another one")
         else:
             pass
     # tries_num += 1
@@ -95,19 +102,31 @@ def main():
         process_user_guess(answer_state, correct_list)
         tries_num += 1
         wrong_guess = int(tries_num - len(correct_list))
-        if 31 == len(states_data['state']):
-        # if len(correct_list) == len(states_data['state']):
+        if len(correct_list) == len(states_data['state']):
             break
         answer_state = normalize_fa_ar(
             sc.textinput(
                 f"corrects {len(correct_list)}/{len(states_data['state'])} | wrongs: {wrong_guess} | tries: {tries_num}",
-                prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
+                prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید\ntype 'exit' to refuse continue | را وارد کنید 'exit' برای انصراف و دیدن نمره و جواب نهایی ")
         )
+        if answer_state.lower() == 'exit':
+            all_states_name = states_data["state"]
+            misses = set()
+            for sn in all_states_name:
+                if sn not in correct_list:
+                    misses.add(sn)
+            turtle_write.all_miss(misses)
+            break
+
     whole_time = time.time()-start_time
     whole_time_formated = time.strftime("%H:%M:%S", time.gmtime(whole_time))
     star_score = calculate_stars(tries_num, wrong_guess, whole_time)
     star_char = '★'
-    end_game_message = f"Score:\t{star_score*star_char}\t\t\t\n\nElapsed time: {whole_time_formated}\nAll tries: {tries_num}\nWrong guesses: {wrong_guess}\n\n:برای شروع مجدد 1 را وارد کنید"
+    if len(correct_list) == len(states_data["state"]):
+        end_game_message = f"Score:\t{star_score*star_char}\t\t\t\n\nElapsed time: {whole_time_formated}\nAll tries: {tries_num}\nWrong guesses: {wrong_guess}\n\n:برای شروع مجدد 1 را وارد کنید"
+    else: 
+        end_game_message = f"Score: Failed! \t\t\t\n\nElapsed time: {whole_time_formated}\nAll tries: {tries_num}\nWrong guesses: {wrong_guess}\nMissed: {len(misses)}\n\n:برای شروع مجدد 1 را وارد کنید"
+
 
 play_again = 1
 while play_again == 1:

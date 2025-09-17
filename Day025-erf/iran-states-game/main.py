@@ -24,13 +24,8 @@ class CorrectNameWriter(turtle.Turtle):
 
 turtle_write = CorrectNameWriter()
 
-
-# correct_list = set()
-# wrong_guess = 0
-# tries_num = 0
-# start_time = time.time()
-
 def update_timer():
+    """Calculate elapsed time and update it in screen.title()"""
     elapsed = int(time.time() - start_time)
     formated = time.strftime("%H:%M:%S", time.gmtime(elapsed))
     sc.title(f"Iran States Game | Time elapsed: {formated}")
@@ -83,14 +78,14 @@ def calculate_stars(tries_num, wrong_guess, whole_time):
 
     return stars
 
-start_time = time.time()
 end_game_message = ""
 def main():
+    global start_time, end_game_message
     correct_list = set()
     tries_num = 0
     wrong_guess = 0
-    global start_time, end_game_message
-    
+    start_time = time.time()
+
     answer_state = normalize_fa_ar(
         sc.textinput("حدس بزنید...",prompt="Enter Persian name of the IRAN states | نام فارسی استان های ایران را وارد کنید")
         )
@@ -120,7 +115,6 @@ while play_again == 1:
     #textinput baryae neshon dadane etelaat score o zaman va porsidane inke aya mikhay mojadad bazi kni?
     play_again = sc.numinput(
         "Try Again? | شروع مجدد؟",
-        # f"Score:\t{star_score*star_char}\t\t\t\n\nElapsed time: {whole_time_formated}\nAll tries: {tries_num}\nWrong guesses: {wrong_guess}\n\n:برای شروع مجدد 1 را وارد کنید",
         end_game_message,
         1,
         0,

@@ -112,9 +112,10 @@ def main():
         if answer_state.lower() == 'exit':
             all_states_name = states_data["state"]
             misses = set()
-            for sn in all_states_name:
-                if sn not in correct_list:
-                    misses.add(sn)
+            misses = [state_name for state_name in all_states_name if state_name not in correct_list] # using List Comprehension topic to return 'misses' (from next day lesson) instead of below comments but same functionality :
+            # for sn in all_states_name:
+            #     if sn not in correct_list:
+            #         misses.add(sn)
             turtle_write.all_miss(misses)
             break
 

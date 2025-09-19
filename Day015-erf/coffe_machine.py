@@ -114,7 +114,7 @@ while True:
 # DONE 2. check kardan inke aya pooli ke sekke i vared shde kafie ya na
 # DONE 3. coffee ro drst mikne dastgah , bayad be mizan chizi ke drst karde az resource ha kam beshe
 # DONE 4. vaghti sefaresh tamom shd, amade sefaresh badi beshe. 
-# TODO 5. agar resource ha be hadi nist ke hichkodom az taste haro drst kne benevise ke nadarim . (plus)
+# DONE 5. agar resource ha be hadi nist ke hichkodom az taste haro drst kne benevise ke nadarim . (plus)
 
 
 

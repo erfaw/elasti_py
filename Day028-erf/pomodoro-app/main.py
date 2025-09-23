@@ -30,7 +30,7 @@ label_1 = Label(
     bg= YELLOW,
     foreground=GREEN
     )
-label_1.pack()
+label_1.grid(row=0,column=1)
 #build canvas for pic and timer
 layer_1 = Canvas(
     width=202,
@@ -50,7 +50,34 @@ layer_1.create_text(
     font=(FONT_NAME, 22, "bold"),
     fill="white"
     )
-layer_1.pack()
+layer_1.grid(row=1,column=1)
 
+#make 2 button 'Start' and 'Reset'
+start_but = Button(
+    text='Start',
+    bg='white',
+    borderwidth=1,
+    font=("Arial", 8,"bold")
+    )
+start_but.grid(row=2,column=0)
+
+reset_but = Button(
+    text='Reset',
+    bg='white',
+    borderwidth=1,
+    font=("Arial", 8,"bold")
+    )
+reset_but.grid(row=2,column=2)
+check_mark_char = '✅'
+#make label for tick of each period
+label_for_space = Label(text='', bg=YELLOW,font=(FONT_NAME, 10))
+label_for_space.grid(row=3, column=1)
+label_tick = Label(
+    text= check_mark_char,
+    bg= YELLOW,
+    fg= GREEN,
+    font=(FONT_NAME, 20)
+    )
+label_tick.grid(row=4, column=1)
 
 window.mainloop()

@@ -1,4 +1,4 @@
-
+from tkinter import *
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -16,3 +16,34 @@ LONG_BREAK_MIN = 20
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 
 # ---------------------------- UI SETUP ------------------------------- #
+window = Tk()
+window.title('-Pomodoro App-')
+window.config(
+    padx=100,
+    pady=50,
+    bg=YELLOW
+    )
+
+#build canvas for pic and timer
+layer_1 = Canvas(
+    width=202,
+    height=226,
+    bg=YELLOW,
+    highlightthickness=0
+    )
+tomato_png = PhotoImage(file="./Day028-erf/pomodoro-app/tomato.png")
+layer_1.create_image(
+    102,
+    114,
+    image=tomato_png
+    )
+layer_1.create_text(
+    102,128,
+    text="00:00",
+    font=(FONT_NAME, 22, "bold"),
+    fill="white"
+    )
+layer_1.pack()
+
+
+window.mainloop()

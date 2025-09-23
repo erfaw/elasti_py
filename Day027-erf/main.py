@@ -15,9 +15,9 @@ def button_clicked():
     my_label.config(
         text=f"button clicked! <3"
         )
-    my_label2.config(
-        text=f"{input1.get()} was our entry"
-    )
+    # my_label2.config(
+    #     text=f"{input1.get()} was our entry"
+    # )
     
 # make a button
 my_button = Button(text="Click me Motha Fucka", command=button_clicked, pady=20)

@@ -23,7 +23,14 @@ window.config(
     pady=50,
     bg=YELLOW
     )
-
+#make a label for Timer
+label_1 = Label(
+    text= 'Timer',
+    font= (FONT_NAME, 36, "bold"),
+    bg= YELLOW,
+    foreground=GREEN
+    )
+label_1.pack()
 #build canvas for pic and timer
 layer_1 = Canvas(
     width=202,

@@ -1,15 +1,7 @@
 from tkinter import *
 import time
 import subprocess as sp; sp.call('cls', shell=True)
-# ---------------------------- CONSTANTS ------------------------------- #
-PINK = "#e2979c"
-RED = "#e7305b"
-GREEN = "#9bdeac"
-YELLOW = "#f7f5dd"
-FONT_NAME = "Courier"
-WORK_MIN = 25
-SHORT_BREAK_MIN = 5
-LONG_BREAK_MIN = 20
+from CONSTANTS_variable import *
 
 # ---------------------------- TIMER RESET ------------------------------- # 
 

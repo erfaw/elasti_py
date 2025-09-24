@@ -1,4 +1,6 @@
 from tkinter import *
+import time
+import subprocess as sp; sp.call('cls', shell=True)
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -12,7 +14,27 @@ LONG_BREAK_MIN = 20
 # ---------------------------- TIMER RESET ------------------------------- # 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
+def start_timer():
+    global start_time
+    start_time= time.time() #current moment
+    update_timer()
 
+def update_timer():
+    elapsed = int(time.time() - start_time)
+    formated = time.strftime("%M:%S", time.gmtime(elapsed))
+    layer_1.create_image(
+    102,
+    114,
+    image=tomato_png
+    )
+    layer_1.create_text(
+        102,128,
+        text=formated,
+        font=(FONT_NAME, 22, "bold"),
+        fill="white"
+    )
+    layer_1.grid(row=1, column=1)
+    window.after(1000, update_timer)
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -23,6 +45,7 @@ window.config(
     pady=50,
     bg=YELLOW
     )
+
 #make a label for Timer
 label_1 = Label(
     text= 'Timer',
@@ -31,6 +54,7 @@ label_1 = Label(
     foreground=GREEN
     )
 label_1.grid(row=0,column=1)
+
 #build canvas for pic and timer
 layer_1 = Canvas(
     width=202,
@@ -57,7 +81,8 @@ start_but = Button(
     text='Start',
     bg='white',
     borderwidth=1,
-    font=("Arial", 8,"bold")
+    font=("Arial", 8,"bold"),
+    command=start_timer
     )
 start_but.grid(row=2,column=0)
 

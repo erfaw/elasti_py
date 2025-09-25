@@ -28,10 +28,10 @@ class Scoreboard:
             self.score = 0
 
     def store_highest_score(self):
-        with open("highest_score.txt",mode='w') as f:
+        with open("./Day020-erf & Day021-erf/Snakes_game/highest_score.txt",mode='w') as f:
             f.write(f"{self.highest_score}")
 
     def load_highest_score(self):
-        with open("highest_score.txt", mode='r') as f:
+        with open("./Day020-erf & Day021-erf/Snakes_game/highest_score.txt", mode='r') as f:
             previous_highest_score = int(f.read())
         return previous_highest_score

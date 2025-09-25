@@ -8,13 +8,15 @@ class PomodoroWindow(Tk):
     def __init__(self):
         """makes a Tk window for 'Pomodoro-app' and initiate basics for it."""
         super().__init__()
+        self.is_reset_clicked = False
+        self.pomodoro_round = 0
         self.set_configuration_window()
         self.make_container()
         self.tomato_png  = PhotoImage(file=tomato_png_file_path)
         self._tomato()
         self.make_timer_label()
         self._raw_time_str()
-        self.empty_label_for_ticks()
+        self.label_for_ticks()
 
 
     def set_configuration_window(self):
@@ -64,6 +66,15 @@ class PomodoroWindow(Tk):
             )
         self.layer_1.grid(row=1,column=1)
 
+    def update_time_str(self, formated_time):
+        self.layer_1.create_text(
+            102,128,
+            text=formated_time,
+            font=(FONT_NAME, 22, "bold"),
+            fill="white"
+        )
+        self.layer_1.grid(row=1, column=1)
+
     def make_start_but(self, start_timer):
         """makes start button below tomato and grid it"""
         self.start_but = Button(
@@ -86,12 +97,12 @@ class PomodoroWindow(Tk):
             )
         self.reset_but.grid(row=2,column=2)
 
-    def empty_label_for_ticks(self):
+    def label_for_ticks(self):
         """makes a label to make some margin between button and ticks, and make a label to print ticks for each period of Pomodoro Technique"""
         self.label_for_space = Label(text='', bg=YELLOW,font=(FONT_NAME, 10))
         self.label_for_space.grid(row=3, column=1)
         self.label_tick = Label(
-            text= check_mark_char,
+            text= check_mark_char * self.pomodoro_round,
             bg= YELLOW,
             fg= GREEN,
             font=(FONT_NAME, 20)

@@ -16,10 +16,16 @@ def update_timer():
     window._tomato()
     if window.is_reset_clicked:
         window._raw_time_str()
+        window.pomodoro_round = 0
+        window.label_tick.config(fg= YELLOW) #for remove it from display
         window.is_reset_clicked = False
     else:
+        if elapsed% (5) == 0 and elapsed != 0:
+            window.pomodoro_round += 1
         window.update_time_str(formated)
+        window.label_for_ticks()
         window.after(1000, update_timer)
+
 
 def start_timer():
     timer.start = timer.current()

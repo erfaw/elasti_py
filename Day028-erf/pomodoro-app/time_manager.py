@@ -1,0 +1,16 @@
+import time
+class TimeManager:
+    def __init__(self):
+        self.start = ''
+
+    def current(self):
+        """return current time"""
+        return time.time() #current moment
+    
+    def format_time(self, time_obj):
+        """return %M:%S formated string of time recieved as arg"""
+        return time.strftime("%M:%S", time.gmtime(time_obj))
+
+    def elapsed(self, start_t):
+        """recieve an time object and calculate elapsed time based on time object and return integer elapsed time value -->int"""
+        return int(time.time() - start_t)

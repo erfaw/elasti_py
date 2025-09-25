@@ -18,7 +18,7 @@ def send_notification(message):
 def reset_but_clicked():
     window.is_reset_clicked = True
 
-def update_timer():
+def update_timer(target=(25*60)):
     elapsed = timer.elapsed(timer.start)
     formated = timer.format_time(elapsed)
     window._tomato()
@@ -31,6 +31,9 @@ def update_timer():
         if elapsed% (10) == 0 and elapsed != 0:
             window.pomodoro_round += 1
             send_notification("You must take a short break! (5min)")
+            
+            #TODO.we must put here a count-down timer for 5 minute
+
             
         window.update_time_str(formated)
         window.label_for_ticks()

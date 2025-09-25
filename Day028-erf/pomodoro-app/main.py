@@ -3,9 +3,17 @@ import subprocess as sp; sp.call('cls', shell=True)
 from CONSTANTS_variable import *
 from interface import *
 from time_manager import TimeManager
+from plyer import notification
 
 window = PomodoroWindow()
 timer = TimeManager()
+def send_notification(message):
+    """Send a notification to the user."""
+    notification.notify(
+        title="Program Closer Notification",
+        message=message,
+        timeout=30  # Duration in seconds
+    )
 
 def reset_but_clicked():
     window.is_reset_clicked = True
@@ -20,8 +28,10 @@ def update_timer():
         window.label_tick.config(fg= YELLOW) #for remove it from display
         window.is_reset_clicked = False
     else:
-        if elapsed% (5) == 0 and elapsed != 0:
+        if elapsed% (10) == 0 and elapsed != 0:
             window.pomodoro_round += 1
+            send_notification("You must take a short break! (5min)")
+            
         window.update_time_str(formated)
         window.label_for_ticks()
         window.after(1000, update_timer)

@@ -27,6 +27,7 @@ class PomodoroWindow(Tk):
             pady=50,
             bg=YELLOW
         )
+        self.resizable(False, False) 
 
     def make_timer_label(self):
         """makes a 'Timer' string on top of tomato timer, with foreground color GREEN (from CONSTANT_variable.py)"""

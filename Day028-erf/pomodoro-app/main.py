@@ -10,7 +10,7 @@ timer = TimeManager()
 def send_notification(message):
     """Send a notification to the user."""
     notification.notify(
-        title="Program Closer Notification",
+        title="Pomodoro App Notification",
         message=message,
         timeout=30  # Duration in seconds
     )

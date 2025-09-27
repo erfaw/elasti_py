@@ -17,6 +17,7 @@ class PomodoroWindow(Tk):
         self.make_timer_label()
         self._raw_time_str()
         self.label_for_ticks()
+        self.note_for_break()
 
 
     def set_configuration_window(self):
@@ -50,7 +51,7 @@ class PomodoroWindow(Tk):
 
     def _tomato(self):
         """create_image from tomato.png on a Canvas() object names 'layer_1', (width, height)= (102,114) then grid whole Canvas() object"""
-        self.layer_1.create_image(
+        self.tomato_id = self.layer_1.create_image(
             102,
             114,
             image=self.tomato_png
@@ -108,4 +109,14 @@ class PomodoroWindow(Tk):
             fg= GREEN,
             font=(FONT_NAME, 20)
             )
-        self.label_tick.grid(row=4, column=1)        
+        self.label_tick.grid(row=4, column=1)     
+
+    def note_for_break(self):
+        """print a note for 5min break between periods"""
+        self.label_note_5min = Label(
+            text= "ON BREAK!!!\nbe sharp for Notification",
+            bg= YELLOW,
+            fg= YELLOW,
+            font= (FONT_NAME, 10, "bold")
+        )
+        self.label_note_5min.grid(row=5,column=1)

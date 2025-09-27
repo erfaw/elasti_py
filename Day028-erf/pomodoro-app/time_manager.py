@@ -1,7 +1,9 @@
 import time
 class TimeManager:
     def __init__(self):
-        self.start = ''
+        self.start = None
+        self.elapsed_s = None
+        self.formated_str = None
 
     def current(self):
         """return current time"""

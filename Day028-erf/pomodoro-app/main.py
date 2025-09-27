@@ -54,6 +54,7 @@ def update_timer():
             after_update_timer = window.after(1000, update_timer)
 
 def update_timer_for_5minute():
+    #TODO: use 'elapsed_reverse' here to count-down timer 
     global after_update_timer_5
     target_duration_s = 10 # must be 5 minute
     timer.elapsed_s = timer.elapsed(timer.start)

@@ -60,7 +60,7 @@ class PomodoroWindow(Tk):
     
     def _raw_time_str(self):
         """set a 00:00 string on tomato without any functionality on Canvas() object"""
-        self.layer_1.create_text(
+        self.time_str_id = self.layer_1.create_text(
             102,128,
             text="00:00",
             font=(FONT_NAME, 22, "bold"),

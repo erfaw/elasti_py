@@ -19,6 +19,13 @@ def send_notification(message):
 
 def reset_but_clicked():
     window.is_reset_clicked = True
+    window.layer_1.itemconfig(
+        window.time_str_id,
+        text = "00:00",
+    )
+    window.pomodoro_round = 0
+    window.is_reset_clicked = False
+    window.after_cancel(after_id)
 
 # def update_timer():
 #     global after_update_timer
@@ -81,22 +88,27 @@ def reset_but_clicked():
 #             after_update_timer_5 = window.after(1000, update_timer_for_5minute)
         
 def count_down(count):
+    global after_id
     window.layer_1.itemconfig(
         window.time_str_id,
         text = timer.format_time(count),
     )
-    if count > 0:
-        window.after(1000, count_down, count - 1)
+    if count > 0 :
+        after_id = window.after(1000, count_down, count - 1)
+    elif count == 0:
+        send_notification("You must take a short break! (5min)")
+        window.pomodoro_round += 1
+        window.label_for_ticks()
 
-after_update_timer = None
-after_update_timer_5 = None
+# after_update_timer = None
+# after_update_timer_5 = None
 def start_timer():
     # PREVIOUS WAY OF MINE MIND:
         # timer.start = timer.current()
         # # update_timer()
         # timer.start = timer.current()
         # # update_timer_for_5minute()
-    count_down(10)
+    count_down(25*60)
     sp.call('cls', shell=True)
 
 

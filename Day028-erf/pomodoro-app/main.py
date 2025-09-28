@@ -132,3 +132,10 @@ window.make_start_but(start_timer)
 window.make_reset_but(reset_but_clicked)
 
 window.mainloop()
+
+
+
+#TODO: loop baraye najam shodanesh ta 4 bar
+#TODO: add kardane 30min break ba notification
+#TODO: add kardane title task be ebtedaye barname
+#TODO: assign kardane 'golden-pomodoro' baraye anjam shdne yek doreye pomodoro be sorate kamel va porsidane mojadad baraye title task 

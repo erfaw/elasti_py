@@ -24,6 +24,10 @@ def reset_but_clicked():
         text = "00:00",
     )
     window.pomodoro_round = 0
+    window.label_tick.config(
+        text= window.pomodoro_round * check_mark_char
+    )
+    window.label_tick.grid(row=4, column=1)
     window.is_reset_clicked = False
     window.after_cancel(after_id)
 
@@ -95,10 +99,21 @@ def count_down(count):
     )
     if count > 0 :
         after_id = window.after(1000, count_down, count - 1)
-    elif count == 0:
-        send_notification("You must take a short break! (5min)")
+    elif count == 0 and not window.is_break_time:
+        # send_notification("You must take a short break! (5min)")
+        print("You must take a short break! (5min)")
         window.pomodoro_round += 1
+        window.is_break_time = True
         window.label_for_ticks()
+        window.after_cancel(after_id)
+        return True
+    elif count == 0 and window.is_break_time:
+        # send_notification("Your Break is DONE, get back to work!")
+        print("Your Break is DONE, get back to work!")
+        window.is_break_time = False
+        window.after_cancel(after_id)
+        return True
+
 
 # after_update_timer = None
 # after_update_timer_5 = None
@@ -108,8 +123,8 @@ def start_timer():
         # # update_timer()
         # timer.start = timer.current()
         # # update_timer_for_5minute()
-    count_down(25*60)
-    sp.call('cls', shell=True)
+    count_down(10) 
+
 
 
 

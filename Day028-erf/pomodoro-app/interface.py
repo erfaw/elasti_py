@@ -84,6 +84,7 @@ class PomodoroWindow(Tk):
             bg='white',
             borderwidth=1,
             font=("Arial", 8,"bold"),
+            highlightthickness= 0,
             command=start_timer
             )
         self.start_but.grid(row=2,column=0)
@@ -95,6 +96,7 @@ class PomodoroWindow(Tk):
             bg='white',
             borderwidth=1,
             font=("Arial", 8,"bold"),
+            highlightthickness= 0,
             command=reset_but_clicked,
             )
         self.reset_but.grid(row=2,column=2)

@@ -17,7 +17,7 @@ class TimeManager:
         """recieve an time object and calculate elapsed time based on time object and return integer elapsed time value -->int"""
         return int(time.time() - start_t)
 
-    #TODO: make elapsed_reverse functional to function right for count-down
+    #FAILEDTODO: make elapsed_reverse functional to function right for count-down
     # def elapsed_reverse(self, target):
     #     return int(
     #         target - time.time()

@@ -22,9 +22,9 @@ def reset_but_clicked():
 
 def update_timer():
     global after_update_timer
-    target_duration_s = 3 # 25 minute
+    target_duration_s = 25*60 # 25 minute
     # target_duration_s = 25*60 # 25 minute
-    break_time_s = 10 # 5 minute
+    # break_time_s = 10 # 5 minute
     # break_time_s = 5*60 # 5 minute
     timer.elapsed_s = timer.elapsed(timer.start)
     timer.formated_str = timer.format_time(timer.elapsed_s)
@@ -54,9 +54,9 @@ def update_timer():
             after_update_timer = window.after(1000, update_timer)
 
 def update_timer_for_5minute():
-    #TODO: use 'elapsed_reverse' here to count-down timer 
+    #ّFAILEDTODO: use 'elapsed_reverse' here to count-down timer 
     global after_update_timer_5
-    target_duration_s = 10 # must be 5 minute
+    target_duration_s = 5*60 # must be 5 minute
     timer.elapsed_s = timer.elapsed(timer.start)
     timer.formated_str = timer.format_time(timer.elapsed_s)
     window._tomato()
@@ -90,7 +90,6 @@ def start_timer():
     timer.start = timer.current()
     update_timer_for_5minute()
     sp.call('cls', shell=True)
-    print('we are here')
 
 
 

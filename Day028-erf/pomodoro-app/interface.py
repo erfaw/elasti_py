@@ -19,7 +19,7 @@ class PomodoroWindow(Tk):
         self.make_timer_label()
         self._raw_time_str()
         self.label_for_ticks()
-        self.note_for_break()
+        # self.note_for_break()
 
 
     def set_configuration_window(self):

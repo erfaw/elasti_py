@@ -10,6 +10,8 @@ class PomodoroWindow(Tk):
         super().__init__()
         self.is_reset_clicked = False
         self.pomodoro_round = 0
+        self.is_break_time = False
+
         self.set_configuration_window()
         self.make_container()
         self.tomato_png  = PhotoImage(file=tomato_png_file_path)
@@ -60,7 +62,7 @@ class PomodoroWindow(Tk):
     
     def _raw_time_str(self):
         """set a 00:00 string on tomato without any functionality on Canvas() object"""
-        self.layer_1.create_text(
+        self.time_str_id = self.layer_1.create_text(
             102,128,
             text="00:00",
             font=(FONT_NAME, 22, "bold"),

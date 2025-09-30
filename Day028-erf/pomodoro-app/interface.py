@@ -1,6 +1,7 @@
 from tkinter import *
 from CONSTANTS_variable import *
 import time
+from plyer import notification
 tomato_png_file_path = "./Day028-erf/pomodoro-app/tomato.png"
 check_mark_char = '✅'
 
@@ -129,3 +130,11 @@ class PomodoroWindow(Tk):
     def format_time(self, time_obj):
         """return %M:%S formated string of time recieved as arg"""
         return time.strftime("%M:%S", time.gmtime(time_obj))
+    
+    def notification(self, message):
+        """Send a notification to the user."""
+        notification.notify(
+            title="Pomodoro App",
+            message=message,
+            timeout=30  # Duration in seconds
+        )

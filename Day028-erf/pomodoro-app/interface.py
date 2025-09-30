@@ -2,7 +2,7 @@ from tkinter import *
 from CONSTANTS_variable import *
 import time
 from plyer import notification
-tomato_png_file_path = "./Day028-erf/pomodoro-app/tomato.png"
+tomato_png_file_path = "G:/myDocuments/Programming/Python/elasti_py/Day028-erf/pomodoro-app/tomato.png"
 check_mark_char = '✅'
 
 class PomodoroWindow(Tk):

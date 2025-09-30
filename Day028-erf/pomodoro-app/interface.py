@@ -1,5 +1,6 @@
 from tkinter import *
 from CONSTANTS_variable import *
+import time
 tomato_png_file_path = "./Day028-erf/pomodoro-app/tomato.png"
 check_mark_char = '✅'
 
@@ -124,3 +125,7 @@ class PomodoroWindow(Tk):
             font= (FONT_NAME, 10, "bold")
         )
         self.label_note_5min.grid(row=5,column=1)
+
+    def format_time(self, time_obj):
+        """return %M:%S formated string of time recieved as arg"""
+        return time.strftime("%M:%S", time.gmtime(time_obj))

@@ -10,10 +10,6 @@ class PomodoroWindow(Tk):
     def __init__(self):
         """makes a Tk window for 'Pomodoro-app' and initiate basics for it."""
         super().__init__()
-        self.is_reset_clicked = False
-        self.pomodoro_round = 0
-        self.is_break_time = False
-
         self.set_configuration_window()
         self.make_container()
         self.tomato_png  = PhotoImage(file=tomato_png_file_path)
@@ -22,7 +18,6 @@ class PomodoroWindow(Tk):
         self._raw_time_str()
         self.label_for_ticks()
         self.note_for_break()
-
 
     def set_configuration_window(self):
         """set title -Pomodoro App- and padding (x=100, y=50) and makes background color to YELLOW (from CONSTANT_variable.py)"""
@@ -110,7 +105,7 @@ class PomodoroWindow(Tk):
         self.label_for_space = Label(text='', bg=YELLOW,font=(FONT_NAME, 10))
         self.label_for_space.grid(row=3, column=1)
         self.label_tick = Label(
-            text= check_mark_char * self.pomodoro_round,
+            text= '',
             bg= YELLOW,
             fg= GREEN,
             font=(FONT_NAME, 20)

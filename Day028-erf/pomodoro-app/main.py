@@ -2,11 +2,9 @@ from tkinter import *
 import subprocess as sp; sp.call('cls', shell=True)
 from CONSTANTS_variable import *
 from interface import *
-from time_manager import TimeManager
 from plyer import notification
 
 window = PomodoroWindow()
-timer = TimeManager()
 def send_notification(message):
     """Send a notification to the user."""
     notification.notify(
@@ -37,7 +35,7 @@ def count_down(count):
     global after_id
     window.layer_1.itemconfig(
         window.time_str_id,
-        text = timer.format_time(count),
+        text = window.format_time(count),
     )
     if count > 0 :
         after_id = window.after(1000, count_down, count - 1)

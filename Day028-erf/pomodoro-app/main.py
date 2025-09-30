@@ -2,16 +2,8 @@ from tkinter import *
 import subprocess as sp; sp.call('cls', shell=True)
 from CONSTANTS_variable import *
 from interface import *
-from plyer import notification
 
 window = PomodoroWindow()
-def send_notification(message):
-    """Send a notification to the user."""
-    notification.notify(
-        title="Pomodoro App",
-        message=message,
-        timeout=30  # Duration in seconds
-    )
 
 def reset_but_clicked():
     global REPS
@@ -41,19 +33,19 @@ def count_down(count):
         after_id = window.after(1000, count_down, count - 1)
     else:
         if REPS%8 == 0:
-            send_notification(
+            window.notification(
                 "Long Break is Done, get back to start another one."
             )
         elif REPS%2 == 0 :
-            send_notification(
+            window.notification(
                 "Break is done, get back to work!"
             )
         elif REPS == 7:
-            send_notification(
+            window.notification(
                 "Gz! You fully completed one pomodoro round, take a long Break! Cya"
             )
         else:
-            send_notification("Time to Break!")
+            window.notification("Time to Break!")
         start_timer()
         window.label_tick.config(text= int(REPS/2) * check_mark_char )
 

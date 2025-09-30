@@ -7,17 +7,14 @@ window = PomodoroWindow()
 
 def reset_but_clicked():
     global REPS
-    window.is_reset_clicked = True
     window.layer_1.itemconfig(
         window.time_str_id,
         text = "00:00",
     )
-    window.pomodoro_round = 0
     window.label_tick.config(
-        text= window.pomodoro_round * check_mark_char
+        text= 0 * check_mark_char
     )
     window.label_1.config(text="Timer", fg= GREEN)
-    window.is_reset_clicked = False
     window.after_cancel(after_id)
     REPS = 0
     window.label_note_5min.config(fg=YELLOW)
@@ -60,8 +57,7 @@ def start_timer():
             window.label_note_5min.config(text="On Break!\nbe sharp for notification", fg=RED)
         elif REPS % 2 == 0:
             # count_down(SHORT_BREAK_MIN*60)
-            count_down(10)
-            window.pomodoro_round +=1        
+            count_down(10)        
             window.label_1.config(text="BREAK", fg=PINK)
             window.label_note_5min.config(text="On Break!\nbe sharp for notification", fg=RED)
         else:

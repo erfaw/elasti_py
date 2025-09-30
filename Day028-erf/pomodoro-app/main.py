@@ -51,9 +51,9 @@ def count_down(count):
                 "Break is done, get back to work!"
             )
         elif REPS == 7:
-                send_notification(
-                    "Gz! You fully completed one pomodoro round, take a long Break! Cya"
-                )
+            send_notification(
+                "Gz! You fully completed one pomodoro round, take a long Break! Cya"
+            )
         else:
             send_notification("Time to Break!")
         start_timer()

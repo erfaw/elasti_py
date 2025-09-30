@@ -19,7 +19,7 @@ class PomodoroWindow(Tk):
         self.make_timer_label()
         self._raw_time_str()
         self.label_for_ticks()
-        # self.note_for_break()
+        self.note_for_break()
 
 
     def set_configuration_window(self):
@@ -118,7 +118,7 @@ class PomodoroWindow(Tk):
     def note_for_break(self):
         """print a note for 5min break between periods"""
         self.label_note_5min = Label(
-            text= "ON BREAK!!!\nbe sharp for Notification",
+            text= "",
             bg= YELLOW,
             fg= YELLOW,
             font= (FONT_NAME, 10, "bold")

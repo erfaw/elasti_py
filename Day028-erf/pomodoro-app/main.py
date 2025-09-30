@@ -51,18 +51,15 @@ def start_timer():
     REPS += 1 # 7
     if REPS <= 8:
         if REPS % 8 == 0:
-            # count_down(LONG_BREAK_MIN*60)
-            count_down(10)
+            count_down(LONG_BREAK_MIN*60)
             window.label_1.config(text="L-BREAK", fg=RED)
             window.label_note_5min.config(text="On Break!\nbe sharp for notification", fg=RED)
         elif REPS % 2 == 0:
-            # count_down(SHORT_BREAK_MIN*60)
-            count_down(10)        
+            count_down(SHORT_BREAK_MIN*60)
             window.label_1.config(text="BREAK", fg=PINK)
             window.label_note_5min.config(text="On Break!\nbe sharp for notification", fg=RED)
         else:
-            # count_down(WORK_MIN*60)
-            count_down(10)
+            count_down(WORK_MIN*60)
             window.label_1.config(text="WORK", fg=GREEN)
             window.label_note_5min.config(fg=YELLOW)
 

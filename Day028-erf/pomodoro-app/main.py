@@ -12,11 +12,11 @@ def send_notification(message):
     notification.notify(
         title="Pomodoro App",
         message=message,
-        timeout=3  # Duration in seconds
-        # timeout=30  # Duration in seconds
+        timeout=30  # Duration in seconds
     )
 
 def reset_but_clicked():
+    global REPS
     window.is_reset_clicked = True
     window.layer_1.itemconfig(
         window.time_str_id,
@@ -27,11 +27,12 @@ def reset_but_clicked():
         text= window.pomodoro_round * check_mark_char
     )
     window.label_1.config(text="Timer", fg= GREEN)
-    # window.label_tick.grid(row=4, column=1)
     window.is_reset_clicked = False
     window.after_cancel(after_id)
+    REPS = 0
+    window.label_note_5min.config(fg=YELLOW)
 
-reps = 0  
+  
 def count_down(count):
     global after_id
     window.layer_1.itemconfig(
@@ -40,39 +41,51 @@ def count_down(count):
     )
     if count > 0 :
         after_id = window.after(1000, count_down, count - 1)
-    # elif count == 0 and not window.is_break_time:
-    #     # send_notification("You must take a short break! (5min)")
-    #     print("You must take a short break! (5min)")
-    #     window.pomodoro_round += 1
-    #     window.is_break_time = True
-    #     window.label_tick.config(text=check_mark_char * window.pomodoro_round)
-    #     window.label_tick.grid(row=4, column=1) 
-    #     window.after_cancel(after_id)
-    #     count_down(20)
-    # elif count == 0 and window.is_break_time:
-    #     # send_notification("Your Break is DONE, get back to work!")
-    #     print("Your Break is DONE, get back to work!")
-    #     window.is_break_time = False
-    #     window.after_cancel(after_id)
+    else:
+        if REPS%8 == 0:
+            send_notification(
+                "Long Break is Done, get back to start another one."
+            )
+        elif REPS%2 == 0 :
+            send_notification(
+                "Break is done, get back to work!"
+            )
+        elif REPS == 7:
+                send_notification(
+                    "Gz! You fully completed one pomodoro round, take a long Break! Cya"
+                )
+        else:
+            send_notification("Time to Break!")
+        start_timer()
+        window.label_tick.config(text= int(REPS/2) * check_mark_char )
 
 def start_timer():
-    global reps
-    window.label_tick.config(text= window.pomodoro_round * check_mark_char)
-    reps += 1
-    if reps % 8 == 0:
-        # count_down(LONG_BREAK_MIN*60)
-        count_down(20)
-        window.label_1.config(text="LONG BREAK", fg=RED)
-    elif reps % 2 == 0:
-        # count_down(SHORT_BREAK_MIN*60)
-        count_down(10)
-        window.pomodoro_round +=1        
-        window.label_1.config(text="BREAK", fg=PINK)
-    else:
-        # count_down(WORK_MIN*60)
-        count_down(5)
-        print(window.pomodoro_round)
-        window.label_1.config(text="WORK", fg=GREEN)
+    global REPS
+    REPS += 1 # 7
+    if REPS <= 8:
+        if REPS % 8 == 0:
+            # count_down(LONG_BREAK_MIN*60)
+            count_down(10)
+            window.label_1.config(text="L-BREAK", fg=RED)
+            window.label_note_5min.config(text="On Break!\nbe sharp for notification", fg=RED)
+        elif REPS % 2 == 0:
+            # count_down(SHORT_BREAK_MIN*60)
+            count_down(10)
+            window.pomodoro_round +=1        
+            window.label_1.config(text="BREAK", fg=PINK)
+            window.label_note_5min.config(text="On Break!\nbe sharp for notification", fg=RED)
+        else:
+            # count_down(WORK_MIN*60)
+            count_down(10)
+            window.label_1.config(text="WORK", fg=GREEN)
+            window.label_note_5min.config(fg=YELLOW)
+
+    else: 
+        window.label_note_5min.config(
+            text= "This is end of one pomodoro,\nstart another one",
+            fg= RED
+        )
+
         
 
 

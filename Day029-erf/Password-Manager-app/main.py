@@ -54,6 +54,7 @@ email_username_text.grid(row=2, column= 0)
 
 email_username_entry = Entry(width= 42, justify='left', font=FONTI)
 email_username_entry.grid(row=2, column= 1, columnspan= 2, pady=2)
+email_username_entry.insert(0, 'erfawn.h@gmail.com')
 
 password_text = Label(
     text='Password :',

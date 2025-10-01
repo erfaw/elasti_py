@@ -13,6 +13,7 @@ window.config(
     bg= "#454545"
 )
 window.resizable(False, False)
+FONTI = ('Calibri', 12, 'normal')
 
 canvas = Canvas(
     width = 200,
@@ -33,37 +34,41 @@ website_text = Label(
     text= 'Website: ',
     justify= 'right',
     bg= "#454545",
-    fg= 'white'
+    fg= 'white',
+    font=FONTI
 )
 website_text.grid(row=1, column=0)
 
-website_entry = Entry(width= 42, justify='left')
+website_entry = Entry(width= 42, justify='left', font=FONTI)
 website_entry.grid(row=1, column=1, columnspan= 2, pady=2)
+website_entry.focus()
 
 email_username_text = Label(
     text= 'Email/Username: ',
     justify= 'right',
     bg= "#454545",
-    fg= 'white'    
+    fg= 'white',
+    font=FONTI    
 )
 email_username_text.grid(row=2, column= 0)
 
-email_username_entry = Entry(width= 42, justify='left' )
+email_username_entry = Entry(width= 42, justify='left', font=FONTI)
 email_username_entry.grid(row=2, column= 1, columnspan= 2, pady=2)
 
 password_text = Label(
     text='Password :',
     justify= 'right',
     bg= "#454545",
-    fg= 'white'    
+    fg= 'white',
+    font=FONTI   
     )
 password_text.grid(row=3, column=0)
-password_entry = Entry(width=21+11, justify='left', bg="#D4483B")
+password_entry = Entry(width=21+11, justify='left', bg="#D4483B", font=FONTI)
 password_entry.grid(row=3, column= 1, padx=0, pady=2)
-generate_btn = Button(text='Generate', justify='left', highlightthickness= 0, bg= "#5c85d6" )
+generate_btn = Button(text='Generate', justify='left', highlightthickness= 0, bg= "#5c85d6", font=FONTI)
 generate_btn.grid(row=3, column=2, padx=0, pady=2)
 
-add_btn = Button(text='Add', width= 35, justify='left', bg= "#5c85d6")
+add_btn = Button(text='Add', width= 41, justify='left', bg= "#5c85d6", font=FONTI,)
 add_btn.grid(row=4, column=1, columnspan=2, pady=2)
 
 window.mainloop()

@@ -15,6 +15,19 @@ window.config(
 window.resizable(False, False)
 FONTI = ('Calibri', 12, 'normal')
 
+def save():
+    site = website_entry.get()
+    username_email = email_username_entry.get()
+    password = password_entry.get()
+    with open('./Day029-erf/Password-Manager-app/data.txt', mode='a') as file:
+        file.write(
+            # what would be append
+            f"{site} | {username_email} | {password}\n"
+        )
+    # clearing fields after write data on file
+    website_entry.delete(0,END)
+    password_entry.delete(0,END)
+
 canvas = Canvas(
     width = 200,
     height = 200,
@@ -69,7 +82,15 @@ password_entry.grid(row=3, column= 1, padx=0, pady=2)
 generate_btn = Button(text='Generate', justify='left', highlightthickness= 0, bg= "#5c85d6", font=FONTI)
 generate_btn.grid(row=3, column=2, padx=0, pady=2)
 
-add_btn = Button(text='Add', width= 41, justify='left', bg= "#5c85d6", font=FONTI,)
+add_btn = Button(text='Add', width= 41, justify='left', bg= "#5c85d6", font=FONTI, command= save)
 add_btn.grid(row=4, column=1, columnspan=2, pady=2)
 
 window.mainloop()
+
+
+#done: create function called save()
+#done: write to the data inside the entries to a 'data.txt' file when the add button is clicked.
+#done: each website, email, and password combination should be on a new line iside the file.
+#done: all fields need to be cleared after add button is pressed.
+#TODO: check if repeated value, dont added to file and show a popup to user
+#TODO: good to be a field at end to log the day of insertation

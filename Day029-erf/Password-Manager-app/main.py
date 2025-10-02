@@ -1,7 +1,19 @@
 from tkinter import *
 import subprocess as sp; sp.call('cls', shell= True)
 from tkinter import messagebox
+from random import shuffle, randint, choice
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '_', '-', '=', '{', '}']
+letters = ['a', 'A','b', 'B','c', 'C','d', 'D','e', 'E','f', 'F','g', 'G','h', 'H','i', 'I','j', 'J','k', 'K','l', 'L','m', 'M','n', 'N','o', 'O','p','P','q', 'Q','r', 'R','s', 'S','t', 'T','u', 'U','v', 'V','w', 'W','x', 'X','y', 'Y','z','Z']
+def generate_pass():
+    end_pass = []
+    end_pass += ([choice(letters) for x in range(randint(2,4))]) # random choice letters
+    end_pass += ([choice(symbols) for x in range(randint(2,4))]) # random choice symbols
+    end_pass += ([choice(numbers) for x in range(randint(8,10))]) # random choice numbers
+    shuffle(end_pass)
+    str_end_pass = ''.join(end_pass)
+    password_entry.insert(0, str_end_pass) # insert to entry password
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -90,7 +102,7 @@ password_text = Label(
 password_text.grid(row=3, column=0)
 password_entry = Entry(width=21+11, justify='left', bg="#D4483B", font=FONTI)
 password_entry.grid(row=3, column= 1, padx=0, pady=2)
-generate_btn = Button(text='Generate', justify='left', highlightthickness= 0, bg= "#5c85d6", font=FONTI)
+generate_btn = Button(text='Generate', justify='left', highlightthickness= 0, bg= "#5c85d6", font=FONTI, command=generate_pass)
 generate_btn.grid(row=3, column=2, padx=0, pady=2)
 
 add_btn = Button(text='Add', width= 41, justify='left', bg= "#5c85d6", font=FONTI, command= save)

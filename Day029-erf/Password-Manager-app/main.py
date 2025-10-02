@@ -21,13 +21,13 @@ def save():
     username_email = email_username_entry.get()
     password = password_entry.get()
 
-    is_ok = messagebox.askokcancel(
+    if len(site) == 0 or len(username_email) == 0 or len(password) == 0:
+        messagebox.showwarning('Oops!', "Please don't leave any fileds empty!", icon='warning')
+    elif messagebox.askokcancel(
         'Is it OK to save?',
         f'These are the details entered:\n\tSite: {site}\n\tPass: {password}\n\tEmail: {username_email}',
         icon='question',
-        )
-
-    if is_ok:
+        ):
         with open('./Day029-erf/Password-Manager-app/data.txt', mode='a') as file:
             file.write(
                 # what would be append
@@ -36,6 +36,8 @@ def save():
         # clearing fields after write data on file
         website_entry.delete(0,END)
         password_entry.delete(0,END)
+    else: 
+        pass
 
 canvas = Canvas(
     width = 200,

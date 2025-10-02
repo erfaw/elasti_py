@@ -1,5 +1,6 @@
 from tkinter import *
 import subprocess as sp; sp.call('cls', shell= True)
+from tkinter import messagebox
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
@@ -19,14 +20,22 @@ def save():
     site = website_entry.get()
     username_email = email_username_entry.get()
     password = password_entry.get()
-    with open('./Day029-erf/Password-Manager-app/data.txt', mode='a') as file:
-        file.write(
-            # what would be append
-            f"{site} | {username_email} | {password}\n"
+
+    is_ok = messagebox.askokcancel(
+        'Is it OK to save?',
+        f'These are the details entered:\n\tSite: {site}\n\tPass: {password}\n\tEmail: {username_email}',
+        icon='question',
         )
-    # clearing fields after write data on file
-    website_entry.delete(0,END)
-    password_entry.delete(0,END)
+
+    if is_ok:
+        with open('./Day029-erf/Password-Manager-app/data.txt', mode='a') as file:
+            file.write(
+                # what would be append
+                f"{site} | {username_email} | {password}\n"
+            )
+        # clearing fields after write data on file
+        website_entry.delete(0,END)
+        password_entry.delete(0,END)
 
 canvas = Canvas(
     width = 200,
@@ -94,3 +103,5 @@ window.mainloop()
 #done: all fields need to be cleared after add button is pressed.
 #TODO: check if repeated value, dont added to file and show a popup to user
 #TODO: good to be a field at end to log the day of insertation
+#TODO: good to be a popup to tell user 'your changes has been saved!' (mitonim image ro begirim va be ye raveshi hamin ro green knim, zamani ke Add-btn zade mishe on ro baraye masalan 3s green knim, bahal mishe)
+

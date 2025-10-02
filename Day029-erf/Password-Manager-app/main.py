@@ -2,6 +2,7 @@ from tkinter import *
 import subprocess as sp; sp.call('cls', shell= True)
 from tkinter import messagebox
 from random import shuffle, randint, choice
+import pyperclip
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '_', '-', '=', '{', '}']
@@ -14,6 +15,7 @@ def generate_pass():
     shuffle(end_pass)
     str_end_pass = ''.join(end_pass)
     password_entry.insert(0, str_end_pass) # insert to entry password
+    pyperclip.copy(str_end_pass) # copy generated password to clipboard
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -40,6 +42,9 @@ def save():
         f'These are the details entered:\n\tSite: {site}\n\tPass: {password}\n\tEmail: {username_email}',
         icon='question',
         ):
+        pyperclip.copy(
+            password
+        )
         with open('./Day029-erf/Password-Manager-app/data.txt', mode='a') as file:
             file.write(
                 # what would be append

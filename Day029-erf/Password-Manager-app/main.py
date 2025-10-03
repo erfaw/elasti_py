@@ -14,6 +14,7 @@ def generate_pass():
     end_pass += ([choice(numbers) for x in range(randint(8,10))]) # random choice numbers
     shuffle(end_pass)
     str_end_pass = ''.join(end_pass)
+    password_entry.delete(0, END)
     password_entry.insert(0, str_end_pass) # insert to entry password
     pyperclip.copy(str_end_pass) # copy generated password to clipboard
 

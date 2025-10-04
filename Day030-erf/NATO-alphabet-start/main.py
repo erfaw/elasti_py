@@ -13,7 +13,7 @@ def check_input():
         for letter in u_w:
             formated_dictionary_nato[letter.upper()]
     except KeyError:
-        print("sorry, input corr!!!#############X")
+        print("Sorry, only letters will be expected!")
         check_input()
     else:
         user_word = u_w

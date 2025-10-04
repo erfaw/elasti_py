@@ -3,6 +3,7 @@ import subprocess as sp; sp.call('cls', shell= True)
 from tkinter import messagebox
 from random import shuffle, randint, choice
 import pyperclip
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '_', '-', '=', '{', '}']
@@ -43,14 +44,22 @@ def save():
         f'These are the details entered:\n\tSite: {site}\n\tPass: {password}\n\tEmail: {username_email}',
         icon='question',
         ):
-        pyperclip.copy(
-            password
-        )
-        with open('./Day029-erf/Password-Manager-app/data.txt', mode='a') as file:
-            file.write(
-                # what would be append
-                f"{site} | {username_email} | {password}\n"
-            )
+
+        new_data = {
+            site: {
+                "email": username_email,
+                "password": password
+            }
+        }
+
+        pyperclip.copy(password)
+        with open('./Day030-erf/Password-Manager-app-improved/data.json', mode='r') as file:
+            data = json.load(file)
+            data.update(new_data) # ta inja file ro ba json jadid update karim
+
+        with open('./Day030-erf/Password-Manager-app-improved/data.json', mode='w') as file:        
+            json.dump(data, file, indent=4)
+
         # clearing fields after write data on file
         website_entry.delete(0,END)
         password_entry.delete(0,END)
@@ -63,7 +72,7 @@ canvas = Canvas(
     bg= "#454545",
     highlightthickness=0
 )
-bg_img = PhotoImage(file='./Day029-erf/Password-Manager-app/logo.png')
+bg_img = PhotoImage(file='./Day030-erf/Password-Manager-app-improved/logo.png')
 
 canvas.create_image(
      80, # middle of bg_img x

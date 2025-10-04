@@ -53,6 +53,16 @@ def save():
         }
 
         pyperclip.copy(password)
+        # dealnig with exception which json file doesnt exist
+        try: 
+            f= open('./Day030-erf/Password-Manager-app-improved/data.json', mode='r')
+        except FileNotFoundError:
+            with open('./Day030-erf/Password-Manager-app-improved/data.json', mode='w') as f:
+                json.dump({},f)
+        else: 
+            pass
+        finally: f.close()
+
         with open('./Day030-erf/Password-Manager-app-improved/data.json', mode='r') as file:
             data = json.load(file)
             data.update(new_data) # ta inja file ro ba json jadid update karim

@@ -68,10 +68,7 @@ def save():
             try:
                 data = json.load(file)
             except json.decoder.JSONDecodeError:
-                with open('./Day030-erf/Password-Manager-app-improved/data.json', mode='w') as f:
-                    json.dump({},f) 
-                data = json.load(file)
-            else: pass
+                data = {}
             data.update(new_data) # ta inja file ro ba json jadid update karim
 
         with open('./Day030-erf/Password-Manager-app-improved/data.json', mode='w') as file:        

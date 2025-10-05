@@ -86,7 +86,7 @@ def find_password():
     try:
         with open(JSON_FILE_PATH, mode='r') as json_file:
             data = json.load(json_file)
-    except FileNotFoundError:
+    except FileNotFoundError: # exception deal with 'data.json' exist or not if not: the user must add some data too make and fill it first
         messagebox.showinfo(
             title='Error!',
             message="No Data File Found!!",
@@ -94,7 +94,7 @@ def find_password():
     else:
         try:
             looking_data = data[site]
-        except KeyError:
+        except KeyError: # exception deal with situation which data.json file exist, but what user inputed doesnt exist in data json
             messagebox.showinfo(
                 title='Error!',
                 message=f"There is not any '{site}' in data.",

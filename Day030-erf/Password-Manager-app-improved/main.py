@@ -94,8 +94,6 @@ def find_password():
         message=f"Email:\t{looking_data['email']}\nPassword:\t{looking_data['password']}",
         detail= 'NOTICE: results copied to your clipboard.',
         )
-    
-
 
 canvas = Canvas(
     width = 200,
@@ -168,8 +166,8 @@ window.mainloop()
 #DONE: adjust the layout and the other widgets as needed to get the desired look.
 #DONE: create a function called fin_password() that gets triggered when the 'search' button is pressed.
 #DONE: check if the user's text entry matches an item in the 'data.json' file
+#DONE:  if yes, show a messagebox with te website's name and password.
 
-#TODO:  if yes, show a messagebox with te website's name and password.
 #TODO: catch an exception that might occur tring to access the 'data.json' showing a messagebox with the text: 'No Data File Found'
 #TODO: if the user's website does not exist inside the 'data.json', show a messagebox that reads "No details for the website exists"
 

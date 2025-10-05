@@ -80,6 +80,9 @@ def save():
     else: 
         pass
 
+def find_password():
+    pass
+
 canvas = Canvas(
     width = 200,
     height = 200,
@@ -104,9 +107,12 @@ website_text = Label(
 )
 website_text.grid(row=1, column=0)
 
-website_entry = Entry(width= 42, justify='left', font=FONTI)
-website_entry.grid(row=1, column=1, columnspan= 2, pady=2)
+website_entry = Entry(width= 32, justify='left', font=FONTI) #widt must change to like generate button
+website_entry.grid(row=1, column=1, columnspan= 1, pady=2)
 website_entry.focus()
+
+search_btn = Button(text='Search', justify='left', highlightthickness= 0, bg= "#5c85d6", font=FONTI, command=find_password, width=8)
+search_btn.grid(row=1, column=2, padx=0, pady=2)
 
 email_username_text = Label(
     text= 'Email/Username: ',

@@ -144,6 +144,15 @@ window.mainloop()
 #done: write to the data inside the entries to a 'data.txt' file when the add button is clicked.
 #done: each website, email, and password combination should be on a new line iside the file.
 #done: all fields need to be cleared after add button is pressed.
+
+#TODO: add a 'search' button next to the website entry field.
+#TODO: adjust the layout and the other widgets as needed to get the desired look.
+#TODO: create a function called fin_password() that gets triggered when the 'search' button is pressed.
+#TODO: check if the user's text entry matches an item in the 'data.json' file
+#TODO:  if yes, show a messagebox with te website's name and password.
+#TODO: catch an exception that might occur tring to access the 'data.json' showing a messagebox with the text: 'No Data File Found'
+#TODO: if the user's website does not exist inside the 'data.json', show a messagebox that reads "No details for the website exists"
+
 #TODO: check if repeated value, dont added to file and show a popup to user
 #TODO: good to be a field at end to log the day of insertation
 #TODO: good to be a popup to tell user 'your changes has been saved!' (mitonim image ro begirim va be ye raveshi hamin ro green knim, zamani ke Add-btn zade mishe on ro baraye masalan 3s green knim, bahal mishe)

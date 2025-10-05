@@ -83,25 +83,32 @@ def save():
 
 def find_password():
     site = website_entry.get()
-    with open(JSON_FILE_PATH, mode='r') as json_file:
-        data = json.load(json_file)
     try:
-        looking_data = data[site]
-    except KeyError:
+        with open(JSON_FILE_PATH, mode='r') as json_file:
+            data = json.load(json_file)
+    except FileNotFoundError:
         messagebox.showinfo(
             title='Error!',
-            message=f"There is not any '{site}' in data.",
-            detail= 'check input which you typed...',
+            message="No Data File Found!!",
             )
     else:
-        #copying results to clipboard
-        pyperclip.copy(f"Email:\t{looking_data['email']}\nPassword:\t{looking_data['password']}")
-        #make message box
-        messagebox.showinfo(
-            title=site,
-            message=f"Email:\t{looking_data['email']}\nPassword:\t{looking_data['password']}",
-            detail= 'NOTICE: results copied to your clipboard.',
-            )
+        try:
+            looking_data = data[site]
+        except KeyError:
+            messagebox.showinfo(
+                title='Error!',
+                message=f"There is not any '{site}' in data.",
+                detail= 'check input which you typed...',
+                )
+        else:
+            #copying results to clipboard
+            pyperclip.copy(f"Email:\t{looking_data['email']}\nPassword:\t{looking_data['password']}")
+            #make message box
+            messagebox.showinfo(
+                title=site,
+                message=f"Email:\t{looking_data['email']}\nPassword:\t{looking_data['password']}",
+                detail= 'NOTICE: results copied to your clipboard.',
+                )
 
 canvas = Canvas(
     width = 200,
@@ -175,8 +182,7 @@ window.mainloop()
 #DONE: create a function called fin_password() that gets triggered when the 'search' button is pressed.
 #DONE: check if the user's text entry matches an item in the 'data.json' file
 #DONE:  if yes, show a messagebox with te website's name and password.
-#TODO: catch an exception that might occur tring to access the 'data.json' showing a messagebox with the text: 'No Data File Found'
-
+#Done: catch an exception that might occur tring to access the 'data.json' showing a messagebox with the text: 'No Data File Found'
 #DONE: if the user's website does not exist inside the 'data.json', show a messagebox that reads "No details for the website exists"
 
 #TODO: check if repeated value, dont added to file and show a popup to user

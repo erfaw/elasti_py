@@ -4,6 +4,7 @@ from tkinter import messagebox
 from random import shuffle, randint, choice
 import pyperclip
 import json
+JSON_FILE_PATH = './Day030-erf/Password-Manager-app-improved/data.json'
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '_', '-', '=', '{', '}']
@@ -55,15 +56,15 @@ def save():
         pyperclip.copy(password)
     # dealnig with exception which json file doesnt exist
         try: 
-            f= open('./Day030-erf/Password-Manager-app-improved/data.json', mode='r')
+            f= open(JSON_FILE_PATH, mode='r')
         except FileNotFoundError:
-            with open('./Day030-erf/Password-Manager-app-improved/data.json', mode='w') as f:
+            with open(JSON_FILE_PATH, mode='w') as f:
                 json.dump({},f)
         else: 
             pass
         finally: f.close()
 
-        with open('./Day030-erf/Password-Manager-app-improved/data.json', mode='r') as file:
+        with open(JSON_FILE_PATH, mode='r') as file:
             #dealing with exception which json file is empty and json.load() raise json.decoder.JSONDecodeError for this emptiness
             try:
                 data = json.load(file)
@@ -71,7 +72,7 @@ def save():
                 data = {}
             data.update(new_data) # ta inja file ro ba json jadid update karim
 
-        with open('./Day030-erf/Password-Manager-app-improved/data.json', mode='w') as file:        
+        with open(JSON_FILE_PATH, mode='w') as file:        
             json.dump(data, file, indent=4)
 
         # clearing fields after write data on file
@@ -81,7 +82,11 @@ def save():
         pass
 
 def find_password():
+    # site = website_entry.get()
+
+    # with open(JSON_FILE_PATH, mode='r') as json:
     pass
+
 
 canvas = Canvas(
     width = 200,

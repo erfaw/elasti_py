@@ -188,4 +188,5 @@ window.mainloop()
 #TODO: check if repeated value, dont added to file and show a popup to user
 #TODO: good to be a field at end to log the day of insertation
 #TODO: good to be a popup to tell user 'your changes has been saved!' (mitonim image ro begirim va be ye raveshi hamin ro green knim, zamani ke Add-btn zade mishe on ro baraye masalan 3s green knim, bahal mishe)
-
+#TODO: catch exception: when user search for empty value: make a new exception for it
+#TODO: 

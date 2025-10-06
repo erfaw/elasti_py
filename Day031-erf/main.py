@@ -1,2 +1,5 @@
-BACKGROUND_COLOR = "#B1DDC6"
+from interface import FlashyWindow
+#TODO: make UI
+window = FlashyWindow()
 
+window.mainloop()

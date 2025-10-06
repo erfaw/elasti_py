@@ -1,5 +1,5 @@
 from interface import FlashyWindow
-#TODO: make UI
+#DONE: make UI
 window = FlashyWindow()
 
 window.mainloop()

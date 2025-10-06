@@ -37,7 +37,7 @@ class FlashyWindow(Tk):
         self.word_str = self.canvas.create_text(
             400,
             263,
-            text='MothaFucka',
+            text='Angel',
             font= ('Arial', 60, 'bold'),
         )
 

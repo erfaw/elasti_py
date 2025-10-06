@@ -4,7 +4,8 @@ class FlashyWindow(Tk):
         super().__init__()
         self.BACKGROUND_COLOR = "#B1DDC6"
         self.FONTI = ("Ariel", 40, "italic")
-        self.card_img = PhotoImage(file="./Day031-erf/images/card_front.png")
+        self.card_front_img = PhotoImage(file="./Day031-erf/images/card_front.png")
+        self.card_back_img = PhotoImage(file="./Day031-erf/images/card_back.png")
         self.right_img = PhotoImage(file="./Day031-erf/images/right.png")
         self.wrong_img = PhotoImage(file="./Day031-erf/images/wrong.png")
         self.make_root_window()
@@ -24,7 +25,7 @@ class FlashyWindow(Tk):
         
     def make_card_canvas(self):
         self.canvas = Canvas(width=800, height=526, highlightthickness=0, bg=self.BACKGROUND_COLOR)
-        self.canvas.create_image(400, 262, image= self.card_img)
+        self.canvas.create_image(400, 262, image= self.card_front_img)
         self.canvas.grid(row=0, column=0, columnspan=2)
 
     def make_right_btn(self):

@@ -1,6 +1,7 @@
 from tkinter import *
 class FlashyWindow(Tk):
     def __init__(self):
+        """make a Tk() class for root window of Flashy app"""
         super().__init__()
         self.BACKGROUND_COLOR = "#B1DDC6"
         self.FONTI = ("Ariel", 40, "italic")

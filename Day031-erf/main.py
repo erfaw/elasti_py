@@ -14,12 +14,14 @@ def show_flip():
     # change title_str done
     window.canvas.itemconfig(
         window.title_str,
-        text= 'Persian'
+        text= 'Persian',
+        fill= 'white'
     )
     # change word_str to persian 
     window.canvas.itemconfig(
         window.word_str,
-        text= cards.show_card['Persian']
+        text= cards.show_card['Persian'],
+        fill= 'white'
     )
 
 def push_right_btn():
@@ -30,11 +32,13 @@ def push_right_btn():
     )
     window.canvas.itemconfig(
         window.title_str,
-        text = 'English'
+        text = 'English',
+        fill= 'black'
     )
     window.canvas.itemconfig(
         window.word_str,
-        text = cards.show_card['English'].title()
+        text = cards.show_card['English'].title(),
+        fill= 'black'
     )
     window.after(3000, show_flip)
 

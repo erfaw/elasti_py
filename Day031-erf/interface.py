@@ -27,7 +27,7 @@ class FlashyWindow(Tk):
         
     def make_card_canvas(self):
         self.canvas = Canvas(width=800, height=526, highlightthickness=0, bg=self.BACKGROUND_COLOR)
-        self.canvas.create_image(400, 262, image= self.card_front_img)
+        self.card_bg = self.canvas.create_image(400, 262, image= self.card_front_img)
 
         self.title_str = self.canvas.create_text(
             400,

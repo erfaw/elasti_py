@@ -28,7 +28,7 @@ def click_right_btn():
     #when user clicl on 'right_btn' that word must deleted from cards.data to dont showup again 
 
     #here we must delete whats on 'cards.show_card' from db
-    
+    cards.delete_record(cards.show_card)
 
     cards.show_card = cards.random_choice()
     window.canvas.itemconfig(

@@ -24,7 +24,12 @@ def show_flip():
         fill= 'white'
     )
 
-def push_right_btn():
+def click_right_btn():
+    #when user clicl on 'right_btn' that word must deleted from cards.data to dont showup again 
+
+    #here we must delete whats on 'cards.show_card' from db
+    
+
     cards.show_card = cards.random_choice()
     window.canvas.itemconfig(
         window.card_bg,
@@ -42,8 +47,26 @@ def push_right_btn():
     )
     window.after(3000, show_flip)
 
-window.right_btn.config(command=push_right_btn)
-window.wrong_btn.config(command=push_right_btn)
+def click_wrong_btn():
+    # when user press 'wrong_btn' we havent to do anything 
+    cards.show_card = cards.random_choice()
+    window.canvas.itemconfig(
+        window.card_bg,
+        image= window.card_front_img
+    )
+    window.canvas.itemconfig(
+        window.title_str,
+        text = 'English',
+        fill= 'black'
+    )
+    window.canvas.itemconfig(
+        window.word_str,
+        text = cards.show_card['English'].title(),
+        fill= 'black'
+    )
+    window.after(3000, show_flip)
 
+window.right_btn.config(command=click_right_btn)
+window.wrong_btn.config(command=click_wrong_btn)
 
 window.mainloop()

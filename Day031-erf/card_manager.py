@@ -3,6 +3,7 @@ from random import choice
 class CardManager():
     def __init__(self):
         self.data = self.load_csv_file()
+        self.show_card = None
 
     def load_csv_file(self):
         return pd.read_csv("./Day031-erf/data/1k_En_Per.csv").to_dict(orient='records')

@@ -4,7 +4,7 @@ class FlashyWindow(Tk):
         """make a Tk() class for root window of Flashy app"""
         super().__init__()
         self.BACKGROUND_COLOR = "#B1DDC6"
-        self.FONTI = ("Ariel", 40, "italic")
+        # self.FONTI = ("Ariel", 40, "italic")
         self.card_front_img = PhotoImage(file="./Day031-erf/images/card_front.png")
         self.card_back_img = PhotoImage(file="./Day031-erf/images/card_back.png")
         self.right_img = PhotoImage(file="./Day031-erf/images/right.png")
@@ -32,13 +32,13 @@ class FlashyWindow(Tk):
         self.title_str = self.canvas.create_text(
             400,
             150,
-            text= 'English',
+            text= 'Title',
             font= ('Arial', 40, 'italic'),
         )
         self.word_str = self.canvas.create_text(
             400,
             263,
-            text='Angel',
+            text='Word',
             font= ('Arial', 60, 'bold'),
         )
 

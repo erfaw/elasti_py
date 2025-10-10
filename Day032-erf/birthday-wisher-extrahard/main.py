@@ -5,30 +5,28 @@ import datetime as dt
 from random import randint
 from mail_sender import GmailSender
 #DONE: Update the birthdays.csv
-
 #DONE: Check if today matches a birthday in the birthdays.csv
 data = pd.read_csv("./Day032-erf/birthday-wisher-extrahard/birthdays.csv")
 now = dt.datetime.now()
 birthday_matched = data[(data.month == now.month) & (data.day == now.day)]
 
 #DONE: If step 2 is true, pick a random letter from letter templates and replace the [NAME] with the person's actual name from birthdays.csv
+for (index, row) in birthday_matched.iterrows():
+    #pick a random letter
+    with open(f'./Day032-erf/birthday-wisher-extrahard/letter_templates/letter_{randint(1,3)}.txt') as file:
+        letter_str = file.read()
+    #replace [NAME]
+    letter_str = letter_str.replace('[NAME]', row['name'].capitalize())
 
-# pick a random letter
-with open(f'./Day032-erf/birthday-wisher-extrahard/letter_templates/letter_{randint(1,3)}.txt') as file:
-    letter_str = file.read()
-
-#replace [NAME]
-letter_str = letter_str.replace('[NAME]', birthday_matched['name'].to_string(index=False).capitalize())
-
-#DONE: Send the letter generated in step 3 to that person's email address.
-mail = GmailSender()
-mail.send(
-    'erfawn.h@gmail.com',
-    'givl ankx ezxx dxih',
-    birthday_matched.email.to_string(index= False),
-    'Happy Birthday!!!',
-    letter_str
-)
-
+    #DONE: Send the letter generated in step 3 to that person's email address.
+    mail = GmailSender()
+    mail.send(
+        'erfawn.h@gmail.com',
+        'givl ankx ezxx dxih',
+        row.email,
+        'Happy Birthday!!!',
+        letter_str
+    )
+#DONE: make a for loop to do the procedure for all of birthday matched (if existed) and was more than 1 record
 
 

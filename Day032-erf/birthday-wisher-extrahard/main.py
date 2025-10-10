@@ -9,7 +9,7 @@ from mail_sender import GmailSender
 data = pd.read_csv("./Day032-erf/birthday-wisher-extrahard/birthdays.csv")
 now = dt.datetime.now()
 birthday_matched = data[(data.month == now.month) & (data.day == now.day)]
-
+#DONE: make a for loop to do the procedure for all of birthday matched (if existed) and was more than 1 record
 #DONE: If step 2 is true, pick a random letter from letter templates and replace the [NAME] with the person's actual name from birthdays.csv
 for (index, row) in birthday_matched.iterrows():
     #pick a random letter
@@ -27,6 +27,6 @@ for (index, row) in birthday_matched.iterrows():
         'Happy Birthday!!!',
         letter_str
     )
-#DONE: make a for loop to do the procedure for all of birthday matched (if existed) and was more than 1 record
+
 
 

@@ -20,7 +20,7 @@ with open(f'./Day032-erf/birthday-wisher-extrahard/letter_templates/letter_{rand
 #replace [NAME]
 letter_str = letter_str.replace('[NAME]', birthday_matched['name'].to_string(index=False).capitalize())
 
-#TODO: Send the letter generated in step 3 to that person's email address.
+#DONE: Send the letter generated in step 3 to that person's email address.
 mail = GmailSender()
 mail.send(
     'erfawn.h@gmail.com',

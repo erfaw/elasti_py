@@ -1,9 +1,19 @@
+import subprocess as sp; sp.call('cls',shell=True)
 from tkinter import *
-
-
+import requests
+# URL = 'https://zenquotes.io/api/random'
+# URL = 'https://api.kanye.rest/' #this is main but filtered in iran network so...
+# URL = 'https://random-quotes-freeapi.vercel.app/api/random'
+URL = 'https://dummyjson.com/quotes/random'
 def get_quote():
-    pass
-    #Write your code here.
+    response = requests.get(URL)
+    response.raise_for_status()
+    curren_quote = response.json()['quote']
+    response.close()
+    canvas.itemconfig(
+        quote_text,
+        text= curren_quote
+        )
 
 
 

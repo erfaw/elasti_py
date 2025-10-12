@@ -1,13 +1,16 @@
 import subprocess as sp; sp.call('cls', shell=True)
 import requests
 from datetime import datetime
-# catch data from ISS coordinate from api
-res_iss = requests.get("http://api.open-notify.org/iss-now.json")
-res_iss.raise_for_status()
-data = res_iss.json()
+from iss_track import ISS_Track
 
-iss_latitude = float(data["iss_position"]["latitude"])
-iss_longitude = float(data["iss_position"]["longitude"])
+iss = ISS_Track()
+# catch data from ISS coordinate from api
+# res_iss = requests.get("http://api.open-notify.org/iss-now.json")
+# res_iss.raise_for_status()
+# data = res_iss.json()
+# iss_latitude = float(data["iss_position"]["latitude"])
+# iss_longitude = float(data["iss_position"]["longitude"])
+
 
 URL = 'https://api.sunrise-sunset.org/json'
 ARAK_LATITUDE = 34.092229

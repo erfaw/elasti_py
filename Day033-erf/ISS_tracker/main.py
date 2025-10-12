@@ -34,7 +34,7 @@ print(f"sunset hour is ===> {sunset_hour}")
 
 current_hour = datetime.now().hour
 print(f"current hour is ===> {current_hour}")
-print(f"ISS now coordinate is (lat,lng) ===> {iss_latitude} , {iss_longitude}")
+# print(f"ISS now coordinate is (lat,lng) ===> {iss_latitude} , {iss_longitude}")
 
 
 # ---- TODOS ---- #

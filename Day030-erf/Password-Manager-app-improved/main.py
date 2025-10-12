@@ -185,8 +185,8 @@ window.mainloop()
 #Done: catch an exception that might occur tring to access the 'data.json' showing a messagebox with the text: 'No Data File Found'
 #DONE: if the user's website does not exist inside the 'data.json', show a messagebox that reads "No details for the website exists"
 
+#TODO: adding hint mechanism to game, if player had 3 guess right continously, they could use 1 HINT POINT to release one of states freely
 #TODO: check if repeated value, dont added to file and show a popup to user
 #TODO: good to be a field at end to log the day of insertation
 #TODO: good to be a popup to tell user 'your changes has been saved!' (mitonim image ro begirim va be ye raveshi hamin ro green knim, zamani ke Add-btn zade mishe on ro baraye masalan 3s green knim, bahal mishe)
-#TODO: catch exception: when user search for empty value: make a new exception for it
-#TODO: 
+#TODO: catch exception: when user search for empty value: make a new exception for it 

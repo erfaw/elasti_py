@@ -24,14 +24,14 @@ response = requests.get(url=URL, params=PARAMETERS)
 response.raise_for_status()
 data = response.json()
 # parse to catch 24h formated hour
-sunrise_hour = data['results']['sunrise'].split('T')[1].split(':')[0]
-sunset_hour = data['results']['sunset'].split('T')[1].split(':')[0]
+sunrise_hour = int(data['results']['sunrise'].split('T')[1].split(':')[0])
+sunset_hour = int(data['results']['sunset'].split('T')[1].split(':')[0])
 print(f"sunrise hour is ===> {sunrise_hour}")
 print(f"sunset hour is ===> {sunset_hour}")
 
 current_hour = datetime.now().hour
 print(f"current hour is ===> {current_hour}")
-print(f"ISS now coordinate is (lat,lng) ===> {ISS_coordinate}")
+print(f"ISS now coordinate is (lat,lng) ===> {iss_latitude} , {iss_longitude}")
 
 
 # ---- TODOS ---- #

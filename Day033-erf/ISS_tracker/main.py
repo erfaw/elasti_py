@@ -4,12 +4,7 @@ from datetime import datetime
 from iss_track import ISS_Track
 
 iss = ISS_Track()
-# catch data from ISS coordinate from api
-# res_iss = requests.get("http://api.open-notify.org/iss-now.json")
-# res_iss.raise_for_status()
-# data = res_iss.json()
-# iss_latitude = float(data["iss_position"]["latitude"])
-# iss_longitude = float(data["iss_position"]["longitude"])
+iss.get_cor()
 
 
 URL = 'https://api.sunrise-sunset.org/json'
@@ -34,7 +29,7 @@ print(f"sunset hour is ===> {sunset_hour}")
 
 current_hour = datetime.now().hour
 print(f"current hour is ===> {current_hour}")
-# print(f"ISS now coordinate is (lat,lng) ===> {iss_latitude} , {iss_longitude}")
+print(f"ISS now coordinate is (lat,lng) ===> {iss.latitude} , {iss.longitude}")
 
 
 # ---- TODOS ---- #

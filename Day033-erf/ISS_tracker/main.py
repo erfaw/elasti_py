@@ -11,10 +11,10 @@ sun = SunSituation()
 sun.get_situation()
 sun.fill_hour_atts()
 
+current_hour = datetime.now().hour
+
 print(f"sunrise hour is ===> {sun.sunrise_hour}")
 print(f"sunset hour is ===> {sun.sunset_hour}")
-
-current_hour = datetime.now().hour
 print(f"current hour is ===> {current_hour}")
 print(f"ISS now coordinate is (lat,lng) ===> {iss.latitude} , {iss.longitude}")
 

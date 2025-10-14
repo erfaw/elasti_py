@@ -19,8 +19,7 @@ print(f"sunrise hour is ===> {sun.sunrise_hour}")
 print(f"sunset hour is ===> {sun.sunset_hour}")
 print(f"current hour is ===> {current_hour}")
 print(f"ISS now coordinate is (lat,lng) ===> {iss.latitude} , {iss.longitude}")
-
-
+print(f"is ISS close to me? ==> {iss.is_it_close(lat= ARAK_LATITUDE, lng= ARAK_LONGITUDE)}")
 
 # ---- TODOS ---- #
 #DONE: catch the data from api related to sunrise and sunset of arak
@@ -29,7 +28,7 @@ print(f"ISS now coordinate is (lat,lng) ===> {iss.latitude} , {iss.longitude}")
 #DONE: added ISS_coordinate codes here, and print it
 #DONE: OOP all of ISS and Sun
 
-#TODO: catch the moment which ISS is close to my current location (-5 +5)
+#DONE: catch the moment which ISS is close to my current location (-5 +5)
 #TODO: check if is it currently dark or not (it must be after sunset and before sunrise)
 #TODO: if was: send an email to tell me look up
 #TODO: RUN the code every 60s

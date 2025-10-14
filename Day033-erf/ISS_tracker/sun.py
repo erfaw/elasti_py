@@ -5,15 +5,13 @@ class SunSituation:
         self.sunrise_hour = None
         self.sunset_hour = None
 
-    def get_situation(self):
+    def get_situation(self, lat, lng):
         """request to api and get and fill self.data"""
         URL = 'https://api.sunrise-sunset.org/json'
-        ARAK_LATITUDE = 34.092229
-        ARAK_LONGITUDE = 49.721958
         TIME_ZONE = 'Asia/Tehran'
         PARAMETERS = { # For arak
-            'lat': ARAK_LATITUDE,
-            'lng': ARAK_LONGITUDE,
+            'lat': lat,
+            'lng': lng,
             'tzid': TIME_ZONE,
             'formatted': 0
         }  

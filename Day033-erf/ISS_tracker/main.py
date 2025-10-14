@@ -63,4 +63,4 @@ main()
 #DONE: catch the moment which ISS is close to my current location (-5 +5)
 #DONE: check if is it currently dark or not (it must be after sunset and before sunrise)
 #DONE: if was: send an email to tell me look up
-#TODO: RUN the code every
+#DONE: RUN the code every 60s

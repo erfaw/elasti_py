@@ -11,4 +11,12 @@ class ISS_Track:
         data = res_iss.json()
         self.latitude = float(data["iss_position"]["latitude"])
         self.longitude = float(data["iss_position"]["longitude"])   
+
+    def is_it_close(self, lat, lng):
+        """return True, if ISS coordinate was around our coordinate"""
+        if lat-5 <= self.latitude <= lat+5 and lng-5 <= self.longitude <= lng+5: 
+            return True
+        else: 
+            return False
+
         

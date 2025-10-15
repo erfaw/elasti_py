@@ -1,9 +1,13 @@
 THEME_COLOR = "#375362"
 from tkinter import *
+from quiz_brain import QuizBrain
+
 class QuizInterface:
-    def __init__(self):
+    def __init__(self, quiz_brain: QuizBrain):
         """make a Tkinter UI for the Quizzler app."""
         self.window = Tk()
+
+        self.quiz = quiz_brain
         self.window.title("Quizzler")
         self.window.config(
             bg= THEME_COLOR,
@@ -11,11 +15,7 @@ class QuizInterface:
             pady=20
         )
         self.score_label()
-
         self.question_canvas()
-
-        # self.empty_label()
-        
         self.true_btn()
         self.false_btn()
 

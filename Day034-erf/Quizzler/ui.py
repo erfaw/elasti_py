@@ -14,7 +14,7 @@ class QuizInterface:
 
         self.question_canvas()
 
-        self.empty_label()
+        # self.empty_label()
         
         self.true_btn()
         self.false_btn()
@@ -23,7 +23,7 @@ class QuizInterface:
 
     def score_label(self):
         self.label_score = Label(
-            text= 'Score:\n',
+            text= 'Score:',
             bg= THEME_COLOR,
             fg= 'white',
             font= ("Arial", 16, "bold")
@@ -38,7 +38,7 @@ class QuizInterface:
             font= ("Arial", 20, "italic"),
             fill= THEME_COLOR,
             )
-        self.canvas_question.grid(row=1, column=0, columnspan=2)
+        self.canvas_question.grid(row=1, column=0, columnspan=2, pady=50)
 
     def empty_label(self,):
         self.label_empty = Label(text='', bg= THEME_COLOR)

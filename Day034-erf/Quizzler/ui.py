@@ -75,6 +75,7 @@ class QuizInterface:
         self.feedback(self.quiz.check_answer())
 
     def feedback(self, is_answer_right):
+        self.window.after(1000, self.update_question)
         if is_answer_right:
             #we must bg= green and give it a 1000ms sleep 
             self.canvas_question.config(bg= 'green')
@@ -85,3 +86,11 @@ class QuizInterface:
 
     def update_score(self):
         self.label_score.config(text= f"Score: {self.quiz.score}")
+
+    def update_question(self):
+        self.canvas_question.config(bg='white')
+        self.canvas_question.itemconfig(
+            self.question_str,
+            text= self.quiz.next_question(),
+            fill= THEME_COLOR
+        )

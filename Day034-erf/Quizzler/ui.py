@@ -32,7 +32,7 @@ class QuizInterface:
 
     def question_canvas(self):
         self.canvas_question = Canvas(width=300, height= 250)
-        self.canvas_question.create_text(
+        self.question_str = self.canvas_question.create_text(
             150,125,
             # text='something to ask',
             text=self.quiz.next_question(),
@@ -67,9 +67,17 @@ class QuizInterface:
 
     def true_btn_clicked(self):
         self.quiz.user_answer = "True"
-        self.quiz.check_answer()
+        self.feedback(self.quiz.check_answer())
 
 
     def false_btn_clicked(self) -> bool:
         self.quiz.user_answer = "False"
-        self.quiz.check_answer()
+        self.feedback(self.quiz.check_answer())
+
+    def feedback(self, is_answer_right):
+        if is_answer_right:
+            #we must bg= green and give it a 1000ms sleep 
+            self.canvas_question.config(bg= 'green')
+            self.canvas_question.itemconfig(self.question_str, fill= 'white')
+        else: 
+            self.canvas_question.config(bg= 'red')

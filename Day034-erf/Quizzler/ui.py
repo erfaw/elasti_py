@@ -1,6 +1,7 @@
 THEME_COLOR = "#375362"
 from tkinter import *
 from quiz_brain import QuizBrain
+import html
 
 class QuizInterface:
     def __init__(self, quiz_brain: QuizBrain):
@@ -35,7 +36,7 @@ class QuizInterface:
         self.question_str = self.canvas_question.create_text(
             150,125,
             # text='something to ask',
-            text=self.quiz.next_question(),
+            text=self.next_question(),
             font= ("Arial", 20, "italic"),
             fill= THEME_COLOR,
             width= 290
@@ -91,6 +92,17 @@ class QuizInterface:
         self.canvas_question.config(bg='white')
         self.canvas_question.itemconfig(
             self.question_str,
-            text= self.quiz.next_question(),
+            text= self.next_question(),
             fill= THEME_COLOR
         )
+
+    def next_question(self):
+        self.canvas_question.config(bg='white')
+        if self.quiz.still_has_questions():
+            self.quiz.current_question = self.quiz.question_list[self.quiz.question_number]
+            self.quiz.question_number += 1
+            return f"Q.{self.quiz.question_number}: {html.unescape(self.quiz.current_question.text)}"
+        else:
+            self.btn_false.config(state='disabled')
+            self.btn_true.config(state='disabled')
+            return f"You reached the end of Quiz. gz"

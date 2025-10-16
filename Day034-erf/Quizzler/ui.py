@@ -23,7 +23,7 @@ class QuizInterface:
 
     def score_label(self):
         self.label_score = Label(
-            text= 'Score:',
+            text= 'Score: 00',
             bg= THEME_COLOR,
             fg= 'white',
             font= ("Arial", 16, "bold")
@@ -79,5 +79,9 @@ class QuizInterface:
             #we must bg= green and give it a 1000ms sleep 
             self.canvas_question.config(bg= 'green')
             self.canvas_question.itemconfig(self.question_str, fill= 'white')
+            self.update_score()
         else: 
             self.canvas_question.config(bg= 'red')
+
+    def update_score(self):
+        self.label_score.config(text= f"Score: {self.quiz.score}")

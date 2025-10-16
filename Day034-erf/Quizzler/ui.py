@@ -1,11 +1,13 @@
 THEME_COLOR = "#375362"
 from tkinter import *
+from tkinter import messagebox
 from quiz_brain import QuizBrain
 import html
 
 class QuizInterface:
     def __init__(self, quiz_brain: QuizBrain):
         """make a Tkinter UI for the Quizzler app."""
+        self.want_restart: bool
         self.window = Tk()
 
         self.quiz = quiz_brain
@@ -105,4 +107,10 @@ class QuizInterface:
         else:
             self.btn_false.config(state='disabled')
             self.btn_true.config(state='disabled')
+            # self.ask_repeat = messagebox.askretrycancel(
+            #     title= "retry?...",
+            #     message= "if you want to try again for another 10 question, hit 'Retry'",
+            #     icon='question',
+            # )
+            #TODO: add a 'reset()' method for UI and QuizBrain, then call it here to reset all components and get new data
             return f"You reached the end of Quiz. gz"

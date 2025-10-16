@@ -34,9 +34,11 @@ class QuizInterface:
         self.canvas_question = Canvas(width=300, height= 250)
         self.canvas_question.create_text(
             150,125,
-            text='something to ask',
+            # text='something to ask',
+            text=self.quiz.next_question(),
             font= ("Arial", 20, "italic"),
             fill= THEME_COLOR,
+            width= 290
             )
         self.canvas_question.grid(row=1, column=0, columnspan=2, pady=50)
 

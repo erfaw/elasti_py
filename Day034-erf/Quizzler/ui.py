@@ -51,7 +51,7 @@ class QuizInterface:
         self.btn_true = Button(
             image= self.true_img,
             highlightthickness= 0,
-            
+            command= self.true_btn_clicked,
             )
         
         self.btn_true.grid(row=3, column=0)
@@ -60,6 +60,16 @@ class QuizInterface:
         self.btn_false = Button(
             image= self.false_img,
             highlightthickness= 0,
+            command= self.false_btn_clicked,
             )
         
         self.btn_false.grid(row=3, column=1)
+
+    def true_btn_clicked(self):
+        self.quiz.user_answer = "True"
+        self.quiz.check_answer()
+
+
+    def false_btn_clicked(self) -> bool:
+        self.quiz.user_answer = "False"
+        self.quiz.check_answer()

@@ -1,4 +1,5 @@
 import requests, json
+import datetime
 class StockPrice:
     def __init__(self, stock_name: str, company_name: str, api_key):
         """geting daily stock price data from 'alphavantage' site"""
@@ -39,5 +40,10 @@ class StockPrice:
     
     def last_date_exist(self):
         """returns the last date of data that exist in 'self.daily_candles_data'"""
-        return next(iter(self.daily_candles_data["Time Series (Daily)"].keys()))
+        string = next(iter(self.daily_candles_data["Time Series (Daily)"].keys()))
+        list_1 = string.split('-')
+        year = int(list_1[0])
+        month = int(list_1[1])
+        day = int(list_1[2])
+        return datetime.date(year, month, day)
             

@@ -8,6 +8,8 @@ class StockPrice:
             "symbol": stock_name,
             "apikey": api_key,
         }
+        self.stock_name = stock_name
+        self.company_name = company_name
         self.daily_candles_data:json = None
         self.last_date_of_data = None
 

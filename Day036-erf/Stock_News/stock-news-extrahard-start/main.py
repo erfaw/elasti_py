@@ -6,6 +6,7 @@ import json
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 ALPHAVANTAGE_API_KEY = os.environ.get("alphavantage_key")
+NEWS_API_KEY = os.environ.get("news_api_key")
 
 ## STEP 1: Use https://www.alphavantage.co
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -41,49 +42,14 @@ close_price_2days_ago = return_close_price(yesterday_of_yesterday_date)
 
 #CALCULATE PERCENTAGE OF DIFFRENCE
 diff_percentage = 100 * (close_price_yesterday/close_price_2days_ago) - 100
-print(f"{diff_percentage:.2f}")
 
-
-# print(f"date of current day: {current_date}\n\tdata==> {daily_candles_data['Time Series (Daily)'][str(current_date)]}\ndate of yesterday: {yesterday_date}\ndate of 2days ago: {yesterday_of_yesterday_date}")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if diff_percentage >= 5:
+    print("Get News")
 
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
+
+
 
 ## STEP 3: Use https://www.twilio.com
 # Send a seperate message with the percentage change and each article's title and description to your phone number. 

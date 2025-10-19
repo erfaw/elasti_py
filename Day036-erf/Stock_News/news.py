@@ -23,10 +23,10 @@ class News:
         
     def store_to_json_file(self):
         """store what is currently in 'self.data_result' to a json file"""
-        with open("./Day036-erf/Stock_News/news_data.json", mode='w') as file:
+        with open("./Day036-erf/Stock_News/json/news_data.json", mode='w') as file:
             json.dump(self.data_result, file)
 
     def read_json_file(self):
         """read data from news_data.json and return """
-        with open("./Day036-erf/Stock_News/news_data.json", mode='r') as file:
+        with open("./Day036-erf/Stock_News/json/news_data.json", mode='r') as file:
             return json.load(file)

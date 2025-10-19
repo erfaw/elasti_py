@@ -22,12 +22,12 @@ class StockPrice:
 
     def store_to_json_file(self):
         """store what is currently in 'self.daily_candles_data' to a file"""
-        with open("./Day036-erf/Stock_News/stock_data.json", mode='w') as file:
+        with open("./Day036-erf/Stock_News/json/stock_data.json", mode='w') as file:
             json.dump(self.daily_candles_data, file) 
 
     def read_json_file(self):
         """read data from resaponse_data.json and return """
-        with open("./Day036-erf/Stock_News/stock_data.json", mode='r') as file:
+        with open("./Day036-erf/Stock_News/json/stock_data.json", mode='r') as file:
             return json.load(file)
 
     def close_price(self,date):

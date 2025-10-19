@@ -1,9 +1,11 @@
 import os
 import subprocess as sp; sp.call('cls', shell=True)
-import requests
+# import requests
 import datetime
-import json
+# import json
 from stock_price import StockPrice
+from date_manager import DateManager
+
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 ALPHAVANTAGE_API_KEY = os.environ.get("alphavantage_key")
@@ -19,12 +21,14 @@ stock = StockPrice(STOCK, COMPANY_NAME, ALPHAVANTAGE_API_KEY)
 # stock.store_to_json_file()
 stock.daily_candles_data = stock.read_json_file()
 
-current_date = datetime.date(2025, 10, 17)
-yesterday_date = current_date - datetime.timedelta(days=1)
-yesterday_of_yesterday_date = yesterday_date - datetime.timedelta(days=1)
+date = DateManager()
+# date.today = date.current_date()
+date.today = datetime.date(2025, 10, 17)
+date.yesterday = date.yesterday_date()
+date.before_yesterday = date.before_yesterday_date()
 
-close_price_yesterday = stock.close_price(yesterday_date)
-close_price_2days_ago = stock.close_price(yesterday_of_yesterday_date)
+close_price_yesterday = stock.close_price(date.yesterday)
+close_price_2days_ago = stock.close_price(date.before_yesterday)
 
 #CALCULATE PERCENTAGE OF DIFFRENCE
 diff_percentage = stock.change_percentage(close_price_yesterday, close_price_2days_ago)

@@ -4,11 +4,13 @@ import datetime
 from stock_price import StockPrice
 from date_manager import DateManager
 from news import News
+from mail_sender import GmailSender
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 ALPHAVANTAGE_API_KEY = os.environ.get("alphavantage_key")
 NEWS_API_KEY = os.environ.get("news_api_key")
+GMAIL_API_KEY = os.environ.get("gmail_key")
 
 ## STEP 1: Use https://www.alphavantage.co
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -52,12 +54,16 @@ if change_percentage >= 5:
     news.store_to_json_file()
     # news.data_result = news.read_json_file()
 
-
-
-
 ## STEP 3: Use https://www.twilio.com
 # Send a seperate message with the percentage change and each article's title and description to your phone number. 
 
+# gmail = GmailSender()
+# gmail.send(
+#     sender_email='erfawn.h@gmail.com',
+#     sender_app_password= GMAIL_API_KEY,
+#     subject= '',
+#     message_to_send=''
+# )
 
 #Optional: Format the SMS message like this: 
 """

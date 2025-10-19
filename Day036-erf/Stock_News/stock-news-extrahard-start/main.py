@@ -25,7 +25,8 @@ print(
 
 #CALCULATE PERCENTAGE OF DIFFRENCE
 current_date = datetime.date.today()
-print(current_date)
+yesterday_date = current_date - datetime.timedelta(days=1)
+print(yesterday_date)
 
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 

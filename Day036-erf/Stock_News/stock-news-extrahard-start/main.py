@@ -40,7 +40,6 @@ change_percentage = stock.change_percentage(close_price_yesterday, close_price_2
 if change_percentage >= 5:
     print("Get News")
 
-print(stock.last_date_of_data)
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
 

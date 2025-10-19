@@ -1,8 +1,27 @@
+import os
+import subprocess as sp; sp.call('cls', shell=True)
+import requests
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
+ALPHAVANTAGE_API_KEY = os.environ.get("alphavantage_key")
 
 ## STEP 1: Use https://www.alphavantage.co
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
+URL_NEWS = "https://www.alphavantage.co/query"
+URL_NEWS_PARAMS = {
+    "function": 'TIME_SERIES_DAILY',
+    "symbol": STOCK,
+    "apikey": ALPHAVANTAGE_API_KEY,
+}
+#MAKE REQUEST AND PRINT
+with requests.get(URL_NEWS, URL_NEWS_PARAMS) as res:
+    res.raise_for_status()
+    daily_candles_data = res.json()
+
+print(
+    # daily_candles_data['Time Series (Daily)']
+    daily_candles_data['Time Series (Daily)']['2025-10-17']
+)
 
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 

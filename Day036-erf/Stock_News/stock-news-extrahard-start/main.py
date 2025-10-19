@@ -7,14 +7,14 @@ ALPHAVANTAGE_API_KEY = os.environ.get("alphavantage_key")
 
 ## STEP 1: Use https://www.alphavantage.co
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
-URL_NEWS = "https://www.alphavantage.co/query"
-URL_NEWS_PARAMS = {
+URL_ALPHAVANTAGE_API = "https://www.alphavantage.co/query"
+URL_ALPHAVANTAGE_API_PARAMS = {
     "function": 'TIME_SERIES_DAILY',
     "symbol": STOCK,
     "apikey": ALPHAVANTAGE_API_KEY,
 }
 #MAKE REQUEST AND PRINT
-with requests.get(URL_NEWS, URL_NEWS_PARAMS) as res:
+with requests.get(URL_ALPHAVANTAGE_API, URL_ALPHAVANTAGE_API_PARAMS) as res:
     res.raise_for_status()
     daily_candles_data = res.json()
 

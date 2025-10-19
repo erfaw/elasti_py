@@ -3,6 +3,7 @@ import subprocess as sp; sp.call('cls', shell=True)
 import datetime
 from stock_price import StockPrice
 from date_manager import DateManager
+from news import News
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -37,11 +38,20 @@ close_price_2days_ago = stock.close_price(date.before_yesterday)
 #CALCULATE PERCENTAGE OF DIFFRENCE
 change_percentage = stock.change_percentage(close_price_yesterday, close_price_2days_ago)
 
-if change_percentage >= 5:
-    print("Get News")
+
 
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
+if change_percentage >= 5:
+    news = News(
+        api_key= NEWS_API_KEY,
+        search_key= COMPANY_NAME,
+        from_date= date.before_yesterday - datetime.timedelta(days=1)
+        )
+    news.data_result = news.get_data()
+    news.store_to_json_file()
+    # news.data_result = news.read_json_file()
+
 
 
 

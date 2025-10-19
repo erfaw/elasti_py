@@ -29,7 +29,7 @@ with open("./Day036-erf/Stock_News/response_data.json", mode='r') as file:
 #TODO: make some code to prevent raise exception for dates havent exist, instead replace that current_date with latest date db had.
 
 def return_close_price(date):
-    return daily_candles_data['Time Series (Daily)'][str(date)]['4. close']
+    return float(daily_candles_data['Time Series (Daily)'][str(date)]['4. close'])
 
 
 current_date = datetime.date(2025, 10, 17)
@@ -38,8 +38,10 @@ yesterday_of_yesterday_date = yesterday_date - datetime.timedelta(days=1)
 
 close_price_yesterday = return_close_price(yesterday_date)
 close_price_2days_ago = return_close_price(yesterday_of_yesterday_date)
-#CALCULATE PERCENTAGE OF DIFFRENCE
 
+#CALCULATE PERCENTAGE OF DIFFRENCE
+diff_percentage = 100 * (close_price_yesterday/close_price_2days_ago) - 100
+print(f"{diff_percentage:.2f}")
 
 
 # print(f"date of current day: {current_date}\n\tdata==> {daily_candles_data['Time Series (Daily)'][str(current_date)]}\ndate of yesterday: {yesterday_date}\ndate of 2days ago: {yesterday_of_yesterday_date}")

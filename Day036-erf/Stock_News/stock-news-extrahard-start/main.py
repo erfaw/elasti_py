@@ -2,6 +2,7 @@ import os
 import subprocess as sp; sp.call('cls', shell=True)
 import requests
 import datetime
+import json
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 ALPHAVANTAGE_API_KEY = os.environ.get("alphavantage_key")
@@ -14,19 +15,69 @@ URL_ALPHAVANTAGE_API_PARAMS = {
     "symbol": STOCK,
     "apikey": ALPHAVANTAGE_API_KEY,
 }
-#MAKE REQUEST AND PRINT
-with requests.get(URL_ALPHAVANTAGE_API, URL_ALPHAVANTAGE_API_PARAMS) as res:
-    res.raise_for_status()
-    daily_candles_data = res.json()
+#MAKE REQUEST AND STORE IN JSON FILE
+    # with requests.get(URL_ALPHAVANTAGE_API, URL_ALPHAVANTAGE_API_PARAMS) as res:
+    #     res.raise_for_status()
+    #     daily_candles_data = res.json()
+    #     with open("./Day036-erf/Stock_News/response_data.json", mode='w') as file:
+    #         json.dump(daily_candles_data, file)
 
-print(
-    daily_candles_data['Time Series (Daily)']['2025-10-17']
-)
+#READ FROM A JSON FILE TO PREVEN REPEATED API CALLS
+with open("./Day036-erf/Stock_News/response_data.json", mode='r') as file:
+    daily_candles_data = json.load(file)
 
-#CALCULATE PERCENTAGE OF DIFFRENCE
-current_date = datetime.date.today()
+#TODO: make some code to prevent raise exception for dates havent exist, instead replace that current_date with latest date db had.
+
+def return_close_price(date):
+    return daily_candles_data['Time Series (Daily)'][str(date)]['4. close']
+
+
+current_date = datetime.date(2025, 10, 17)
 yesterday_date = current_date - datetime.timedelta(days=1)
 yesterday_of_yesterday_date = yesterday_date - datetime.timedelta(days=1)
+
+close_price_yesterday = return_close_price(yesterday_date)
+close_price_2days_ago = return_close_price(yesterday_of_yesterday_date)
+#CALCULATE PERCENTAGE OF DIFFRENCE
+
+
+
+# print(f"date of current day: {current_date}\n\tdata==> {daily_candles_data['Time Series (Daily)'][str(current_date)]}\ndate of yesterday: {yesterday_date}\ndate of 2days ago: {yesterday_of_yesterday_date}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## STEP 2: Use https://newsapi.org

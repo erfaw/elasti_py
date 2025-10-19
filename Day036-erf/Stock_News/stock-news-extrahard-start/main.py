@@ -1,8 +1,6 @@
 import os
 import subprocess as sp; sp.call('cls', shell=True)
-# import requests
 import datetime
-# import json
 from stock_price import StockPrice
 from date_manager import DateManager
 
@@ -20,6 +18,7 @@ stock = StockPrice(STOCK, COMPANY_NAME, ALPHAVANTAGE_API_KEY)
 # stock.daily_candles_data = stock.get_data()
 # stock.store_to_json_file()
 stock.daily_candles_data = stock.read_json_file()
+stock.last_date_of_data = stock.last_date_exist()
 
 date = DateManager()
 # date.today = date.current_date()
@@ -31,11 +30,14 @@ close_price_yesterday = stock.close_price(date.yesterday)
 close_price_2days_ago = stock.close_price(date.before_yesterday)
 
 #CALCULATE PERCENTAGE OF DIFFRENCE
-diff_percentage = stock.change_percentage(close_price_yesterday, close_price_2days_ago)
+change_percentage = stock.change_percentage(close_price_yesterday, close_price_2days_ago)
 
-if diff_percentage >= 5:
+if change_percentage >= 5:
     print("Get News")
 
+# keys = stock.daily_candles_data["Time Series (Daily)"].keys()
+
+print(stock.last_date_of_data)
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
 

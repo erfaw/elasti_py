@@ -9,6 +9,7 @@ class StockPrice:
             "apikey": api_key,
         }
         self.daily_candles_data:json = None
+        self.last_date_of_data = None
 
     def get_data(self) -> json:
         """request for data to api and return"""
@@ -33,4 +34,8 @@ class StockPrice:
     def change_percentage(self, newer_date_price:float, earlier_date_price:float) -> float:
         """calculate and return change percentage between 2 date """
         return 100 * (newer_date_price/earlier_date_price) - 100
+    
+    def last_date_exist(self):
+        """returns the last date of data that exist in 'self.daily_candles_data'"""
+        return next(iter(self.daily_candles_data["Time Series (Daily)"].keys()))
             

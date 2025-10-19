@@ -21,12 +21,17 @@ stock.daily_candles_data = stock.read_json_file()
 stock.last_date_of_data = stock.last_date_exist()
 
 date = DateManager()
-# date.today = date.current_date()
-date.today = datetime.date(2025, 10, 17)
+date.today = date.current_date()
 date.yesterday = date.yesterday_date()
 date.before_yesterday = date.before_yesterday_date()
 
-close_price_yesterday = stock.close_price(date.yesterday)
+try:
+    close_price_yesterday = stock.close_price(date.yesterday)
+except KeyError: # catch exception for holidays, fill date.today with last data and date
+    date.today = stock.last_date_of_data
+    date.yesterday = date.yesterday_date()
+    date.before_yesterday = date.before_yesterday_date()
+    close_price_yesterday = stock.close_price(date.yesterday)
 close_price_2days_ago = stock.close_price(date.before_yesterday)
 
 #CALCULATE PERCENTAGE OF DIFFRENCE
@@ -34,8 +39,6 @@ change_percentage = stock.change_percentage(close_price_yesterday, close_price_2
 
 if change_percentage >= 5:
     print("Get News")
-
-# keys = stock.daily_candles_data["Time Series (Daily)"].keys()
 
 print(stock.last_date_of_data)
 ## STEP 2: Use https://newsapi.org

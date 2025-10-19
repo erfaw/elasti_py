@@ -1,6 +1,7 @@
 import os
 import subprocess as sp; sp.call('cls', shell=True)
 import requests
+import datetime
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 ALPHAVANTAGE_API_KEY = os.environ.get("alphavantage_key")
@@ -19,9 +20,12 @@ with requests.get(URL_ALPHAVANTAGE_API, URL_ALPHAVANTAGE_API_PARAMS) as res:
     daily_candles_data = res.json()
 
 print(
-    # daily_candles_data['Time Series (Daily)']
     daily_candles_data['Time Series (Daily)']['2025-10-17']
 )
+
+#CALCULATE PERCENTAGE OF DIFFRENCE
+current_date = datetime.date.today()
+print(current_date)
 
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 

@@ -15,7 +15,7 @@ class StockPrice:
         self.store_to_json_file()
         self.all_dates:list = self.all_of_dates()
 
-    def get_data(self) -> json:
+    def get_data(self) -> dict:
         """request for data to api and return"""
         with requests.get(self.URL_ALPHAVANTAGE_API, self.URL_ALPHAVANTAGE_API_PARAMS) as res:
             res.raise_for_status()
@@ -26,12 +26,12 @@ class StockPrice:
         with open("./Day036-erf/Stock_News/json/stock_data.json", mode='w') as file:
             json.dump(self.daily_candles_data, file) 
 
-    def read_json_file(self):
+    def read_json_file(self) -> dict:
         """read data from resaponse_data.json and return """
         with open("./Day036-erf/Stock_News/json/stock_data.json", mode='r') as file:
             return json.load(file)
 
-    def close_price(self,date):
+    def close_price(self,date) -> float:
         """return close price for that stock at a particular date catch with args"""
         return float(self.daily_candles_data['Time Series (Daily)'][str(date)]['4. close'])  
 
@@ -39,7 +39,7 @@ class StockPrice:
         """calculate and return change percentage between 2 date """
         return 100 * (newer_date_price/earlier_date_price) - 100
     
-    def last_date_exist(self):
+    def last_date_exist(self) -> datetime.date:
         """returns the last date of data that exist in 'self.daily_candles_data'"""
         string = next(iter(self.daily_candles_data["Time Series (Daily)"].keys()))
         list_1 = string.split('-')

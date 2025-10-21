@@ -6,26 +6,27 @@ from date_manager import DateManager
 from news import News
 from mail_sender import GmailSender
 
+##CONSTS
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 ALPHAVANTAGE_API_KEY = os.environ.get("alphavantage_key")
 NEWS_API_KEY = os.environ.get("news_api_key")
 GMAIL_API_KEY = os.environ.get("gmail_key")
 
+##OBJECTS
 stock = StockPrice(STOCK, COMPANY_NAME, ALPHAVANTAGE_API_KEY)
 gmail = GmailSender()
 date = DateManager()
 
+##STORE DATES WE NEED
 date.yesterday = stock.all_dates[0]
 date.before_yesterday = stock.all_dates[1]
 
-close_price_yesterday = stock.close_price(date.yesterday)
-close_price_2days_ago = stock.close_price(date.before_yesterday)
+##CALCULATE AND STORE CLOSE PRICES
+stock.close_price_yesterday = stock.close_price(date.yesterday)
+stock.close_price_2days_ago = stock.close_price(date.before_yesterday)
 
-#CALCULATE PERCENTAGE OF DIFFRENCE
-change_percentage = stock.change_percentage(close_price_yesterday, close_price_2days_ago)
-
-if change_percentage >= 1:
+if stock.change_price_percentage >= 1:
     news = News(
         api_key= NEWS_API_KEY,
         search_key= COMPANY_NAME,
@@ -36,9 +37,9 @@ if change_percentage >= 1:
     # news.data_result = news.read_json_file()
 
     up_down_char = None
-    if change_percentage > 0:
+    if stock.change_price_percentage > 0:
         up_down_char = '🟢🔺'
-    elif change_percentage < 0:
+    elif stock.change_price_percentage < 0:
         up_down_char = '🔴🔻'
     else: pass
 

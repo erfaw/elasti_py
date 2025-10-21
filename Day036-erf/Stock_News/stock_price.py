@@ -13,6 +13,9 @@ class StockPrice:
         self.daily_candles_data:json = self.get_data()
         self.store_to_json_file()
         self.all_dates:list = self.all_of_dates()
+        self.close_price_yesterday:float = None
+        self.close_price_2days_ago:float = None
+        self.change_price_percentage:float = self.change_percentage(self.close_price_yesterday, self.close_price_2days_ago)
 
     def get_data(self) -> dict:
         """request for data to api and return"""

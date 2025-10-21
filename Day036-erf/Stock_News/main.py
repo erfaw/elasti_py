@@ -12,10 +12,9 @@ ALPHAVANTAGE_API_KEY = os.environ.get("alphavantage_key")
 NEWS_API_KEY = os.environ.get("news_api_key")
 GMAIL_API_KEY = os.environ.get("gmail_key")
 
-## STEP 1: Use https://www.alphavantage.co
-# When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
-
 stock = StockPrice(STOCK, COMPANY_NAME, ALPHAVANTAGE_API_KEY)
+gmail = GmailSender()
+date = DateManager()
 
 #MAKE REQUEST AND STORE IN JSON FILE
 stock.daily_candles_data = stock.get_data()
@@ -24,8 +23,6 @@ stock.store_to_json_file()
 stock.last_date_of_data = stock.last_date_exist()
 stock.all_dates = stock.all_of_dates()
 
-
-date = DateManager()
 date.today = date.current_date()
 date.yesterday = stock.all_dates[0]
 date.before_yesterday = stock.all_dates[1]
@@ -36,10 +33,6 @@ close_price_2days_ago = stock.close_price(date.before_yesterday)
 #CALCULATE PERCENTAGE OF DIFFRENCE
 change_percentage = stock.change_percentage(close_price_yesterday, close_price_2days_ago)
 
-
-
-## STEP 2: Use https://newsapi.org
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
 if change_percentage >= 1:
     news = News(
         api_key= NEWS_API_KEY,
@@ -56,9 +49,7 @@ if change_percentage >= 1:
     elif change_percentage < 0:
         up_down_char = '🔴🔻'
     else: pass
-    ## STEP 3: Use https://www.twilio.com
-    # Send a seperate message with the percentage change and each article's title and description to your phone number.
-    gmail = GmailSender()
+
     #LOOP THROUGH AND SEND 
     for article in news.data_result["articles"]:
         gmail.send(

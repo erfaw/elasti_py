@@ -1,5 +1,4 @@
-import requests, json
-import datetime
+import requests, json, datetime
 class StockPrice:
     def __init__(self, stock_name: str, company_name: str, api_key):
         """geting daily stock price data from 'alphavantage' site"""

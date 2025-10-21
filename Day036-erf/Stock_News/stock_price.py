@@ -11,9 +11,9 @@ class StockPrice:
         }
         self.stock_name = stock_name
         self.company_name = company_name
-        self.daily_candles_data:json = None
-        self.last_date_of_data = None
-        self.all_dates:list = None
+        self.daily_candles_data:json = self.get_data()
+        self.store_to_json_file()
+        self.all_dates:list = self.all_of_dates()
 
     def get_data(self) -> json:
         """request for data to api and return"""

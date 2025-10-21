@@ -86,3 +86,4 @@ window.mainloop()
 #TODO: add kardane 30min break ba notification
 #TODO: add kardane title task be ebtedaye barname
 #TODO: assign kardane 'golden-pomodoro' baraye anjam shdne yek doreye pomodoro be sorate kamel va porsidane mojadad baraye title task 
+#TODO: make buttons a little bit bigger

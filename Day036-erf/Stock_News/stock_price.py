@@ -15,7 +15,7 @@ class StockPrice:
         self.all_dates:list = self.all_of_dates()
         self.close_price_yesterday:float = None
         self.close_price_2days_ago:float = None
-        self.change_price_percentage:float = self.change_percentage(self.close_price_yesterday, self.close_price_2days_ago)
+        self.change_price_percentage:float = None
 
     def get_data(self) -> dict:
         """request for data to api and return"""

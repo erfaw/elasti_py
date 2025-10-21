@@ -13,6 +13,7 @@ class StockPrice:
         self.company_name = company_name
         self.daily_candles_data:json = None
         self.last_date_of_data = None
+        self.all_dates:list = None
 
     def get_data(self) -> json:
         """request for data to api and return"""
@@ -46,4 +47,8 @@ class StockPrice:
         month = int(list_1[1])
         day = int(list_1[2])
         return datetime.date(year, month, day)
+    
+    def all_of_dates(self) -> list:
+        """from 'self.daily_candles_data' catch dates and make it to a list and return it"""
+        return list(self.daily_candles_data['Time Series (Daily)'].keys())
             

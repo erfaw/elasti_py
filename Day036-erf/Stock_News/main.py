@@ -16,7 +16,6 @@ stock = StockPrice(STOCK, COMPANY_NAME, ALPHAVANTAGE_API_KEY)
 gmail = GmailSender()
 date = DateManager()
 
-date.today = date.current_date()
 date.yesterday = stock.all_dates[0]
 date.before_yesterday = stock.all_dates[1]
 

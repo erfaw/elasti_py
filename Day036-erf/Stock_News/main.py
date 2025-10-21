@@ -27,18 +27,10 @@ stock.all_dates = stock.all_of_dates()
 
 date = DateManager()
 date.today = date.current_date()
-# date.yesterday = date.yesterday_date()
-# date.before_yesterday = date.before_yesterday_date()
 date.yesterday = stock.all_dates[0]
 date.before_yesterday = stock.all_dates[1]
 
-try:
-    close_price_yesterday = stock.close_price(date.yesterday)
-except KeyError: # catch exception for holidays, fill date.today with last data and date
-    date.today = stock.last_date_of_data
-    date.yesterday = date.yesterday_date()
-    date.before_yesterday = date.before_yesterday_date()
-    close_price_yesterday = stock.close_price(date.yesterday)
+close_price_yesterday = stock.close_price(date.yesterday)
 close_price_2days_ago = stock.close_price(date.before_yesterday)
 
 #CALCULATE PERCENTAGE OF DIFFRENCE
@@ -48,42 +40,33 @@ change_percentage = stock.change_percentage(close_price_yesterday, close_price_2
 
 ## STEP 2: Use https://newsapi.org
 # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
-# if change_percentage >= 5:
-news = News(
-    api_key= NEWS_API_KEY,
-    search_key= COMPANY_NAME,
-    from_date= stock.all_dates[2]
-    )
-news.data_result = news.get_data()
-news.store_to_json_file()
-# news.data_result = news.read_json_file()
+if change_percentage >= 1:
+    news = News(
+        api_key= NEWS_API_KEY,
+        search_key= COMPANY_NAME,
+        from_date= stock.all_dates[2]
+        )
+    news.data_result = news.get_data()
+    news.store_to_json_file()
+    # news.data_result = news.read_json_file()
 
-## STEP 3: Use https://www.twilio.com
-# Send a seperate message with the percentage change and each article's title and description to your phone number. 
-
-#LOOP THROUGH AND SEND 
-# for article in news.data_result["articles"]:
-#     print(
-
-#     )
-
-# gmail = GmailSender()
-# gmail.send(
-#     sender_email='erfawn.h@gmail.com',
-#     sender_app_password= GMAIL_API_KEY,
-#     subject= '',
-#     message_to_send=''
-# )
-
-#Optional: Format the SMS message like this: 
-"""
-TSLA: 🔺2%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-or
-"TSLA: 🔻5%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-"""
+    up_down_char = None
+    if change_percentage > 0:
+        up_down_char = '🟢🔺'
+    elif change_percentage < 0:
+        up_down_char = '🔴🔻'
+    else: pass
+    ## STEP 3: Use https://www.twilio.com
+    # Send a seperate message with the percentage change and each article's title and description to your phone number.
+    gmail = GmailSender()
+    #LOOP THROUGH AND SEND 
+    for article in news.data_result["articles"]:
+        gmail.send(
+            sender_email='erfawn.h@gmail.com',
+            sender_app_password= GMAIL_API_KEY,
+            recipient_email='erfawn.h@gmail.com',
+            subject=f"{STOCK}: {change_percentage:.2f}%",
+            message_to_send=f"Headline: {article["title"]}\nBrief: {article["description"]}\nURL to check: {article["url"]}".replace('\u2018', '').replace('\u2014', '-').replace('\u2019','').replace('\u2013','')
+        )
 
 #TODO: make some code to prevent raise exception for dates havent exist, instead replace that current_date with latest date db had.

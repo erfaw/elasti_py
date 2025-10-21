@@ -16,13 +16,6 @@ stock = StockPrice(STOCK, COMPANY_NAME, ALPHAVANTAGE_API_KEY)
 gmail = GmailSender()
 date = DateManager()
 
-#MAKE REQUEST AND STORE IN JSON FILE
-stock.daily_candles_data = stock.get_data()
-stock.store_to_json_file()
-# stock.daily_candles_data = stock.read_json_file()
-stock.last_date_of_data = stock.last_date_exist()
-stock.all_dates = stock.all_of_dates()
-
 date.today = date.current_date()
 date.yesterday = stock.all_dates[0]
 date.before_yesterday = stock.all_dates[1]

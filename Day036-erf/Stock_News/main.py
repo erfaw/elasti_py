@@ -18,10 +18,12 @@ GMAIL_API_KEY = os.environ.get("gmail_key")
 stock = StockPrice(STOCK, COMPANY_NAME, ALPHAVANTAGE_API_KEY)
 
 #MAKE REQUEST AND STORE IN JSON FILE
-# stock.daily_candles_data = stock.get_data()
-# stock.store_to_json_file()
-stock.daily_candles_data = stock.read_json_file()
+stock.daily_candles_data = stock.get_data()
+stock.store_to_json_file()
+# stock.daily_candles_data = stock.read_json_file()
 stock.last_date_of_data = stock.last_date_exist()
+stock.all_dates = stock.all_dates()
+
 
 date = DateManager()
 date.today = date.current_date()

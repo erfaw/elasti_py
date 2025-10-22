@@ -3,5 +3,5 @@ import requests, os
 
 USERNAME = "erfawnhy"
 TOKEN = os.environ.get("pixela_token")
-PIXELA_ENDPOINT = "https://pixe.la/v1/users/a-know/graphs"
+PIXELA_ENDPOINT = "https://pixe.la/v1/users/"
 #Build a graph in api server

@@ -11,7 +11,7 @@ current_day :str = (dt.date.today() - dt.timedelta(days=0) ).strftime(r"%Y%m%d")
 header = {
     "X-USER-TOKEN": TOKEN
 }
-# ##POST REQUEST TO MAKE A GRAPH  - URL OF GRAPH TO WATCH= "https://pixe.la/v1/users/erfawnhy/graphs/erfimerfi1"
+# ##POST REQUEST TO MAKE A GRAPH  - URL OF GRAPH TO WATCH= "https://pixe.la/v1/users/erfawnhy/graphs/erfimerfi1.html"
         # pixela_make_graph_params = {
         #     "id": GRAPH_ID,
         #     "name": "someTest",
@@ -45,6 +45,14 @@ header = {
         # with requests.put(
         #     url= f"{PIXELA_ENDPOINT_USER}/graphs/{GRAPH_ID}/{current_day}",
         #     json= pixela_put_params,
+        #     headers=header,
+        #     ) as res:
+        #         print(res.text)
+
+
+##DETLETE A PIXEL
+        # with requests.delete(
+        #     url= f"{PIXELA_ENDPOINT_USER}/graphs/{GRAPH_ID}/{current_day}",
         #     headers=header,
         #     ) as res:
         #         print(res.text)

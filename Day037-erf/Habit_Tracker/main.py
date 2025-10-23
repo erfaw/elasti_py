@@ -11,7 +11,7 @@ current_day :str = (dt.date.today() - dt.timedelta(days=6) ).strftime(r"%Y%m%d")
 header = {
     "X-USER-TOKEN": TOKEN
 }
-# ##POST REQUEST TO MAKE A GRAPH
+# ##POST REQUEST TO MAKE A GRAPH  - URL OF GRAPH TO WATCH= "https://pixe.la/v1/users/erfawnhy/graphs/erfimerfi1"
         # pixela_make_graph_params = {
         #     "id": GRAPH_ID,
         #     "name": "someTest",

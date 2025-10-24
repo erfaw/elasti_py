@@ -56,3 +56,10 @@ header = {
         #     headers=header,
         #     ) as res:
         #         print(res.text)
+
+
+#TODO make this project OOP,
+#TODO: build a UI for it
+#TODO: in UI , build a button which when we click on that, it opens the graph 
+#TODO: add a mechanism for user to get and set the authentication token to environment varibales,
+#TODO: add a mechanism for user to insert date he want to add details or change detials,

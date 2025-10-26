@@ -8,7 +8,7 @@ class FlightSearch:
         self.ACCESS_TOKEN_AMADEUS = os.environ.get("ACCESS_TOKEN_AMADEUS")
 
     def get_access_token(self):
-        """NOTICE: first try to catch it from EV: make POST request to get access token from site"""
+        """NOTICE: first try to catch it from EV: make POST request to get access token from site, NOTICE: NOT WORKS WITH IRANS IP"""
         headers = {
             "Content-Type": "application/x-www-form-urlencoded"
         }
@@ -17,7 +17,7 @@ class FlightSearch:
             "client_id": self.API_KEY_AMADEUS,
             "client_secret": self.API_SECRET_AMADEUS
         }
-        with requests.post(
+        with requests.post( #NOTICE: THIS NOT WORK WITH IRANS IP
             url= f"{self.URL_AMADEUS}/v1/security/oauth2/token",
             data= body_request,
             headers= headers

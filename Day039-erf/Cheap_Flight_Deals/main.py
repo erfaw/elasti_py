@@ -1,9 +1,7 @@
-import subprocess as sp; sp.call('cls', shell=True)
-from data_manager import DataManager
-from flight_search import FlightSearch
-#This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
+# import subprocess as sp; sp.call('cls', shell=True)
+# from data_manager import DataManager
+# from flight_search import FlightSearch
+# #This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
 
-sheet = DataManager()
-flight_search = FlightSearch()
-
-print(flight_search.ACCESS_TOKEN_AMADEUS)
+# sheet = DataManager()
+# flight_search = FlightSearch()

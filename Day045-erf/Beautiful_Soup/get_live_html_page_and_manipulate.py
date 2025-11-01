@@ -1,5 +1,6 @@
 import subprocess as sp; sp.call('cls', shell=True)
 import requests
+import pandas
 from bs4 import BeautifulSoup
 with requests.get(url="https://news.ycombinator.com/") as response:
     response.raise_for_status()
@@ -22,13 +23,14 @@ for article in articles:
     article_upvote.append(
         int(article[1].select(selector=".score")[0].getText().split()[0])
     )
-print(f"{len(article_title)}\n{len(article_link)}\n{len(article_upvote)}")
-    
-# first_article_title = first_article.getText()
-# first_article_link:str = first_article.get('href')
-# first_article_upvote:str = web_page.select_one(selector=".score").getText()
-# first_article_upvote_num:int = int(first_article_upvote[:first_article_upvote.index('p')])
+data_to_pass = {
+    "article_title": article_title,
+    "article_link" : article_link,
+    "article_upvote" : article_upvote
+}
+articles_data = pandas.DataFrame(data_to_pass,None, ["article_title", "article_link", "article_upvote"], None, True)
+# articles_data.to_excel(excel_writer= "./Day045-erf/Beautiful_Soup/articles_data.xlsx",sheet_name='articles data', index=False)
 
-# print(
-#     f"first article title is:\n\t{first_article_title}\nfirst article upvote str is:\n\t{first_article_upvote} and {first_article_upvote_num} as an integer number\nfirst article link is: \n\t{first_article_link}"
-# )
+highest_upvote_article = articles_data[articles_data["article_upvote"] == articles_data["article_upvote"].max()]
+
+print(highest_upvote_article.get("article_link").item())

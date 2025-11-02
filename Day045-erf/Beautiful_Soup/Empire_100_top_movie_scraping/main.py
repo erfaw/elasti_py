@@ -14,7 +14,8 @@ with rq.get("https://www.bfi.org.uk/sight-and-sound/greatest-films-all-time") as
 
 ##catch first title 
 first_title = web_page.select_one(".dzyNha a h1").getText()
-print(first_title)
+first_year_country = int(web_page.select_one(".dzyNha a .MbGOi").getText())
+print(type(first_year_country))
 
 
 # print(all_articles)

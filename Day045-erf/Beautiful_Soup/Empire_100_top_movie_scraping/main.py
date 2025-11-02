@@ -10,4 +10,12 @@ with rq.get("https://www.bfi.org.uk/sight-and-sound/greatest-films-all-time") as
     rs.raise_for_status()
     web_page = bs(rs.text, "html.parser")
 
-print(web_page.title.string)
+# all_articles = web_page.select(selector=".ResultsPage__ResultGrid-sc-of10co-0 article")
+
+##catch first title 
+first_title = web_page.select_one(".dzyNha a h1").getText()
+print(first_title)
+
+
+# print(all_articles)
+# print(len(all_articles))

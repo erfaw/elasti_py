@@ -24,4 +24,4 @@ for article in all_articles: # loop through and get the details, then store it i
 movies_db.sort_index(ascending=False, inplace=True) # sort Descending to seem like actual site
 movies_db.drop(index=0, axis=0, inplace=True) #drop index 0 which is empty and exist just for indexing start at 1
 
-movies_db.to_excel("./Day045-erf/Beautiful_Soup/Empire_100_top_movie_scraping/top_movies_list.xlsx") # at the end: store result to a excel file
+movies_db.to_excel("./Day045-erf/Beautiful_Soup/scraping_100_top_movie/top_movies_list.xlsx") # at the end: store result to a excel file

@@ -1,7 +1,7 @@
 import subprocess as sp; sp.call('cls', shell=True)
 import requests as rq
 from bs4 import BeautifulSoup as bs
-import json
+import json, pandas as pd
 
 ## ASK USER IN WHICH TIME
         # time_to_check = input("Which year do you want to travel to? (Type the date in this format YYYYMMDD)\n\t")
@@ -35,3 +35,19 @@ with open("./Day046-erf/officialcharts_response_for_20090705.json", mode='r') as
 web_page_parsed = bs(web_page['html_response'], "html.parser")
 
 ## SCRAPING TO LIST OF TOP 100 SONGS OF THAT DATE
+all_div = web_page_parsed.select(".chart-item-content")
+# MAKE DATAFRAME FOR STORE DATA
+songs_db = pd.DataFrame(columns=["Title", "Artist"])
+#LOOP THROUGH AND ADD TO DATAFRAME
+for track in all_div:
+    # what we need? <track_name> <artist_name> <album_name> <release_date> etc
+    track_name= track.select(".description p a")[0].select("span")[1].getText()
+    artist_name= track.select(".description p a")[1].select("span")[0].getText()
+    songs_db.loc[len(songs_db)] = {"Title": track_name, "Artist": artist_name}
+songs_db.index = pd.RangeIndex(start=1, stop= len(songs_db)+1, step=1)
+#STORE DATAFRAME IN OUTPUT FOLDER
+try:
+    songs_db.to_excel(f"./Day046-erf/output/top_100_songs_at_{web_page["response_date"]}.xlsx")
+except OSError: 
+    sp.call('mkdir .\Day046-erf\output', shell=True)
+    songs_db.to_excel(f"./Day046-erf/output/top_100_songs_at_{web_page["response_date"]}.xlsx")

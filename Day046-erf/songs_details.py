@@ -2,6 +2,8 @@ import subprocess as sp; sp.call('cls', shell=True)
 import requests as rq
 from bs4 import BeautifulSoup as bs
 import json, pandas as pd
+from pathlib import Path
+_file_dir = Path(__file__).resolve().parent
 
 # ASK USER IN WHICH TIME
 time_to_check = input("Which year do you want to travel to? (Type the date in this format YYYYMMDD)\n\t")
@@ -25,9 +27,11 @@ with rq.get(f"https://www.officialcharts.com/charts/singles-chart/{time_to_check
         "response_date": f"{year_of_response}{month_of_response}{day_of_response}",
         "html_response": response.text
     }
-    ## OPEN AND SAVING FILE
-                # with open(f"./Day046-erf/officialcharts_response_for_{web_page['response_date']}.json", mode='w') as file:
-                #     json.dump(web_page, fp=file)
+## OPEN AND SAVING FILE OF FIRST RESPONSE
+            # path_to_save_response_json = Path('Day046-erf/output/responses/')
+            # path_to_save_response_json.mkdir(parents=True, exist_ok=True)
+            # with open(f"{path_to_save_response_json}/officialcharts_response_for_{web_page['response_date']}.json", mode='w') as file:
+            #     json.dump(web_page, fp=file)
 
             # with open("./Day046-erf/officialcharts_response_for_20090705.json", mode='r') as web_page_data_file:
             #     web_page = json.load(web_page_data_file)
@@ -40,7 +44,7 @@ all_div = web_page_parsed.select(".chart-item-content")
 songs_db = pd.DataFrame(columns=["Title", "Artist"])
 #LOOP THROUGH AND ADD TO DATAFRAME
 for track in all_div:
-    # what we need? <track_name> <artist_name> <album_name> <release_date> etc
+    # what we need? <track_name> <artist_name>
     track_name= track.select(".description p a")[0].select("span")[1].getText()
     artist_name= track.select(".description p a")[1].select("span")[0].getText()
     songs_db.loc[len(songs_db)] = {"Title": track_name, "Artist": artist_name}

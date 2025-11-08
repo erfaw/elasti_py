@@ -1,55 +1,63 @@
-## IMPORTS
 import spotipy, os
 from spotipy.oauth2 import SpotifyClientCredentials
-import subprocess as sp; sp.call('cls', shell=True)
+import subprocess; subprocess.call('cls', shell=True)
 
-## TAKE CLIENT CREDENTIALS FROM EV
-spotify_client_id = os.environ.get("SPOTIFY_CLIENT_ID_erfawn.h@gmail.com")
-spotify_client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET_erfawn.h@gmail.com")
+## CLASS DECLARATION
+class SpotifyHandler:
+    def __init__(self):
+        """using 'Spotipy' library, handle works with spotify things."""
+        self.get_credentials_from_EV()
+        self.make_auth_agent()
+        ## MAKE CLIENT SPOTIFY OBJECT TO WORK WITH SPOTIFY WEB API
+        self.sp = spotipy.client.Spotify(auth_manager=self.auth_manager)
 
-## MAKE 'AUTH_MANAGER' OBJECT TO PASS CLIENT SPOTIFY CLASS
-USER_NAME="3xvuew854p1lasq1qzugv5wlv"
-auth_manager = spotipy.oauth2.SpotifyOAuth(
-    client_id= spotify_client_id,
-    client_secret= spotify_client_secret,
-    redirect_uri= "https://example.org/callback",
-    scope= "playlist-modify-private",
-    username= USER_NAME,
-    cache_path= './Day046-erf/token.json'
-)
-## MAKE CLIENT SPOTIFY OBJECT TO WORK WITH SPOTIFY WEB API
-sp1 = spotipy.client.Spotify(auth_manager=auth_manager)
+    def get_credentials_from_EV(self):
+        """TAKE CLIENT CREDENTIALS FROM EV AND STORE IT"""
+        self.client_id = os.environ.get("SPOTIFY_CLIENT_ID_erfawn.h@gmail.com")
+        self.client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET_erfawn.h@gmail.com")
+        self.USER_NAME="3xvuew854p1lasq1qzugv5wlv"
 
-## CREATE A PLAYLIST FOR USER
-playlist_created = sp1.user_playlist_create(
-    user= USER_NAME,
-    name= "A testing Playlist <3 !!",
-    public=False,
-    collaborative= False,
-    description= "just testing"
-)
-print(playlist_created)
+    def make_auth_agent(self):
+        """MAKE 'AUTH_MANAGER' OBJECT TO PASS CLIENT SPOTIFY CLASS""" 
+        self.auth_manager = spotipy.oauth2.SpotifyOAuth(
+            client_id= self.client_id,
+            client_secret= self.client_secret,
+            redirect_uri= "https://example.org/callback",
+            scope= "playlist-modify-private",
+            username= self.USER_NAME,
+            cache_path= './Day046-erf/token.json'
+        )
+    
+    def create_playlist(self, name, description='', ):
+        """CREATE A PLAYLIST FOR USER"""
+        self.playlist_created = self.sp.user_playlist_create(
+            user= self.USER_NAME,
+            name= name,
+            public=False,
+            collaborative= False,
+            description= description
+        )
+        print(self.playlist_created)
 
+    def user_playlist(self):
+        """PRINT PLAYLIST MADE BY AN 'ID_USER'""" 
+        playlists = self.sp.user_playlists(self.USER_NAME)
+        while playlists:
+            for i, playlist in enumerate(playlists['items']):
+                print(f"{i + 1 + playlists['offset']:4d} {playlist['uri']} {playlist['name']}")
+            if playlists['next']:
+                playlists = self.sp.next(playlists)
+            else:
+                playlists = None
+                break
 
+    def all_albums_by(self, url):
+        """PRINT ALL ALBUMS RELEASED BY 'ID_ARITST', need to insert url_address of that particular artist, or uri, or just id"""
+        results = self.sp.artist_albums(url, album_type='album')
+        albums = results['items']
+        while results['next']:
+            results = self.sp.next(results)
+            albums.extend(results['items'])
 
-## PRINT PLAYLIST MADE BY AN 'ID_USER' 
-        # playlists = sp.user_playlists('3xvuew854p1lasq1qzugv5wlv')
-        # print(playlists)
-        # while playlists:
-        #     for i, playlist in enumerate(playlists['items']):
-        #         print(f"{i + 1 + playlists['offset']:4d} {playlist['uri']} {playlist['name']}")
-        #     if playlists['next']:
-        #         playlists = sp.next(playlists)
-        #     else:
-        #         playlists = None
-
-## PRINT ALL ALBUMS RELEASED BY 'ID_ARITST'
-        # erfan_paydar_url = "https://open.spotify.com/artist/1yPzb9mqugowOfUs2vIOgL"
-        # results = sp.artist_albums(erfan_paydar_url, album_type='album')
-        # albums = results['items']
-        # while results['next']:
-        #     results = sp.next(results)
-        #     albums.extend(results['items'])
-
-        # for album in albums:
-        #     print(album['name'])
+        for album in albums:
+            print(album['name'])

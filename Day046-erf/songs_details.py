@@ -3,7 +3,6 @@ import requests as rq
 from bs4 import BeautifulSoup as bs
 import json, pandas as pd
 from pathlib import Path
-_file_dir = Path(__file__).resolve().parent
 
 class SongsData:
     def __init__(self):

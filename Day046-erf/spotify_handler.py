@@ -10,6 +10,7 @@ class SpotifyHandler:
         self.make_auth_agent()
         ## MAKE CLIENT SPOTIFY OBJECT TO WORK WITH SPOTIFY WEB API
         self.sp = spotipy.client.Spotify(auth_manager=self.auth_manager)
+        self.playlists: list = []
 
     def get_credentials_from_EV(self):
         """TAKE CLIENT CREDENTIALS FROM EV AND STORE IT"""
@@ -30,14 +31,18 @@ class SpotifyHandler:
     
     def create_playlist(self, name, description='', ):
         """CREATE A PLAYLIST FOR USER"""
-        self.playlist_created = self.sp.user_playlist_create(
+        playlist_created = self.sp.user_playlist_create(
             user= self.USER_NAME,
             name= name,
             public=False,
             collaborative= False,
             description= description
         )
-        print(self.playlist_created)
+        new_playlist = {
+            "name": name,
+            "href": playlist_created['external_urls']['spotify']
+        }
+        self.playlists.append(new_playlist)
 
     def user_playlist(self):
         """PRINT PLAYLIST MADE BY AN 'ID_USER'""" 
@@ -61,3 +66,4 @@ class SpotifyHandler:
 
         for album in albums:
             print(album['name'])
+

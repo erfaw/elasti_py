@@ -1,15 +1,15 @@
 import spotipy, os
-from spotipy.oauth2 import SpotifyClientCredentials
+# from spotipy.oauth2 import SpotifyClientCredentials
 import subprocess; subprocess.call('cls', shell=True)
 
 ## CLASS DECLARATION
-class SpotifyHandler:
+class SpotifyHandler(spotipy.client.Spotify):
     def __init__(self):
-        """using 'Spotipy' library, handle works with spotify things."""
+        """using 'Spotipy' library, handle works with spotify things. MAKE CLIENT SPOTIFY OBJECT TO WORK WITH SPOTIFY WEB API"""
         self.get_credentials_from_EV()
         self.make_auth_agent()
-        ## MAKE CLIENT SPOTIFY OBJECT TO WORK WITH SPOTIFY WEB API
-        self.sp = spotipy.client.Spotify(auth_manager=self.auth_manager)
+        super().__init__(auth_manager=self.auth_manager)
+
         self.playlists: list = []
 
     def get_credentials_from_EV(self):
@@ -31,7 +31,7 @@ class SpotifyHandler:
     
     def create_playlist(self, name, description='', ):
         """CREATE A PLAYLIST FOR USER"""
-        playlist_created = self.sp.user_playlist_create(
+        playlist_created = self.user_playlist_create(
             user= self.USER_NAME,
             name= name,
             public=False,
@@ -46,24 +46,23 @@ class SpotifyHandler:
 
     def user_playlist(self):
         """PRINT PLAYLIST MADE BY AN 'ID_USER'""" 
-        playlists = self.sp.user_playlists(self.USER_NAME)
+        playlists = self.user_playlists(self.USER_NAME)
         while playlists:
             for i, playlist in enumerate(playlists['items']):
                 print(f"{i + 1 + playlists['offset']:4d} {playlist['uri']} {playlist['name']}")
             if playlists['next']:
-                playlists = self.sp.next(playlists)
+                playlists = self.next(playlists)
             else:
                 playlists = None
                 break
 
     def all_albums_by(self, url):
         """PRINT ALL ALBUMS RELEASED BY 'ID_ARITST', need to insert url_address of that particular artist, or uri, or just id"""
-        results = self.sp.artist_albums(url, album_type='album')
+        results = self.artist_albums(url, album_type='album')
         albums = results['items']
         while results['next']:
-            results = self.sp.next(results)
+            results = self.next(results)
             albums.extend(results['items'])
 
         for album in albums:
             print(album['name'])
-

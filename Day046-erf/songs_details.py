@@ -11,7 +11,10 @@ class SongsData:
 
     def get_html_at(self, date:str) -> dict:
         """USE 'OFFICIALCHARTS' TO GET TOP 100 SONGS HTML PAGE ON THAT DATE FOR SCRAPING"""
-        with rq.get(f"https://www.officialcharts.com/charts/singles-chart/{date}") as response:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+        }
+        with rq.get(f"https://www.officialcharts.com/charts/singles-chart/{date}", headers=headers) as response:
             response.raise_for_status()
             parsed = bs(response.text, "html.parser")
             try:

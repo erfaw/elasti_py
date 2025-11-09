@@ -10,7 +10,7 @@ class SpotifyHandler(spotipy.client.Spotify):
         self.make_auth_agent()
         super().__init__(auth_manager=self.auth_manager)
 
-        self.playlists: list = []
+        self.playlists: dict = {}
 
     def get_credentials_from_EV(self):
         """TAKE CLIENT CREDENTIALS FROM EV AND STORE IT"""
@@ -39,10 +39,10 @@ class SpotifyHandler(spotipy.client.Spotify):
             description= description
         )
         new_playlist = {
-            "name": name,
-            "href": playlist_created['external_urls']['spotify']
+            name: playlist_created['external_urls']['spotify']
         }
-        self.playlists.append(new_playlist)
+        self.playlists.update(new_playlist)
+
 
     def user_playlist(self):
         """PRINT PLAYLIST MADE BY AN 'ID_USER'""" 

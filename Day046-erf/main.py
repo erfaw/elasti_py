@@ -33,3 +33,4 @@ spotify.playlist_add_items(
 songs.store_to_excel(_file_dir)
 
 
+# TODO MAKE A SIMPLE UI WITH NOTIFICATION

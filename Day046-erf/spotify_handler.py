@@ -14,8 +14,10 @@ class SpotifyHandler(spotipy.client.Spotify):
 
     def get_credentials_from_EV(self):
         """TAKE CLIENT CREDENTIALS FROM EV AND STORE IT"""
+        # TODO FILL ENVIRONMENT VARIABLE WITH USER CREDENTIALS
         self.client_id = os.environ.get("SPOTIFY_CLIENT_ID_erfawn.h@gmail.com")
         self.client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET_erfawn.h@gmail.com")
+        # TODO DO SOME TO FILL 'USER_NAME' WITH USER DETAILS
         self.USER_NAME="3xvuew854p1lasq1qzugv5wlv"
 
     def make_auth_agent(self):
@@ -26,6 +28,7 @@ class SpotifyHandler(spotipy.client.Spotify):
             redirect_uri= "https://example.org/callback",
             scope= "playlist-modify-private",
             username= self.USER_NAME,
+            # TODO FIX PATH TO SAVE CACHE TOKEN
             cache_path= './Day046-erf/token.json'
         )
     

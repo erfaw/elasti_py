@@ -77,3 +77,5 @@ class SongsData:
         path_to_save = main_dir/'output'
         path_to_save.mkdir(parents=True, exist_ok=True)
         self.songs_db.to_excel(f"{path_to_save}/{self.web_page["response_date"]}_top_100_songs.xlsx")
+
+    # TODO ADD METHOD TO STORE RESPONSE WITH JSON FILE

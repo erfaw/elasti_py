@@ -22,6 +22,14 @@ for song in songs.songs_db.iterrows():
     song_url = search_result['tracks']['items'][0]['external_urls']['spotify']
     songs.songs_db.loc[songs.songs_db['Title'] == song[1].Title, "URL/URI/ID"] = song_url
 
+## MAKE PLAYLIST AND ADD SONGS TO IT
+playlist_name = f"TOP 100 SONGS ON {songs.web_page['response_date']} -from officialcharts.com"
+spotify.create_playlist(playlist_name)
+spotify.playlist_add_items(
+    playlist_id= spotify.playlists[playlist_name],
+    items= songs.songs_db['URL/URI/ID']
+    )
+
 songs.store_to_excel(_file_dir)
 
 

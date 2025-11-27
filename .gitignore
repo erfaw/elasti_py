@@ -1,5 +1,7 @@
 ~$astipy.docx
 __pycache__/
+/__pycache__
+**/__pycache__
 *.pyc
 .env
 /output

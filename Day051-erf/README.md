@@ -1,2 +1,2 @@
 # NOTE:
-## because I did all of this steps in my project [class-list-with-reline-PNU](https://www.github.com/erfaw/class-list-with-reline-PNU) , before come through this day, i will SKIP this project toward next day.
+## because I did all of this steps in my project [class-list-with-reline-PNU](https://www.github.com/erfaw/class-list-with-reline-PNU) , before come through this day, i will SKIP this project.

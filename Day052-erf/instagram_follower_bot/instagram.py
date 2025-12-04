@@ -5,14 +5,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 import pyautogui
 from pathlib import Path
 import os, time, datetime
+from dotenv import load_dotenv
 
 class InstaFollow:
     def __init__(self):
         """using selenium: build an object, we could work on it with selenium on Instagram.com"""
-
+        load_dotenv()
+        self.INSTAGRAM_URL = "https://www.instagram.com/accounts/login/"
+        self.INSTAGRAM_USERNAME = os.environ.get('INSTAGRAM_USERNAME')
+        self.INSTAGRAM_PASSWORD = os.environ.get('INSTAGRAM_PASSWORD')
         ## BUILD A DRIVER FOR FIREFOX 
         self.driver = Firefox(options=FirefoxOptions())
         self.install_veepn()
+        self.login_instagram()
 
     def install_veepn(self):
         """installs 'Veepn' extension to firefox driver from files exist in main profile of user."""
@@ -169,6 +174,27 @@ class InstaFollow:
     def login_instagram(self):
         """login to instagram"""
         pass
+        ## CHECK WITH PYAUTOGUI VEEPN CONNECTED OR NOT
+                # img_dir = (Path(__file__).parent/'img').resolve()
+                # connected_img_fp = img_dir/'10.check_connect.png'
+                # is_connected = False
+                # while not is_connected:
+                #     if bool(pyautogui.locateOnScreen(
+                #         image= connected_img_fp.resolve()._str,
+                #         grayscale=False,
+                #         confidence=0.8,)
+                #         ):
+                #         is_connected = True
+                #     else: 
+                #         time.sleep(2)  
+                # self.driver.switch_to.window(self.driver.window_handles[-1])
+
+                # ## LOAD INSTAGRAM PAGE
+                # self.driver.get(self.INSTAGRAM_URL)
+
+                # ## FILL INFORMATIONS
+                # print()
+
     def find_followers(self):
         """find follower to follow"""
         pass

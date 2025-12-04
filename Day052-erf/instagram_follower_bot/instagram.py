@@ -1,0 +1,177 @@
+from selenium.webdriver import Firefox, FirefoxOptions
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+import pyautogui
+from pathlib import Path
+import os, time, datetime
+
+class InstaFollow:
+    def __init__(self):
+        """using selenium: build an object, we could work on it with selenium on Instagram.com"""
+
+        ## BUILD A DRIVER FOR FIREFOX 
+        self.driver = Firefox(options=FirefoxOptions())
+        self.install_veepn()
+
+    def install_veepn(self):
+        """installs 'Veepn' extension to firefox driver from files exist in main profile of user."""
+        self.veepn_ID = r'{94ed9bbf-a1e2-4e58-81ae-cd16dad818d8}'
+        self.extention_veepn_fp = Path(
+            fr"C://Users/{os.environ.get("USERNAME")}/AppData/Roaming/Mozilla/Firefox/Profiles/vx6mst7r.default-release/extensions/{self.veepn_ID}.xpi"
+            ).resolve()
+        self.driver.install_addon(
+            path= self.extention_veepn_fp
+        )
+        #add wait to load
+        WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(
+            EC.new_window_is_opened(self.driver.window_handles)
+        )
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(
+            EC.all_of( 
+                ## 1.wait for first tick 
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, "div.app__container")
+                ),
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, "span.checkbox__box")
+                ),          
+                ## 2.wait for accept btn
+                EC.presence_of_element_located(
+                    (By.CLASS_NAME, "app__accept")
+                )
+            )
+        )
+
+        ## FILL THE TICKS FOR VEEPN
+        self.checkboxs = self.driver.find_elements(By.CSS_SELECTOR, "span.checkbox__box") 
+        for i in self.checkboxs: ##tick all 
+            i.click()
+        ## CLICK ON 'ACCEPT' BTN
+        self.driver.find_element(By.CLASS_NAME, "app__accept").click()
+
+        ## use 'pyautogui' library and automate clicking and enabling veepn
+        img_dir = (Path(__file__).parent/'img').resolve()
+        confidence_level = 0.8
+
+        ## find and click on 'puzzle_logo.img'
+        puzzle_btn_fp = img_dir/'1.puzzle_logo.png'
+        puzzle_btn_generator = pyautogui.locateAllOnScreen(
+            puzzle_btn_fp.resolve()._str,
+            confidence= confidence_level,
+            grayscale= False,
+        )
+        puzzle_btns = list(puzzle_btn_generator)
+        pyautogui.click(
+            pyautogui.center(puzzle_btns[0])
+        )
+
+        ## find and click on '2.disabled_extension_click.png'
+        disabled_extension_click_fp = img_dir/'2.disabled_extension_click.png'
+        disabled_extension_click_generator = pyautogui.locateAllOnScreen(
+            disabled_extension_click_fp.resolve()._str,
+            confidence= confidence_level,
+            grayscale= False,
+        )
+        disabled_extension_click_btn = list(disabled_extension_click_generator)
+        pyautogui.click(
+            pyautogui.center(disabled_extension_click_btn[0])
+        )
+
+        ##wait 3 seconds to open...
+        time.sleep(3)
+
+        ## find and click on '3.continue_btn.png'
+        continue_btn_fp = img_dir/'3.continue_btn.png'
+        continue_btn_generator = pyautogui.locateAllOnScreen(
+            continue_btn_fp.resolve()._str,
+            confidence= confidence_level,
+            grayscale= False,
+        )
+        continue_btn = list(continue_btn_generator)
+        pyautogui.click(
+            pyautogui.center(continue_btn[0])
+        )
+        ##repeat click for '4.start_btn.png'
+        time.sleep(0.1)
+        pyautogui.click(
+            pyautogui.center(continue_btn[0])
+        )
+
+        ##find and click on '5.login_btn.png'
+        login_btn_fp = img_dir/'5.login_btn.png'
+        login_btn_generator = pyautogui.locateAllOnScreen(
+            login_btn_fp.resolve()._str,
+            confidence= confidence_level,
+            grayscale=False,
+        )
+        login_btn = list(login_btn_generator)
+        pyautogui.click(
+            pyautogui.center(login_btn[0])
+        )
+
+        ##find and click on '6.tick_btn.png'
+        tick_btn_fp = img_dir/'6.tick_btn.png'
+        tick_btn_generator = pyautogui.locateAllOnScreen(
+            tick_btn_fp.resolve()._str,
+            confidence= confidence_level,
+            grayscale=False,
+        )
+        tick_btn = list(tick_btn_generator)
+        pyautogui.click(
+            pyautogui.center(tick_btn[0])
+        )
+        
+        time.sleep(1)
+
+        ##find and click on '7.select_server_btn.png'
+        select_server_btn_fp = img_dir/'7.select_server_btn.png'
+        select_server_btn_generator = pyautogui.locateAllOnScreen(
+            select_server_btn_fp.resolve()._str,
+            confidence= 0.5,
+            grayscale=False,
+        )
+        select_server_btn = list(select_server_btn_generator)
+        pyautogui.click(
+            pyautogui.center(select_server_btn[0])
+        )
+
+        time.sleep(1)
+
+        ##find and click on '8.UK_server_btn.png'
+        UK_server_btn_fp = img_dir/'8.UK_server_btn.png'
+        UK_server_btn_generator = pyautogui.locateAllOnScreen(
+            UK_server_btn_fp.resolve()._str,
+            confidence= confidence_level,
+            grayscale=False,
+        )
+        UK_server_btn = list(UK_server_btn_generator)
+
+        pyautogui.click(
+            pyautogui.center(UK_server_btn[0])
+        )
+
+        time.sleep(1)
+
+        ##find and click on '9.connect_btn.png'
+        connect_btn_fp = img_dir/'9.connect_btn.png'
+        connect_btn_generator = pyautogui.locateAllOnScreen(
+            connect_btn_fp.resolve()._str,
+            confidence= confidence_level,
+            grayscale=False,
+        )
+        connect_btn = list(connect_btn_generator)
+        pyautogui.click(
+            pyautogui.center(connect_btn[0])
+        )
+
+    def login_instagram(self):
+        """login to instagram"""
+        pass
+    def find_followers(self):
+        """find follower to follow"""
+        pass
+    def login_instagram(self):
+        """follow targeted account"""
+        pass

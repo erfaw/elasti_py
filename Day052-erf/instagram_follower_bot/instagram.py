@@ -2,6 +2,7 @@ from selenium.webdriver import Firefox, FirefoxOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException
 import pyautogui
 from pathlib import Path
 import os, time, datetime
@@ -11,7 +12,7 @@ class InstaFollow:
     def __init__(self):
         """using selenium: build an object, we could work on it with selenium on Instagram.com"""
         load_dotenv()
-        self.INSTAGRAM_URL = "https://www.instagram.com/accounts/login/"
+        self.INSTAGRAM_URL = "https://www.instagram.com/"
         self.INSTAGRAM_USERNAME = os.environ.get('INSTAGRAM_USERNAME')
         self.INSTAGRAM_PASSWORD = os.environ.get('INSTAGRAM_PASSWORD')
         ## BUILD A DRIVER FOR FIREFOX 
@@ -171,33 +172,66 @@ class InstaFollow:
             pyautogui.center(connect_btn[0])
         )
 
+        ## CHECK WITH PYAUTOGUI VEEPN CONNECTED OR NOT
+        # img_dir = (Path(__file__).parent/'img').resolve()
+        connected_img_fp = img_dir/'10.check_connect.png'
+        is_connected = False
+        while not is_connected:
+            if bool(pyautogui.locateOnScreen(
+                image= connected_img_fp.resolve()._str,
+                grayscale=False,
+                confidence=0.8,)
+                ):
+                is_connected = True
+                time.sleep(2)
+            else: 
+                time.sleep(2)  
+        self.driver.switch_to.window(self.driver.window_handles[-1])        
+
     def login_instagram(self):
         """login to instagram"""
-        pass
-        ## CHECK WITH PYAUTOGUI VEEPN CONNECTED OR NOT
-                # img_dir = (Path(__file__).parent/'img').resolve()
-                # connected_img_fp = img_dir/'10.check_connect.png'
-                # is_connected = False
-                # while not is_connected:
-                #     if bool(pyautogui.locateOnScreen(
-                #         image= connected_img_fp.resolve()._str,
-                #         grayscale=False,
-                #         confidence=0.8,)
-                #         ):
-                #         is_connected = True
-                #     else: 
-                #         time.sleep(2)  
-                # self.driver.switch_to.window(self.driver.window_handles[-1])
+        ## LOAD INSTAGRAM PAGE
+        self.driver.get(self.INSTAGRAM_URL)
 
-                # ## LOAD INSTAGRAM PAGE
-                # self.driver.get(self.INSTAGRAM_URL)
+        ## WAIT FOR PAGE TO LOAD
+        WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 2).until(
+            EC.presence_of_element_located(
+                (By.CLASS_NAME, "_a9--")
+            )
+        )
 
-                # ## FILL INFORMATIONS
-                # print()
+        ## CLICK ON DECLINE COOKIES
+        self.driver.find_element(by= By.CLASS_NAME, value= "_a9--").click()
+        time.sleep(3)
+
+        ## FILL INFORMATIONS
+        instagram_login_form = self.driver.find_element(by= By.CSS_SELECTOR, value= "#loginForm").find_elements(By.CSS_SELECTOR, "div.html-div.x14z9mp.xat24cr.x1lziwak.xexx8yu.xyri2b.x18d9i69.x1c1uobl.x9f619.xjbqb8w.x78zum5.x15mokao.x1ga7v0g.x16uus16.xbiv7yw.xqui205.x1n2onr6.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1")[0]
+        username_input = instagram_login_form.find_elements(
+            by= By.CSS_SELECTOR,
+            value= "._aa4b"
+        )[0]
+        password_input = instagram_login_form.find_elements(
+            by= By.CSS_SELECTOR,
+            value= "._aa4b"
+        )[1]
+        login_btn = instagram_login_form.
+
+
+        # FILL USERNAME 
+        username_input.send_keys(self.INSTAGRAM_USERNAME)
+
+        # FILL PASSWORD
+        password_input.send_keys(self.INSTAGRAM_PASSWORD)
+
+        ## PUSH 'LOGIN' BTN
+
+
+        print()
 
     def find_followers(self):
         """find follower to follow"""
         pass
-    def login_instagram(self):
-        """follow targeted account"""
-        pass
+
+    # def follow(self):
+    #     """follow targeted account"""
+    #     pass

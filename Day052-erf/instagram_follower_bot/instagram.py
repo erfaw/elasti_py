@@ -236,7 +236,7 @@ class InstaFollow:
         time.sleep(1)
         login_btn.click()
 
-        print()
+        print(f"Successfully Logged in INSTAGRAM\nuser:\t<{self.INSTAGRAM_USERNAME}")
 
     def find_followers(self):
         """find follower to follow"""

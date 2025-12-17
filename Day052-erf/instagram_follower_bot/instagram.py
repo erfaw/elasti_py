@@ -266,19 +266,22 @@ class InstaFollow:
         """find follower to follow"""
         ## GET TO TARGET PAGE
         self.driver.get(target_url)
-        #w
+        ## CHECK FOR EXISTENCE OF 'FOLLOWER' PANE 
         WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(
             EC.element_to_be_clickable(
                 (By.XPATH, "//*[contains(text(), 'follower')]")
                 )
         )
+        ## CLICK ON FOLLOWER PANE TO OPEN FOLLOWERS PAGE SCROLLING
         self.driver.find_element(by= By.XPATH, value="//*[contains(text(), 'followers')]").click()
 
+        ## CHECK FOR FOLLOWER PANE OPENED OR NOT
         WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
             EC.presence_of_element_located(
                 (By.CLASS_NAME, "x1cy8zhl.x9f619.x78zum5.xl56j7k.x2lwn1j.xeuugli.x47corl"))
         )
 
+        ## PRINT IN CONSOLE FOLLOWER PAGE IS OPENED NOW FOR TARGET_URL
         print(f'\nFollower scrol page opened!\ntarget_url:\t<{target_url}>')
 
     def click_string_now(self, string):

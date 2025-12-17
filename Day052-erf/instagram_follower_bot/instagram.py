@@ -279,7 +279,7 @@ class InstaFollow:
                 (By.CLASS_NAME, "x1cy8zhl.x9f619.x78zum5.xl56j7k.x2lwn1j.xeuugli.x47corl"))
         )
 
-        print('\nfollower scroll page must be opened')
+        print(f'\nFollower scrol page opened!\ntarget_url:\t<{target_url}>')
 
     def click_string_now(self, string):
         """click on very first given string in page, NOTICE: its case sensitive"""

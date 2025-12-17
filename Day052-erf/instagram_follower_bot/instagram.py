@@ -7,6 +7,7 @@ import pyautogui
 from pathlib import Path
 import os, time, datetime
 from dotenv import load_dotenv
+import subprocess; 
 
 class InstaFollow:
     def __init__(self):
@@ -205,17 +206,25 @@ class InstaFollow:
         time.sleep(3)
 
         ## FILL INFORMATIONS
+        # GET LOGIN FORM DIV FIRST TO GET ANOTHER WITH IT
         instagram_login_form = self.driver.find_element(by= By.CSS_SELECTOR, value= "#loginForm").find_elements(By.CSS_SELECTOR, "div.html-div.x14z9mp.xat24cr.x1lziwak.xexx8yu.xyri2b.x18d9i69.x1c1uobl.x9f619.xjbqb8w.x78zum5.x15mokao.x1ga7v0g.x16uus16.xbiv7yw.xqui205.x1n2onr6.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1")[0]
+        # GET USERNAME_INPUT DIV
         username_input = instagram_login_form.find_elements(
             by= By.CSS_SELECTOR,
             value= "._aa4b"
         )[0]
+        # GET PASSWORD INPUT DIV
         password_input = instagram_login_form.find_elements(
             by= By.CSS_SELECTOR,
             value= "._aa4b"
         )[1]
-        login_btn = instagram_login_form.
-
+        # GET LOGIN BTN DIV (LOOP THROUGH ALL DIVS AND GET A DIV WHICH HAS 'LOG IN' IN IT)
+        login_btn = None
+        for div in instagram_login_form.find_elements(By.CSS_SELECTOR,"div"):
+            if div.get_attribute('innerHTML').lower() == "log in":
+                login_btn = div
+            else: 
+                pass
 
         # FILL USERNAME 
         username_input.send_keys(self.INSTAGRAM_USERNAME)
@@ -224,7 +233,8 @@ class InstaFollow:
         password_input.send_keys(self.INSTAGRAM_PASSWORD)
 
         ## PUSH 'LOGIN' BTN
-
+        time.sleep(1)
+        login_btn.click()
 
         print()
 

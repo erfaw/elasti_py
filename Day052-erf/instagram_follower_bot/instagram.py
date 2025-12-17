@@ -13,6 +13,7 @@ class InstaFollow:
     def __init__(self):
         """using selenium: build an object, we could work on it with selenium on Instagram.com"""
         load_dotenv()
+        subprocess.call('cls', shell=True)
         self.INSTAGRAM_URL = "https://www.instagram.com/"
         self.INSTAGRAM_USERNAME = os.environ.get('INSTAGRAM_USERNAME')
         self.INSTAGRAM_PASSWORD = os.environ.get('INSTAGRAM_PASSWORD')
@@ -20,6 +21,7 @@ class InstaFollow:
         self.driver = Firefox(options=FirefoxOptions())
         self.install_veepn()
         self.login_instagram()
+        self.find_followers()
 
     def install_veepn(self):
         """installs 'Veepn' extension to firefox driver from files exist in main profile of user."""
@@ -236,11 +238,55 @@ class InstaFollow:
         time.sleep(1)
         login_btn.click()
 
-        print(f"Successfully Logged in INSTAGRAM\nuser:\t<{self.INSTAGRAM_USERNAME}")
+        # TODO : figure out for try again soon error codes function right
+        try:
+            self.driver.find_element(By.XPATH, "//*[contains(text(), 'try again soon')]")
+        except NoSuchElementException:
+            pass
+        else: 
+            time.sleep(5)
+            login_btn.click()
 
-    def find_followers(self):
+        ## wait to load page which ask for 'save information' 
+        WebDriverWait(driver= self.driver, timeout=200, poll_frequency= 2).until(
+            EC.url_contains("/accounts/onetap")
+        )
+        # then click on 'Not now'
+        self.click_string_now('Not now')
+
+        ## wait to load primary instagram page 
+        WebDriverWait(driver= self.driver, timeout=200, poll_frequency=2).until(
+            EC.url_to_be(self.INSTAGRAM_URL)
+        )
+        print(f"Successfully Logged in INSTAGRAM\nuser:\t<{self.INSTAGRAM_USERNAME}>")
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        
+
+    def find_followers(self, target_url="https://www.instagram.com/chefsteps/"):
         """find follower to follow"""
-        pass
+        ## GET TO TARGET PAGE
+        self.driver.get(target_url)
+        #w
+        WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(
+            EC.element_to_be_clickable(
+                (By.XPATH, "//*[contains(text(), 'follower')]")
+                )
+        )
+        self.driver.find_element(by= By.XPATH, value="//*[contains(text(), 'followers')]").click()
+
+        WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
+            EC.presence_of_element_located(
+                (By.CLASS_NAME, "x1cy8zhl.x9f619.x78zum5.xl56j7k.x2lwn1j.xeuugli.x47corl"))
+        )
+
+        print('\nfollower scroll page must be opened')
+
+    def click_string_now(self, string):
+        """click on very first given string in page, NOTICE: its case sensitive"""
+        time.sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+        self.driver.find_element(by= By.XPATH, value= fr"//*[contains(text(), '{string}')]").click()
+
 
     # def follow(self):
     #     """follow targeted account"""

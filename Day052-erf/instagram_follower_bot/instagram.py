@@ -263,7 +263,7 @@ class InstaFollow:
         
 
     def find_followers(self, target_url="https://www.instagram.com/chefsteps/"):
-        """find follower to follow"""
+        """by loading target_url instagram page, click on 'followers' part and open followers list, ready to push follow each by each"""
         ## GET TO TARGET PAGE
         self.driver.get(target_url)
         ## CHECK FOR EXISTENCE OF 'FOLLOWER' PANE 

@@ -27,6 +27,7 @@ class InstaFollow:
         self.find_followers(target_url=self.TARGET_URL)
         self.follow_procedure()
 
+#TODO: replace every switch code with this method
     def switch_last_window(self):
         self.driver.switch_to.window(self.driver.window_handles[-1])
 

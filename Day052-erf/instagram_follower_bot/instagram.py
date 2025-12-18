@@ -2,7 +2,7 @@ from selenium.webdriver import Firefox, FirefoxOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.common.keys import Keys
 import pyautogui
 from pathlib import Path
@@ -21,10 +21,14 @@ class InstaFollow:
         self.TARGET_URL = os.environ.get("SIMILAR_ACCOUNT")
         ## BUILD A DRIVER FOR FIREFOX 
         self.driver = Firefox(options=FirefoxOptions())
+        # self.driver.maximize_window()
         self.install_veepn()
         self.login_instagram()
         self.find_followers(target_url=self.TARGET_URL)
         self.follow_procedure()
+
+    def switch_last_window(self):
+        self.driver.switch_to.window(self.driver.window_handles[-1])
 
     def install_veepn(self):
         """installs 'Veepn' extension to firefox driver from files exist in main profile of user."""
@@ -197,8 +201,11 @@ class InstaFollow:
     def login_instagram(self):
         """login to instagram"""
         ## LOAD INSTAGRAM PAGE
-        self.driver.get(self.INSTAGRAM_URL)
-
+        try:
+            self.driver.get(self.INSTAGRAM_URL)
+        except WebDriverException:
+            time.sleep(5)
+            self.driver.get(self.INSTAGRAM_URL)
         ## WAIT FOR PAGE TO LOAD
         WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 2).until(
             EC.presence_of_element_located(
@@ -240,16 +247,24 @@ class InstaFollow:
         ## PUSH 'LOGIN' BTN
         time.sleep(1)
         login_btn.click()
-
-        # TODO : figure out for try again soon error codes function right
+        time.sleep(7)
         try:
-            self.driver.find_element(By.XPATH, "//*[contains(text(), 'try again soon')]")
-        except NoSuchElementException:
+            if self.driver.find_element(By.XPATH, "//*[contains(text(), 'There was a problem logging you into Instagram. Please try again soon.')]"):
+                time.sleep(5)
+                login_btn.click()
+        except:
             pass
-        else: 
-            time.sleep(5)
-            login_btn.click()
+        # TODO : figure out for try again soon error codes function right
+                # try:
+                #     self.driver.find_element(By.XPATH, "//*[contains(text(), 'There was a problem logging you into Instagram. Please try again soon.')]")
+                # except:
+                #     pass
+                # else: 
+                #     time.sleep(5)
+                #     login_btn.click()
 
+        
+# TODO : make a detector for this url:</challenge/ASgg4zuAt8CP> and when its found, start logging in from beggining, break this one and start a new one from scratch. 
         ## wait to load page which ask for 'save information' 
         WebDriverWait(driver= self.driver, timeout=200, poll_frequency= 2).until(
             EC.url_contains("/accounts/onetap")
@@ -280,13 +295,13 @@ class InstaFollow:
         ## CHECK FOR FOLLOWER PANE OPENED OR NOT
         WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
             EC.presence_of_element_located(
-                (By.CLASS_NAME, "x1cy8zhl.x9f619.x78zum5.xl56j7k.x2lwn1j.xeuugli.x47corl")
+                (By.CLASS_NAME, "x7r02ix.x15fl9t6.x1yw9sn2.x1evh3fb.x4giqqa.xb88tzc.xw2csxc.x1odjw0f.x5fp0pe")
                 )
         )
 
         ## STORE FOLLOWERS LOCATOR AS A ATTRIBUTE
         self.followers_pane = self.driver.find_element(
-            (By.CLASS_NAME, "x1cy8zhl.x9f619.x78zum5.xl56j7k.x2lwn1j.xeuugli.x47corl")
+            By.CLASS_NAME, value="x7r02ix.x15fl9t6.x1yw9sn2.x1evh3fb.x4giqqa.xb88tzc.xw2csxc.x1odjw0f.x5fp0pe"
         )
 
         ## PRINT IN CONSOLE FOLLOWER PAGE IS OPENED NOW FOR TARGET_URL
@@ -301,7 +316,28 @@ class InstaFollow:
     # TODO: make a method: to pushing tab and follow people
     def follow_procedure(self):
         """start following from 'self.followers_pane', each by each"""
+        self.switch_last_window()
         # TODO: find a way to remove 5 sec wait and do it with WebDriverWait
-        ## ADD 5 SECONDS WAIT TO LOAD FOLLOWERS 
-        pass
+        # self.driver.find_elements(By.CSS_SELECTOR, "div.x1qnrgzn.x1cek8b2.xb10e19.x19rwo8q.x1lliihq.x193iq5w.xh8yej3")
+
+        ## WAIT TO LOAD FOLLOWERS
+        WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "div.x1qnrgzn.x1cek8b2.xb10e19.x19rwo8q.x1lliihq.x193iq5w.xh8yej3")
+                )
+        )
+        
+        ## CATCH THE ELEMENTS OF FOLLOWERS
+        followers_div = self.followers_pane.find_elements(By.CSS_SELECTOR, "div.html-div.xdj266r.x14z9mp.xat24cr.x1lziwak.x9f619.xjbqb8w.x78zum5.x15mokao.x1ga7v0g.x16uus16.xbiv7yw.xv54qhq.xf7dkkf.xwib8y2.x1y1aw1k.x1uhb9sk.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1")
+# TODO: followers_div must renew with ending first phase, figure .
+        for div in followers_div:
+            ## THE LAST DIV EXISTING, IS FOLLOW BUTTON
+            follow_btn = div.find_elements(By.CSS_SELECTOR, "div")[-1]
+
+            ## check if follow btn is 'following' right now
+            if 'following' == follow_btn.text.lower() or 'requested' == follow_btn.text.lower():
+                continue
+
+            follow_btn.click()
+
 

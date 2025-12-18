@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys
 import pyautogui
 from pathlib import Path
 import os, time, datetime
@@ -17,11 +18,13 @@ class InstaFollow:
         self.INSTAGRAM_URL = "https://www.instagram.com/"
         self.INSTAGRAM_USERNAME = os.environ.get('INSTAGRAM_USERNAME')
         self.INSTAGRAM_PASSWORD = os.environ.get('INSTAGRAM_PASSWORD')
+        self.TARGET_URL = os.environ.get("SIMILAR_ACCOUNT")
         ## BUILD A DRIVER FOR FIREFOX 
         self.driver = Firefox(options=FirefoxOptions())
         self.install_veepn()
         self.login_instagram()
-        self.find_followers()
+        self.find_followers(target_url=self.TARGET_URL)
+        self.follow_procedure()
 
     def install_veepn(self):
         """installs 'Veepn' extension to firefox driver from files exist in main profile of user."""
@@ -260,9 +263,8 @@ class InstaFollow:
         )
         print(f"Successfully Logged in INSTAGRAM\nuser:\t<{self.INSTAGRAM_USERNAME}>")
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        
 
-    def find_followers(self, target_url="https://www.instagram.com/chefsteps/"):
+    def find_followers(self, target_url):
         """by loading target_url instagram page, click on 'followers' part and open followers list, ready to push follow each by each"""
         ## GET TO TARGET PAGE
         self.driver.get(target_url)
@@ -278,7 +280,13 @@ class InstaFollow:
         ## CHECK FOR FOLLOWER PANE OPENED OR NOT
         WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
             EC.presence_of_element_located(
-                (By.CLASS_NAME, "x1cy8zhl.x9f619.x78zum5.xl56j7k.x2lwn1j.xeuugli.x47corl"))
+                (By.CLASS_NAME, "x1cy8zhl.x9f619.x78zum5.xl56j7k.x2lwn1j.xeuugli.x47corl")
+                )
+        )
+
+        ## STORE FOLLOWERS LOCATOR AS A ATTRIBUTE
+        self.followers_pane = self.driver.find_element(
+            (By.CLASS_NAME, "x1cy8zhl.x9f619.x78zum5.xl56j7k.x2lwn1j.xeuugli.x47corl")
         )
 
         ## PRINT IN CONSOLE FOLLOWER PAGE IS OPENED NOW FOR TARGET_URL
@@ -290,7 +298,10 @@ class InstaFollow:
         self.driver.switch_to.window(self.driver.window_handles[-1])
         self.driver.find_element(by= By.XPATH, value= fr"//*[contains(text(), '{string}')]").click()
 
+    # TODO: make a method: to pushing tab and follow people
+    def follow_procedure(self):
+        """start following from 'self.followers_pane', each by each"""
+        # TODO: find a way to remove 5 sec wait and do it with WebDriverWait
+        ## ADD 5 SECONDS WAIT TO LOAD FOLLOWERS 
+        pass
 
-    # def follow(self):
-    #     """follow targeted account"""
-    #     pass

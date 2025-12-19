@@ -366,12 +366,9 @@ class InstaFollow:
         self.driver.switch_to.window(self.driver.window_handles[-1])
         self.driver.find_element(by= By.XPATH, value= fr"//*[contains(text(), '{string}')]").click()
 
-    # TODO: make a method: to pushing tab and follow people
     def follow_procedure(self):
         """start following from 'self.followers_pane', each by each"""
         self.switch_last_window()
-        # TODO: find a way to remove 5 sec wait and do it with WebDriverWait
-        # self.driver.find_elements(By.CSS_SELECTOR, "div.x1qnrgzn.x1cek8b2.xb10e19.x19rwo8q.x1lliihq.x193iq5w.xh8yej3")
 
         ## WAIT TO LOAD FOLLOWERS
         WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(

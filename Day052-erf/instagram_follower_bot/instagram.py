@@ -21,11 +21,26 @@ class InstaFollow:
         self.TARGET_URL = os.environ.get("SIMILAR_ACCOUNT")
         ## BUILD A DRIVER FOR FIREFOX 
         self.driver = Firefox(options=FirefoxOptions())
-        # self.driver.maximize_window()
+        self.driver.maximize_window()
         self.install_veepn()
         self.login_instagram()
         self.find_followers(target_url=self.TARGET_URL)
         self.follow_procedure()
+
+    def highlight(self, element):
+        """get an element as arg, and put a red border on it in web browser to see it visualy. after 2s removes it"""
+        driver = element._parent
+        ## STORE CURRENT STYLE TO RESTORE IT LATER
+        original_style = element.get_attribute('style')
+        
+        ## ADD A RED BORDER ON THAT SPECIFIC ELEMENT
+        driver.execute_script("arguments[0].setAttribute('style', 'border: 2px solid red;padding:5px;');", element)
+        
+        ## FREEZ CODE FOR 2 SECOND TO SEE IT IN WEB BROWSER
+        time.sleep(1)
+        
+        ## GET BACK TO ORIGIN STYLE
+        driver.execute_script("arguments[0].setAttribute('style', arguments[1]);", element, original_style)
 
 #TODO: replace every switch code with this method
     def switch_last_window(self):
@@ -207,6 +222,7 @@ class InstaFollow:
         except WebDriverException:
             time.sleep(5)
             self.driver.get(self.INSTAGRAM_URL)
+        self.switch_last_window()
         ## WAIT FOR PAGE TO LOAD
         WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 2).until(
             EC.presence_of_element_located(
@@ -218,31 +234,51 @@ class InstaFollow:
         self.driver.find_element(by= By.CLASS_NAME, value= "_a9--").click()
         time.sleep(3)
 
-        ## FILL INFORMATIONS
-        # GET LOGIN FORM DIV FIRST TO GET ANOTHER WITH IT
-        instagram_login_form = self.driver.find_element(by= By.CSS_SELECTOR, value= "#loginForm").find_elements(By.CSS_SELECTOR, "div.html-div.x14z9mp.xat24cr.x1lziwak.xexx8yu.xyri2b.x18d9i69.x1c1uobl.x9f619.xjbqb8w.x78zum5.x15mokao.x1ga7v0g.x16uus16.xbiv7yw.xqui205.x1n2onr6.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1")[0]
-        # GET USERNAME_INPUT DIV
-        username_input = instagram_login_form.find_elements(
-            by= By.CSS_SELECTOR,
-            value= "._aa4b"
-        )[0]
-        # GET PASSWORD INPUT DIV
-        password_input = instagram_login_form.find_elements(
-            by= By.CSS_SELECTOR,
-            value= "._aa4b"
-        )[1]
-        # GET LOGIN BTN DIV (LOOP THROUGH ALL DIVS AND GET A DIV WHICH HAS 'LOG IN' IN IT)
-        login_btn = None
-        for div in instagram_login_form.find_elements(By.CSS_SELECTOR,"div"):
-            if div.get_attribute('innerHTML').lower() == "log in":
-                login_btn = div
-            else: 
-                pass
+        ### FILL INFORMATIONS
+        ## CHECK WHAT KIND OF LOGIN FORM WE HAVE, USE THAT ONE
+        try: # check for #login_form
+            self.driver.find_element(by= By.CSS_SELECTOR, value= "#login_form")
+            value_to_get_login_form = "#login_form"
+            value_to_get_username_input = 'Mobile number, username or email'
+        except NoSuchElementException: 
+            value_to_get_login_form = "#loginForm"
+            value_to_get_username_input ='Phone number, username, or email'
 
-        # FILL USERNAME 
+        ## GET LOGIN FORM DIV FIRST TO GET ANOTHERs WITH IT
+        instagram_login_form = self.driver.find_element(by= By.CSS_SELECTOR, value= f"{value_to_get_login_form}")
+            # instagram_login_form = self.driver.find_element(by= By.CSS_SELECTOR, value= "#loginForm").find_elements(By.CSS_SELECTOR, "div.html-div.x14z9mp.xat24cr.x1lziwak.xexx8yu.xyri2b.x18d9i69.x1c1uobl.x9f619.xjbqb8w.x78zum5.x15mokao.x1ga7v0g.x16uus16.xbiv7yw.xqui205.x1n2onr6.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1")[0]
+        
+        ## GET username_input FROM instagram_login_form
+        username_input = instagram_login_form.find_element(By.XPATH, fr"//*[contains(text(),'{value_to_get_username_input}')]").find_element(By.XPATH, "..").find_element(By.CSS_SELECTOR, "input") # first get a label tag with given string, then get parent of that tag, then looking for an input in it.
+            # username_input = instagram_login_form.find_elements(
+            #     by= By.CSS_SELECTOR,
+            #     value= "._aa4b"
+            # )[0]
+
+        ## GET password_input FROM instagram_login_form
+        password_input = instagram_login_form.find_element(By.XPATH, "//*[contains(text(),'Password')]").find_element(By.XPATH, "..").find_element(By.CSS_SELECTOR, "input")
+            # password_input = instagram_login_form.find_elements(
+            #     by= By.CSS_SELECTOR,
+            #     value= "._aa4b"
+            # )[1]
+
+        ## GET login_btn FROM instagram_login_form 
+        all_logins_in_form = instagram_login_form.find_elements(By.XPATH, "//*[contains(text(),'Log in')]")
+        for log_in in all_logins_in_form:
+            ## LOOP IN ALL LOGINS WHICH IS IN instagram_login_form AND GET THAT ONE IS EQUAL TO 'LOG IN'
+            if log_in.get_attribute('innerHTML').lower() == 'log in':
+                login_btn = log_in 
+            # login_btn = None
+            # for div in instagram_login_form.find_elements(By.CSS_SELECTOR,"div"):
+            #     if div.get_attribute('innerHTML').lower() == "log in":
+            #         login_btn = div
+            #     else: 
+            #         pass
+
+        # FILL USERNAME INTO username_input
         username_input.send_keys(self.INSTAGRAM_USERNAME)
 
-        # FILL PASSWORD
+        # FILL PASSWORD INTO password_input
         password_input.send_keys(self.INSTAGRAM_PASSWORD)
 
         ## PUSH 'LOGIN' BTN
@@ -266,6 +302,23 @@ class InstaFollow:
 
         
 # TODO : make a detector for this url:</challenge/ASgg4zuAt8CP> and when its found, start logging in from beggining, break this one and start a new one from scratch. 
+        ## WAIT 5SEC FOR ERROR, AND IF OCCURED: BREAK AND RUN AGAIN
+        time.sleep(5)
+        self.switch_last_window()
+        try:
+            self.driver.find_element(By.XPATH, "//*[contains(text(), 'Help us confirm it's you')]")
+            input("RECAPTCHA CHECK! DO IT MANUALY THE COME BACK AND HIT ANY BUTTON...")
+        except: 
+            pass
+        
+        try: 
+            self.driver.find_element(
+                By.XPATH, "//*[contains(text(), 'Something went wrong')]"
+            )
+            return self.login_instagram()
+        except:
+            pass
+
         ## wait to load page which ask for 'save information' 
         WebDriverWait(driver= self.driver, timeout=200, poll_frequency= 2).until(
             EC.url_contains("/accounts/onetap")
@@ -330,6 +383,7 @@ class InstaFollow:
         
         ## CATCH THE ELEMENTS OF FOLLOWERS
         followers_div = self.followers_pane.find_elements(By.CSS_SELECTOR, "div.html-div.xdj266r.x14z9mp.xat24cr.x1lziwak.x9f619.xjbqb8w.x78zum5.x15mokao.x1ga7v0g.x16uus16.xbiv7yw.xv54qhq.xf7dkkf.xwib8y2.x1y1aw1k.x1uhb9sk.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1")
+
 # TODO: followers_div must renew with ending first phase, figure .
         for div in followers_div:
             ## THE LAST DIV EXISTING, IS FOLLOW BUTTON

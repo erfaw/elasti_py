@@ -299,19 +299,18 @@ class InstaFollow:
                 # else: 
                 #     time.sleep(5)
                 #     login_btn.click()
-
-        
-# TODO : make a detector for this url:</challenge/ASgg4zuAt8CP> and when its found, start logging in from beggining, break this one and start a new one from scratch. 
+                
         ## WAIT 5SEC FOR ERROR, AND IF OCCURED: BREAK AND RUN AGAIN
         time.sleep(5)
         self.switch_last_window()
-        try:
+        # TODO: check this 2 try-except function right
+        try: # for recaptcha
             self.driver.find_element(By.XPATH, "//*[contains(text(), 'Help us confirm it's you')]")
             input("RECAPTCHA CHECK! DO IT MANUALY THE COME BACK AND HIT ANY BUTTON...")
         except: 
             pass
         
-        try: 
+        try: # for reload page and login failed or something 
             self.driver.find_element(
                 By.XPATH, "//*[contains(text(), 'Something went wrong')]"
             )

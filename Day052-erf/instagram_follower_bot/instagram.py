@@ -373,7 +373,7 @@ class InstaFollow:
         """start following """
         self.switch_last_window()
 
-        ## WAIT TO LOAD FOLLOWERS ==> not Neccessary
+        ## WAIT TO LOAD FOLLOWERS ==> not Neccessary 
                 # WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(
                 #     EC.presence_of_element_located(
                 #         (By.CSS_SELECTOR, "div.x1qnrgzn.x1cek8b2.xb10e19.x19rwo8q.x1lliihq.x193iq5w.xh8yej3")

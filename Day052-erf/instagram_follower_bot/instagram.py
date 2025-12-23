@@ -370,15 +370,15 @@ class InstaFollow:
         self.driver.find_element(by= By.XPATH, value= fr"//*[contains(text(), '{string}')]").click()
 
     def follow_procedure(self):
-        """start following from 'self.followers_pane', each by each"""
+        """start following """
         self.switch_last_window()
 
-        ## WAIT TO LOAD FOLLOWERS
-        WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(
-            EC.presence_of_element_located(
-                (By.CSS_SELECTOR, "div.x1qnrgzn.x1cek8b2.xb10e19.x19rwo8q.x1lliihq.x193iq5w.xh8yej3")
-                )
-        )
+        ## WAIT TO LOAD FOLLOWERS ==> not Neccessary
+                # WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(
+                #     EC.presence_of_element_located(
+                #         (By.CSS_SELECTOR, "div.x1qnrgzn.x1cek8b2.xb10e19.x19rwo8q.x1lliihq.x193iq5w.xh8yej3")
+                #         )
+                # )
         
         ## CATCH THE ELEMENTS OF FOLLOWERS
                 # followers_div = self.followers_pane.find_elements(By.CSS_SELECTOR, "div.html-div.xdj266r.x14z9mp.xat24cr.x1lziwak.x9f619.xjbqb8w.x78zum5.x15mokao.x1ga7v0g.x16uus16.xbiv7yw.xv54qhq.xf7dkkf.xwib8y2.x1y1aw1k.x1uhb9sk.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1")

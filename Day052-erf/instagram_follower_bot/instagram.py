@@ -343,19 +343,22 @@ class InstaFollow:
                 )
         )
         ## CLICK ON FOLLOWER PANE TO OPEN FOLLOWERS PAGE SCROLLING
-        self.driver.find_element(by= By.XPATH, value="//*[contains(text(), 'followers')]").click() # TODO: could be just target_url/followers and continue : comment out webdriverwait above and below (just check with exact url), and change get() with 'target_url/followers' string
+        self.driver.find_element(by= By.XPATH, value="//*[contains(text(), 'followers')]").click() 
 
         ## CHECK FOR FOLLOWER PANE OPENED OR NOT
-        WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
-            EC.presence_of_element_located(
-                (By.CLASS_NAME, "x7r02ix.x15fl9t6.x1yw9sn2.x1evh3fb.x4giqqa.xb88tzc.xw2csxc.x1odjw0f.x5fp0pe")
-                )
+        WebDriverWait(driver= self.driver, timeout= 30, poll_frequency=2).until(
+            EC.url_contains('/followers')
         )
+                # WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
+                #     EC.presence_of_element_located(
+                #         (By.CLASS_NAME, "x7r02ix.x15fl9t6.x1yw9sn2.x1evh3fb.x4giqqa.xb88tzc.xw2csxc.x1odjw0f.x5fp0pe")
+                #         )
+                # )
 
         ## STORE FOLLOWERS LOCATOR AS A ATTRIBUTE
-            # self.followers_pane = self.driver.find_element(
-            #     By.CLASS_NAME, value="x7r02ix.x15fl9t6.x1yw9sn2.x1evh3fb.x4giqqa.xb88tzc.xw2csxc.x1odjw0f.x5fp0pe"
-            # )
+                # self.followers_pane = self.driver.find_element(
+                #     By.CLASS_NAME, value="x7r02ix.x15fl9t6.x1yw9sn2.x1evh3fb.x4giqqa.xb88tzc.xw2csxc.x1odjw0f.x5fp0pe"
+                # )
 
         ## PRINT IN CONSOLE FOLLOWER PAGE IS OPENED NOW FOR TARGET_URL
         print(f'\nFollower scrol page opened!\ntarget_url:\t<{target_url}>')

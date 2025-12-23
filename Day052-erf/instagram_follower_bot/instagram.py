@@ -343,7 +343,7 @@ class InstaFollow:
                 )
         )
         ## CLICK ON FOLLOWER PANE TO OPEN FOLLOWERS PAGE SCROLLING
-        self.driver.find_element(by= By.XPATH, value="//*[contains(text(), 'followers')]").click()
+        self.driver.find_element(by= By.XPATH, value="//*[contains(text(), 'followers')]").click() # TODO: could be just target_url/followers and continue : comment out webdriverwait above and below (just check with exact url), and change get() with 'target_url/followers' string
 
         ## CHECK FOR FOLLOWER PANE OPENED OR NOT
         WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
@@ -353,9 +353,9 @@ class InstaFollow:
         )
 
         ## STORE FOLLOWERS LOCATOR AS A ATTRIBUTE
-        self.followers_pane = self.driver.find_element(
-            By.CLASS_NAME, value="x7r02ix.x15fl9t6.x1yw9sn2.x1evh3fb.x4giqqa.xb88tzc.xw2csxc.x1odjw0f.x5fp0pe"
-        )
+            # self.followers_pane = self.driver.find_element(
+            #     By.CLASS_NAME, value="x7r02ix.x15fl9t6.x1yw9sn2.x1evh3fb.x4giqqa.xb88tzc.xw2csxc.x1odjw0f.x5fp0pe"
+            # )
 
         ## PRINT IN CONSOLE FOLLOWER PAGE IS OPENED NOW FOR TARGET_URL
         print(f'\nFollower scrol page opened!\ntarget_url:\t<{target_url}>')
@@ -378,17 +378,19 @@ class InstaFollow:
         )
         
         ## CATCH THE ELEMENTS OF FOLLOWERS
-        followers_div = self.followers_pane.find_elements(By.CSS_SELECTOR, "div.html-div.xdj266r.x14z9mp.xat24cr.x1lziwak.x9f619.xjbqb8w.x78zum5.x15mokao.x1ga7v0g.x16uus16.xbiv7yw.xv54qhq.xf7dkkf.xwib8y2.x1y1aw1k.x1uhb9sk.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1")
+                # followers_div = self.followers_pane.find_elements(By.CSS_SELECTOR, "div.html-div.xdj266r.x14z9mp.xat24cr.x1lziwak.x9f619.xjbqb8w.x78zum5.x15mokao.x1ga7v0g.x16uus16.xbiv7yw.xv54qhq.xf7dkkf.xwib8y2.x1y1aw1k.x1uhb9sk.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1")
+            # TODO: just check for next follower exist in xpath find for 'followers' , follow all
+            # TODO: followers_div must renew with ending first phase, figure .
+                # for div in followers_div:
+                #     ## THE LAST DIV EXISTING, IS FOLLOW BUTTON
+                #     follow_btn = div.find_elements(By.CSS_SELECTOR, "div")[-1]
 
-# TODO: followers_div must renew with ending first phase, figure .
-        for div in followers_div:
-            ## THE LAST DIV EXISTING, IS FOLLOW BUTTON
-            follow_btn = div.find_elements(By.CSS_SELECTOR, "div")[-1]
+                #     ## check if follow btn is 'following' right now
+                #     if 'following' == follow_btn.text.lower() or 'requested' == follow_btn.text.lower():
+                #         continue
 
-            ## check if follow btn is 'following' right now
-            if 'following' == follow_btn.text.lower() or 'requested' == follow_btn.text.lower():
-                continue
+                #     follow_btn.click()
 
-            follow_btn.click()
+        print()
 
 

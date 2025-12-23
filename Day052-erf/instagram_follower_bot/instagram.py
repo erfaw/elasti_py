@@ -373,26 +373,40 @@ class InstaFollow:
         """start following """
         self.switch_last_window()
 
-        ## WAIT TO LOAD FOLLOWERS ==> not Neccessary 
-                # WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(
-                #     EC.presence_of_element_located(
-                #         (By.CSS_SELECTOR, "div.x1qnrgzn.x1cek8b2.xb10e19.x19rwo8q.x1lliihq.x193iq5w.xh8yej3")
-                #         )
-                # )
-        
-        ## CATCH THE ELEMENTS OF FOLLOWERS
-                # followers_div = self.followers_pane.find_elements(By.CSS_SELECTOR, "div.html-div.xdj266r.x14z9mp.xat24cr.x1lziwak.x9f619.xjbqb8w.x78zum5.x15mokao.x1ga7v0g.x16uus16.xbiv7yw.xv54qhq.xf7dkkf.xwib8y2.x1y1aw1k.x1uhb9sk.x1plvlek.xryxfnj.x1c4vz4f.x2lah0s.xdt5ytf.xqjyukv.x1qjc9v5.x1oa3qoh.x1nhvcw1")
-            # TODO: just check for next follower exist in xpath find for 'followers' , follow all
-            # TODO: followers_div must renew with ending first phase, figure .
-                # for div in followers_div:
-                #     ## THE LAST DIV EXISTING, IS FOLLOW BUTTON
-                #     follow_btn = div.find_elements(By.CSS_SELECTOR, "div")[-1]
+        ## CATCH 'Followers' TO CATCH CONTAINER (RELATIVE WAY)
+        followers_text = self.driver.find_element(By.XPATH, "//*[contains(text(), 'Followers')]")
 
-                #     ## check if follow btn is 'following' right now
-                #     if 'following' == follow_btn.text.lower() or 'requested' == follow_btn.text.lower():
-                #         continue
+        ## GET THE 5TH PARENT OF FOLLOWERS_TEXT, BASED ON STRUCTURE OF THIS PAGE
+        main_container = followers_text
+        for i in range(5):
+            main_container = main_container.find_element(By.XPATH, "..")
 
-                #     follow_btn.click()
+        ## GET ALL OF Follow BTNS ELEMENT AND STORE IT
+        locator = (By.XPATH, ".//button[contains(., 'Follow')]")
+        all_follow_btn = main_container.find_elements(locator[0], locator[1])
+
+        ### START FOLLOW LOOP (till when we need to scroll to load more)
+        for follow_btn in all_follow_btn:
+            ## CHECK STRING TO BE EXACT 'Follow' NOT ANY THING ELSE
+            if follow_btn.text == 'Follow':
+                follow_btn.click()
+            
+            ## WAIT TO END PROCESS BY INSTAGRAM
+            is_done= False
+            while not is_done:
+                if follow_btn == 'Requested' or follow_btn == 'Following':
+                    is_done = True
+                time.sleep(1)
+                    # WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
+                    #     EC.any_of(
+                    #         EC.text_to_be_present_in_element(
+                    #             locator, 'Requested'
+                    #         ),
+                    #         EC.text_to_be_present_in_element(
+                    #             locator, 'Following'
+                    #         )
+                    #     )
+                    # )
 
         print()
 

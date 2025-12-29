@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 import pyautogui
 from pathlib import Path
 import os, time, datetime
@@ -37,7 +38,7 @@ class InstaFollow:
         driver.execute_script("arguments[0].setAttribute('style', 'border: 2px solid red;padding:5px;');", element)
         
         ## FREEZ CODE FOR 2 SECOND TO SEE IT IN WEB BROWSER
-        time.sleep(1)
+        time.sleep(2)
         
         ## GET BACK TO ORIGIN STYLE
         driver.execute_script("arguments[0].setAttribute('style', arguments[1]);", element, original_style)
@@ -369,45 +370,79 @@ class InstaFollow:
         self.driver.switch_to.window(self.driver.window_handles[-1])
         self.driver.find_element(by= By.XPATH, value= fr"//*[contains(text(), '{string}')]").click()
 
+    def scroll_down_to(self, element):
+        """scroll down to catched arg element"""
+        ### STACK OVERFLOW WAY=>
+        SCROLL_PAUSE_TIME = 0.5
+        # Scroll down to bottom
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+        # Wait to load page
+        time.sleep(SCROLL_PAUSE_TIME)
+
+                # # Calculate new scroll height and compare with last scroll height
+                # new_height = driver.execute_script("return document.body.scrollHeight")
+                # if new_height == last_height:
+                #     break
+                # last_height = new_height
+
+
+                # ### prev way with actionChains
+                # scroll_down = ActionChains(
+                #     driver= self.driver,
+                # ).scroll_from_origin(
+                #     scroll_origin= 
+                #     delta_y= 10,
+                #     delta_x=0
+                # )
+                # scroll_down.perform()
+
     def follow_procedure(self):
         """start following """
         self.switch_last_window()
-
+        
         ## CATCH 'Followers' TO CATCH CONTAINER (RELATIVE WAY)
         followers_text = self.driver.find_element(By.XPATH, "//*[contains(text(), 'Followers')]")
-
+        
         ## GET THE 5TH PARENT OF FOLLOWERS_TEXT, BASED ON STRUCTURE OF THIS PAGE
         main_container = followers_text
         for i in range(5):
             main_container = main_container.find_element(By.XPATH, "..")
 
-        ## GET ALL OF Follow BTNS ELEMENT AND STORE IT
         locator = (By.XPATH, ".//button[contains(., 'Follow')]")
-        all_follow_btn = main_container.find_elements(locator[0], locator[1])
-
-        ### START FOLLOW LOOP (till when we need to scroll to load more)
-        for follow_btn in all_follow_btn:
-            ## CHECK STRING TO BE EXACT 'Follow' NOT ANY THING ELSE
-            if follow_btn.text == 'Follow':
-                follow_btn.click()
+        last_number = 0
+        
+        while True:
+            ## GET ALL OF Follow BTNS ELEMENT AND STORE IT
+            all_follow_btn = main_container.find_elements(locator[0], locator[1])
             
-            ## WAIT TO END PROCESS BY INSTAGRAM
-            is_done= False
-            while not is_done:
-                if follow_btn == 'Requested' or follow_btn == 'Following':
-                    is_done = True
-                time.sleep(1)
-                    # WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
-                    #     EC.any_of(
-                    #         EC.text_to_be_present_in_element(
-                    #             locator, 'Requested'
-                    #         ),
-                    #         EC.text_to_be_present_in_element(
-                    #             locator, 'Following'
-                    #         )
-                    #     )
-                    # )
-
-        print()
+            ### START FOLLOW LOOP (till when we need to scroll to load more)
+            for follow_btn in all_follow_btn:
+                ## CHECK STRING TO BE EXACT 'Follow' NOT ANY THING ELSE
+                if follow_btn.text.strip() == 'Follow':
+                    follow_btn.click()
+                
+                ## WAIT TO END PROCESS BY INSTAGRAM
+                is_done= False
+                while not is_done:
+                    if follow_btn == 'Requested' or follow_btn == 'Following':
+                        is_done = True
+                    time.sleep(2)
+                        # WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
+                        #     EC.any_of(
+                        #         EC.text_to_be_present_in_element(
+                        #             locator, 'Requested'
+                        #         ),
+                        #         EC.text_to_be_present_in_element(
+                        #             locator, 'Following'
+                        #         )
+                        #     )
+                        # )
+            
+            ## SCROLL TO LAST ELEMENT
+            self.scroll_down_to(all_follow_btn[-1])
+            
+            ## STORE WHERE WOULD START IN NEXT ROUND
+            last_number = len(all_follow_btn)+1
+            print('1')
 
 

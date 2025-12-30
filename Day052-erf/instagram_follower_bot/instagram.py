@@ -2,7 +2,7 @@ from selenium.webdriver import Firefox, FirefoxOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException, WebDriverException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException, TimeoutException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import pyautogui
@@ -223,17 +223,23 @@ class InstaFollow:
         except WebDriverException:
             time.sleep(5)
             self.driver.get(self.INSTAGRAM_URL)
+        
+        time.sleep(2)
+
         self.switch_last_window()
         ## WAIT FOR PAGE TO LOAD
-        WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 2).until(
-            EC.presence_of_element_located(
-                (By.CLASS_NAME, "_a9--")
+        try:
+            WebDriverWait(driver= self.driver, timeout= 20, poll_frequency= 2).until(
+                EC.presence_of_element_located(
+                    (By.CLASS_NAME, "_a9--")
+                )
             )
-        )
-
-        ## CLICK ON DECLINE COOKIES
-        self.driver.find_element(by= By.CLASS_NAME, value= "_a9--").click()
-        time.sleep(3)
+        except TimeoutException:
+            print("decline cookies didnt show up, pass")
+        else:
+            ## CLICK ON DECLINE COOKIES
+            self.driver.find_element(by= By.CLASS_NAME, value= "_a9--").click()
+            time.sleep(3)
 
         ### FILL INFORMATIONS
         ## CHECK WHAT KIND OF LOGIN FORM WE HAVE, USE THAT ONE
@@ -286,52 +292,75 @@ class InstaFollow:
         time.sleep(1)
         login_btn.click()
         time.sleep(7)
+        # TODO : figure out for try again soon error codes function right
         try:
-            if self.driver.find_element(By.XPATH, "//*[contains(text(), 'There was a problem logging you into Instagram. Please try again soon.')]"):
-                time.sleep(5)
-                login_btn.click()
+            self.driver.find_element(By.XPATH, "//*[contains(text(), 'problem logging you into')]")
         except:
             pass
-        # TODO : figure out for try again soon error codes function right
-                # try:
-                #     self.driver.find_element(By.XPATH, "//*[contains(text(), 'There was a problem logging you into Instagram. Please try again soon.')]")
-                # except:
-                #     pass
-                # else: 
-                #     time.sleep(5)
-                #     login_btn.click()
+        else: 
+            time.sleep(5)
+            ## GET login_btn FROM instagram_login_form 
+            all_logins_in_form = instagram_login_form.find_elements(By.XPATH, "//*[contains(text(),'Log in')]")
+            for log_in in all_logins_in_form:
+                ## LOOP IN ALL LOGINS WHICH IS IN instagram_login_form AND GET THAT ONE IS EQUAL TO 'LOG IN'
+                if log_in.get_attribute('innerHTML').lower() == 'log in':
+                    login_btn = log_in             
+            login_btn.click()
+
+        try:
+            self.driver.find_element(By.XPATH, "//*[contains(text(), 'information you entered is incorrect')]")
+        except:
+            pass
+        else: 
+            time.sleep(5)
+            ## GET login_btn FROM instagram_login_form 
+            all_logins_in_form = instagram_login_form.find_elements(By.XPATH, "//*[contains(text(),'Log in')]")
+            for log_in in all_logins_in_form:
+                ## LOOP IN ALL LOGINS WHICH IS IN instagram_login_form AND GET THAT ONE IS EQUAL TO 'LOG IN'
+                if log_in.get_attribute('innerHTML').lower() == 'log in':
+                    login_btn = log_in             
+            login_btn.click()
                 
         ## WAIT 5SEC FOR ERROR, AND IF OCCURED: BREAK AND RUN AGAIN
         time.sleep(5)
         self.switch_last_window()
+
         # TODO: check this 2 try-except function right
         try: # for recaptcha
-            self.driver.find_element(By.XPATH, "//*[contains(text(), 'Help us confirm it's you')]")
-            input("RECAPTCHA CHECK! DO IT MANUALY THE COME BACK AND HIT ANY BUTTON...")
+            self.driver.find_element(By.XPATH, "//*[contains(text(), 'Help us confirm')]")
         except: 
             pass
+        else: 
+            input("RECAPTCHA CHECK! DO IT MANUALY THEN COME BACK AND HIT ANY BUTTON...")
+            time.sleep(5)
+            self.switch_last_window()
         
-        try: # for reload page and login failed or something 
-            self.driver.find_element(
-                By.XPATH, "//*[contains(text(), 'Something went wrong')]"
-            )
-            return self.login_instagram()
-        except:
-            pass
+
+        # try: # for reload page and login failed or something 
+        #     self.driver.find_element(
+        #         By.XPATH, "//*[contains(text(), 'Something went wrong')]"
+        #     )
+        # except:
+        #     pass
+        # else: 
+        #     time.sleep(3)
+        #     print("try again for <Something went wrong>")
+        #     if not self.driver.current_url == self.INSTAGRAM_URL:
+        #         return self.login_instagram()
 
         ## wait to load page which ask for 'save information' 
-        WebDriverWait(driver= self.driver, timeout=200, poll_frequency= 2).until(
+        WebDriverWait(driver= self.driver, timeout=60, poll_frequency= 2).until(
             EC.url_contains("/accounts/onetap")
         )
         # then click on 'Not now'
         self.click_string_now('Not now')
 
         ## wait to load primary instagram page 
-        WebDriverWait(driver= self.driver, timeout=200, poll_frequency=2).until(
+        WebDriverWait(driver= self.driver, timeout=60, poll_frequency=2).until(
             EC.url_to_be(self.INSTAGRAM_URL)
         )
         print(f"Successfully Logged in INSTAGRAM\nuser:\t<{self.INSTAGRAM_USERNAME}>")
-        self.driver.switch_to.window(self.driver.window_handles[-1])
+        self.switch_last_window()
 
     def find_followers(self, target_url):
         """by loading target_url instagram page, click on 'followers' part and open followers list, ready to push follow each by each"""
@@ -340,7 +369,7 @@ class InstaFollow:
         ## CHECK FOR EXISTENCE OF 'FOLLOWER' PANE 
         WebDriverWait(driver= self.driver, timeout=30, poll_frequency=1).until(
             EC.element_to_be_clickable(
-                (By.XPATH, "//*[contains(text(), 'follower')]")
+                (By.XPATH, "//*[contains(text(), 'followers')]")
                 )
         )
         ## CLICK ON FOLLOWER PANE TO OPEN FOLLOWERS PAGE SCROLLING
@@ -366,9 +395,23 @@ class InstaFollow:
 
     def click_string_now(self, string):
         """click on very first given string in page, NOTICE: its case sensitive"""
-        time.sleep(2)
+        time.sleep(5)
+
+        locator = (By.XPATH, fr"//*[contains(text(), '{string}')]")
+
         self.driver.switch_to.window(self.driver.window_handles[-1])
-        self.driver.find_element(by= By.XPATH, value= fr"//*[contains(text(), '{string}')]").click()
+
+        WebDriverWait(
+            driver= self.driver,
+            timeout= 30,
+            poll_frequency= 1,
+        ).until(
+            EC.presence_of_element_located(
+                locator
+            )
+        )
+
+        self.driver.find_element(locator[0], locator[1]).click()
 
     def scroll_down_to(self, element):
         """scroll down to catched arg element"""
@@ -400,6 +443,16 @@ class InstaFollow:
         """start following """
         self.switch_last_window()
         
+        WebDriverWait(
+            driver= self.driver,
+            timeout= 30,
+            poll_frequency= 2,
+        ).until(
+            EC.presence_of_element_located(
+                (By.XPATH, "//*[contains(text(), 'Followers')]")
+            )
+        )
+
         ## CATCH 'Followers' TO CATCH CONTAINER (RELATIVE WAY)
         followers_text = self.driver.find_element(By.XPATH, "//*[contains(text(), 'Followers')]")
         
@@ -409,12 +462,17 @@ class InstaFollow:
             main_container = main_container.find_element(By.XPATH, "..")
 
         locator = (By.XPATH, ".//button[contains(., 'Follow')]")
-        last_number = 0
+        self.last_number = 0
         
+        time.sleep(5)
+
+        ## GET ALL OF Follow BTNS ELEMENT AND STORE IT
+        all_follow_btn = main_container.find_elements(locator[0], locator[1])
+        
+        ## TODO: catch the exception: for when message 'failed to load' is appear below the page for following,
+
         while True:
-            ## GET ALL OF Follow BTNS ELEMENT AND STORE IT
-            all_follow_btn = main_container.find_elements(locator[0], locator[1])
-            
+
             ### START FOLLOW LOOP (till when we need to scroll to load more)
             for follow_btn in all_follow_btn:
                 ## CHECK STRING TO BE EXACT 'Follow' NOT ANY THING ELSE
@@ -424,25 +482,25 @@ class InstaFollow:
                 ## WAIT TO END PROCESS BY INSTAGRAM
                 is_done= False
                 while not is_done:
-                    if follow_btn == 'Requested' or follow_btn == 'Following':
+                    if follow_btn.text.strip() == 'Requested' or follow_btn.text.strip() == 'Following':
                         is_done = True
+                    # elif follow_btn.text.strip() == 'Follow':
+                    #     follow_btn.click()
                     time.sleep(2)
-                        # WebDriverWait(driver= self.driver, timeout= 30, poll_frequency= 1).until(
-                        #     EC.any_of(
-                        #         EC.text_to_be_present_in_element(
-                        #             locator, 'Requested'
-                        #         ),
-                        #         EC.text_to_be_present_in_element(
-                        #             locator, 'Following'
-                        #         )
-                        #     )
-                        # )
             
             ## SCROLL TO LAST ELEMENT
-            self.scroll_down_to(all_follow_btn[-1])
+            try: ## CATCH EXTEPTION WHEN ALL LOADED FOLLOW BTNS ALREADY FOLLOWED
+                self.scroll_down_to(all_follow_btn[-1])
+            except IndexError:
+                self.driver.execute_script("arguments[0].scrollTo(0, arguments[0].scrollHeight);", main_container)
+
             
             ## STORE WHERE WOULD START IN NEXT ROUND
-            last_number = len(all_follow_btn)+1
-            print('1')
+            self.last_number = len(all_follow_btn)+1
+            
+            ## WAIT SOME AND FILL AGAIN FOLLOW BTNS
+            time.sleep(3)
+            all_follow_btn = [btn for btn in main_container.find_elements(locator[0], locator[1]) if not btn.text.strip().lower() == "following"]
+
 
 

@@ -1,0 +1,6 @@
+1. in 'Elastipy.docx/POSTPONE' : in 'Day054/Flask/QuickStart': for launching first Flask Server we need to download Flask. 
+
+2. in 'Elastipy.docx/POSTPONE' : in 'Day054 004': using idiom `if__name__ == '__main__':` to run flask with `app.run()`
+
+3. in 'Elastipy.docx/POSTPONE' : in 'Day054 006 00:08:45': for using @decorator_python on flask app and our function,
+

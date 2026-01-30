@@ -1,0 +1,24 @@
+@font-face{
+    font-family: "bauhs93";
+    src: url(../fonts/BAUHS93.TTF);
+}
+
+@font-face{
+    font-family: "geo885n";
+    src: url(../fonts/GEO885N.TTF)
+}
+
+@font-face{
+    font-family: "mistral";
+    src:url(../fonts/MISTRAL.TTF)
+}
+
+@font-face{
+    font-family: "rage";
+    src:url(../fonts/RAGE.TTF)
+}
+
+@font-face{
+    font-family: "showg";
+    src:url(../fonts/SHOWG.TTF)
+}

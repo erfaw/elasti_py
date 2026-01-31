@@ -25,7 +25,11 @@ def blogs():
 # Build each blog post page
 @app.route(f'/{blogs_url}/<int:post_id>')
 def blog_post(post_id):
-    return render_template("single_blog.html", all_blogs=all_blogs, post_id=post_id)
+    for post in all_blogs:
+        if post['id'] == post_id:
+            post_title = post['title']
+    title = f"{post_id}. {post_title}"
+    return render_template("single_blog.html", all_blogs=all_blogs, post_id=post_id, title=title)
 
 # Run server
 if __name__ == "__main__":

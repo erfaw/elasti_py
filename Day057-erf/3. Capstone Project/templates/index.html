@@ -20,7 +20,7 @@
                 <p class="text">
                     {{ blog['subtitle'] }}
                 </p>
-                <a href="#">Read</a>
+                <a href="{{url_for('post',blog_id=blog['id'])}}">Read</a>
             </div>
         </div>
     {% endfor %}

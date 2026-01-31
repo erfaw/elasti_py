@@ -7,9 +7,11 @@
 </head>
 <body>
     {% for blog_post in all_blogs: %}
-        <h1>{{ blog_post['id'] }}. {{blog_post['title']}}</h1>
-        <h2>{{blog_post['sub_title']}}</h2>
-        <p>{{blog_post['body']}}</p>
+        <a href="{{root_url}}/{{blogs_url}}/{{blog_post['id']}}">
+            <h1>{{ blog_post['id'] }}. {{blog_post['title']}}</h1>
+            <h2>{{blog_post['sub_title']}}</h2>
+            <p>{{blog_post['body']}}</p>
+        </a>
     {% endfor %}
 </body>
 </html>

@@ -7,3 +7,4 @@ __pycache__/
 /output
 /archive(not to commit)
 /.idea
+*.tmp

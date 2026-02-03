@@ -2,6 +2,7 @@ from flask import Flask, render_template
 import requests as rq
 import json
 from pathlib import Path
+import datetime as dt
 
 # API for blogs
 all_blogs_link = "https://api.npoint.io/4ef3129582a92084b09d"
@@ -17,6 +18,11 @@ templates_path = root_path/'templates'
 with open(fr"{static_path}\blog-data.txt") as file:
     all_blogs = json.load(file)
 
+# Get this date time
+today_date = dt.datetime.now().date()
+today_date = today_date.strftime("%b %d, %Y")
+this_year = dt.datetime.now().date().year
+
 # Build flask app
 app = Flask(__name__)
 
@@ -25,7 +31,10 @@ app = Flask(__name__)
 def home_page():
     return render_template(
         "index.html",
-        all_blogs=all_blogs
+        all_blogs=all_blogs,
+        today_date= today_date,
+        this_year= this_year,
+        
     )
 
 # About page

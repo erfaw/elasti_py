@@ -15,7 +15,7 @@ static_path = root_path/'static'
 templates_path = root_path/'templates' 
 
 # Read blog posts from JSON file instead of API call
-with open(fr"{static_path}\blog-data.txt") as file:
+with open(fr"{static_path}/blog-data.txt") as file:
     all_blogs = json.load(file)
 
 # Get this date time
@@ -55,7 +55,7 @@ def render_post(post_id):
         blog_post= blog_post,
         pic_url= pic_url,
         today_date= today_date,
-        
+
     )
 
 # About page

@@ -21,7 +21,7 @@ def about():
 def contact():
     if request.method == 'POST':
         print(f"\n\n{request.form['name']}\n{request.form['email']}\n{request.form['phone']}\n{request.form['message']}\n\n")
-        return "<h1>Successfully sent your message</h1>"
+        return render_template("contact.html", message_sent = request.args.get('message_sent'))
     elif request.method == 'GET':
         return render_template("contact.html")
 
@@ -33,11 +33,6 @@ def show_post(index):
         if blog_post["id"] == index:
             requested_post = blog_post
     return render_template("post.html", post=requested_post)
-
-@app.route("/form-entry", methods=["POST"])
-def receive_data():
-    print(f"\n\n{request.form['name']}\n{request.form['email']}\n{request.form['phone']}\n{request.form['message']}\n\n")
-    return "<h1>Successfully sent your message</h1>"
 
 
 if __name__ == "__main__":

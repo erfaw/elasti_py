@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 import requests as rq
 import json
 from pathlib import Path
@@ -34,6 +34,27 @@ def home_page():
         all_blogs=all_blogs,
         today_date= today_date,
         this_year= this_year,
+
+    )
+
+# Render blog posts
+@app.route('/post/<int:post_id>')
+def render_post(post_id):
+    # Prepare blog post variable
+    for blog in all_blogs:
+        if blog['id'] == post_id:
+            blog_post = blog
+
+    # Prepare blog pic
+    pic_url = url_for(
+        f'static', filename=f'assets/img/post/{post_id}.jpg'
+        )
+
+    return render_template(
+        "post.html",
+        blog_post= blog_post,
+        pic_url= pic_url,
+        today_date= today_date,
         
     )
 

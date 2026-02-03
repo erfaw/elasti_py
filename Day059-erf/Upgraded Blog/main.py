@@ -9,7 +9,7 @@ all_blogs_link = "https://api.npoint.io/4ef3129582a92084b09d"
 # all_blogs = rq.get(all_blogs_link, timeout=5).json()
 
 # Get root folder, static and templates address
-root_path = Path(__file__).parent
+root_path = Path(__file__).resolve().parent
 static_path = root_path/'static'
 templates_path = root_path/'templates' 
 

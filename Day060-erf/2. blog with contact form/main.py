@@ -17,9 +17,13 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["POST","GET"])
 def contact():
-    return render_template("contact.html")
+    if request.method == 'POST':
+        print(f"\n\n{request.form['name']}\n{request.form['email']}\n{request.form['phone']}\n{request.form['message']}\n\n")
+        return "<h1>Successfully sent your message</h1>"
+    elif request.method == 'GET':
+        return render_template("contact.html")
 
 
 @app.route("/post/<int:index>")

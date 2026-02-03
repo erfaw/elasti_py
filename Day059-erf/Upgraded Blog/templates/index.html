@@ -31,7 +31,7 @@
           {% for blog_post in all_blogs: %}
             <!-- Post preview-->
             <div class="post-preview">
-              <a href="post.html">
+              <a href="{{url_for('render_post', post_id= blog_post['id']) }}">
                 <h2 class="post-title">
                   {{ blog_post['title'] }}
                 </h2>

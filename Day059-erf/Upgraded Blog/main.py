@@ -14,7 +14,7 @@ static_path = root_path/'static'
 templates_path = root_path/'templates' 
 
 # Read blog posts from JSON file instead of API call
-with open(fr"{root_path}\static\blog-data.txt") as file:
+with open(fr"{static_path}\blog-data.txt") as file:
     all_blogs = json.load(file)
 
 # Build flask app

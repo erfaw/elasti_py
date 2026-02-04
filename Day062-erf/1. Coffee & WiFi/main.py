@@ -5,6 +5,7 @@ from wtforms import StringField, SubmitField, URLField, TimeField, SelectField
 from wtforms.validators import DataRequired, URL
 import csv
 from pathlib import Path
+import pandas as pd
 
 root_dir = Path(__file__).resolve().parent
 
@@ -46,12 +47,15 @@ def add_cafe():
 
 @app.route('/cafes')
 def cafes():
-    with open(root_dir/'cafe-data.csv', newline='', encoding='utf-8') as csv_file:
-        csv_data = csv.reader(csv_file, delimiter=',')
-        list_of_rows = []
-        for row in csv_data:
-            list_of_rows.append(row)
-    return render_template('cafes.html', cafes=list_of_rows)
+    # Load CSV file using pd
+    cafes_df = pd.read_csv(root_dir/'cafe-data.csv')
+            # with open(root_dir/'cafe-data.csv', newline='', encoding='utf-8') as csv_file:
+            #     csv_data = csv.reader(csv_file, delimiter=',')
+            #     list_of_rows = []
+            #     for row in csv_data:
+            #         list_of_rows.append(row)
+
+    return render_template('cafes.html', cafes=cafes_df.values.tolist())
 
 if __name__ == '__main__':
     app.run(debug=True)

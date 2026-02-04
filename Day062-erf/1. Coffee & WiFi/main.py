@@ -49,15 +49,16 @@ def add_cafe():
 def cafes():
     # Load CSV file using pd
     cafes_df = pd.read_csv(root_dir/'cafe-data.csv')
+
+    # Prepare data to render a table
     table_heads = cafes_df.columns.tolist()
     table_records = cafes_df.values.tolist()
-            # with open(root_dir/'cafe-data.csv', newline='', encoding='utf-8') as csv_file:
-            #     csv_data = csv.reader(csv_file, delimiter=',')
-            #     list_of_rows = []
-            #     for row in csv_data:
-            #         list_of_rows.append(row)
 
-    return render_template('cafes.html', table_heads= table_heads, table_records= table_records)
+    return render_template(
+        'cafes.html', 
+        table_heads= table_heads, 
+        table_records= table_records
+        )
 
 if __name__ == '__main__':
     app.run(debug=True)

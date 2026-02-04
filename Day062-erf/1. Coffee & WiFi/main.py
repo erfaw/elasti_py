@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, URLField, TimeField, SelectField
@@ -6,6 +6,7 @@ from wtforms.validators import DataRequired, URL
 import csv
 from pathlib import Path
 import pandas as pd
+from plyer import notification as notif
 
 root_dir = Path(__file__).resolve().parent
 
@@ -21,12 +22,12 @@ class CafeForm(FlaskForm):
     open_time = TimeField('Open time', validators=[DataRequired(),])
     close_time = TimeField('Close time', validators=[DataRequired(),])
     # Rating fields
-    coffee_rating = SelectField("Coffe Rating", validators=[DataRequired()])
+    coffee_rating = SelectField("Coffe Rating", validators=[DataRequired()], choices=[])
     coffee_rating.choices = [(0,'✘'), (1,'☕️'), (2,'☕️☕️'), (3,'☕️☕️☕️'), (4,'☕️☕️☕️☕️'), (5,'☕️☕️☕️☕️☕️')]
-    wifi_rating = SelectField("Wifi Rating", validators=[DataRequired()])
+    wifi_rating = SelectField("Wifi Rating", validators=[DataRequired()], choices=[])
     wifi_rating.choices = [(0,'✘'), (1,'💪'), (2,'💪💪'), (3,'💪💪💪'), (4,'💪💪💪💪'), (5,'💪💪💪💪💪')]
-    power_rating = SelectField("Power Rating", validators=[DataRequired()])
-    coffee_rating.choices = [(0,'✘'), (1,'🔌'), (2,'🔌🔌'), (3,'🔌🔌🔌'), (4,'🔌🔌🔌🔌'), (5,'🔌🔌🔌🔌🔌')]
+    power_rating = SelectField("Power Rating", validators=[DataRequired()], choices=[])
+    power_rating.choices = [(0,'✘'), (1,'🔌'), (2,'🔌🔌'), (3,'🔌🔌🔌'), (4,'🔌🔌🔌🔌'), (5,'🔌🔌🔌🔌🔌')]
     submit = SubmitField('Submit')
 
 
@@ -35,15 +36,21 @@ class CafeForm(FlaskForm):
 def home():
     return render_template("index.html")
 
-@app.route('/add')
+@app.route('/add', methods=["POST", "GET"])
 def add_cafe():
     form = CafeForm()
-    if form.validate_on_submit():
-        print("True")
+    if request.method == "POST":
+        if form.validate_on_submit():
+            notif('yep')
+            print(f"\n\n{form}\n\n")
+        else: 
+            return render_template('add.html', form=form)
+    elif request.method == "GET":
+        return render_template('add.html', form=form)
     # Exercise:
     # Make the form write a new row into cafe-data.csv
     # with   if form.validate_on_submit()
-    return render_template('add.html', form=form)
+    
 
 @app.route('/cafes')
 def cafes():

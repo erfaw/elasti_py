@@ -47,6 +47,7 @@ def add_cafe():
             return render_template('add.html', form=form)
     elif request.method == "GET":
         return render_template('add.html', form=form)
+    
     # Exercise:
     # Make the form write a new row into cafe-data.csv
     # with   if form.validate_on_submit()

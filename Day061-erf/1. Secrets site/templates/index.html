@@ -5,13 +5,17 @@
 {% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>Welcome</h1>
-      <p>Are you ready to discover my secret?</p>
-      <a class="btn btn-primary btn-lg" href=" {{ url_for('login') }} "
-        >Login</a
-      >
+
+
+    <div class="container position-relative mt-5">
+      <h1 class="row justify-content-center">Welcome</h1>
+      <p class="row justify-content-center">Are you ready to discover my secret?</p>
+      <div class="row justify-content-center">
+        <a class="btn btn-primary col-2" href=" {{ url_for('login') }} "
+          >Login</a
+        >
+      </div>
     </div>
-  </div>
+
+
 {% endblock %}

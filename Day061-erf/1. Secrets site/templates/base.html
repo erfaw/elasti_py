@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    
+    <style>
+        {% block styling %}
+            /* template __init__() */
+            body {
+                background: purple;
+            }
+        {% endblock %}
+    </style>    
 </head>
 <body>
     {% block content %}{% endblock %}

@@ -46,6 +46,15 @@ def add_cafe():
     if request.method == "POST":
         # IF was the form validate correctly
         if form.validate_on_submit():
+            # Get new Record
+            form_get_data = pd.DataFrame(request.form, index=pd.RangeIndex(1))
+            form_get_data = form_get_data.drop(columns=['csrf_token', 'submit'])
+
+            # Update csv file with new data
+            prev_csv = pd.read_csv(root_dir/'cafe-data.csv')
+            prev_csv.loc[len(prev_csv)+1] = form_get_data.values.tolist()[0]
+            prev_csv.to_csv(root_dir/'cafe-data.csv', mode='w', index=False, header= False)
+
             return redirect(
                 url_for('add_cafe',  is_submited=True)
             )

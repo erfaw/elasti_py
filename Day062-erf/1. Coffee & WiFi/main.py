@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, URLField, TimeField, SelectField
@@ -6,7 +6,6 @@ from wtforms.validators import DataRequired, URL
 import csv
 from pathlib import Path
 import pandas as pd
-from plyer import notification as notif
 
 root_dir = Path(__file__).resolve().parent
 
@@ -23,11 +22,8 @@ class CafeForm(FlaskForm):
     close_time = TimeField('Close time', validators=[DataRequired(),])
     # Rating fields
     coffee_rating = SelectField("Coffe Rating", validators=[DataRequired()], choices=[])
-    coffee_rating.choices = [(0,'✘'), (1,'☕️'), (2,'☕️☕️'), (3,'☕️☕️☕️'), (4,'☕️☕️☕️☕️'), (5,'☕️☕️☕️☕️☕️')]
     wifi_rating = SelectField("Wifi Rating", validators=[DataRequired()], choices=[])
-    wifi_rating.choices = [(0,'✘'), (1,'💪'), (2,'💪💪'), (3,'💪💪💪'), (4,'💪💪💪💪'), (5,'💪💪💪💪💪')]
     power_rating = SelectField("Power Rating", validators=[DataRequired()], choices=[])
-    power_rating.choices = [(0,'✘'), (1,'🔌'), (2,'🔌🔌'), (3,'🔌🔌🔌'), (4,'🔌🔌🔌🔌'), (5,'🔌🔌🔌🔌🔌')]
     submit = SubmitField('Submit')
 
 
@@ -38,11 +34,21 @@ def home():
 
 @app.route('/add', methods=["POST", "GET"])
 def add_cafe():
+    # Build form
     form = CafeForm()
+
+    # Initialize choices attribute for each Rating Field
+    form.coffee_rating.choices = [(0,'✘'), (1,'☕️'), (2,'☕️☕️'), (3,'☕️☕️☕️'), (4,'☕️☕️☕️☕️'), (5,'☕️☕️☕️☕️☕️')]
+    form.wifi_rating.choices = [(0,'✘'), (1,'💪'), (2,'💪💪'), (3,'💪💪💪'), (4,'💪💪💪💪'), (5,'💪💪💪💪💪')]
+    form.power_rating.choices = [(0,'✘'), (1,'🔌'), (2,'🔌🔌'), (3,'🔌🔌🔌'), (4,'🔌🔌🔌🔌'), (5,'🔌🔌🔌🔌🔌')]
+
+    # If was POST
     if request.method == "POST":
+        # IF was the form validate correctly
         if form.validate_on_submit():
-            notif('yep')
-            print(f"\n\n{form}\n\n")
+            return redirect(
+                url_for('add_cafe',  is_submited=True)
+            )
         else: 
             return render_template('add.html', form=form)
     elif request.method == "GET":

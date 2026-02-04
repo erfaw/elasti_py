@@ -1,11 +1,12 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import EmailField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
-    email = StringField('email', validators=[DataRequired()])
-    password = StringField('password', validators=[DataRequired()])
+    email = EmailField(label='Email', validators=[DataRequired()])
+    password = PasswordField(label='Password', validators=[DataRequired()])
+    submit=  SubmitField(label='Log In')
 
 app = Flask(__name__)
 app.secret_key = "nothingImportantForNow"

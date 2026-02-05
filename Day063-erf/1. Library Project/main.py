@@ -9,7 +9,7 @@ all_books = []
 def home():
     return render_template(
             'index.html',
-            # all_books= all_books,
+            all_books= all_books,
         )
 
 

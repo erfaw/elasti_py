@@ -53,7 +53,7 @@ def add_cafe():
             # Update csv file with new data
             prev_csv = pd.read_csv(root_dir/'cafe-data.csv')
             prev_csv.loc[len(prev_csv)+1] = form_get_data.values.tolist()[0]
-            prev_csv.to_csv(root_dir/'cafe-data.csv', mode='w', index=False, header= False)
+            prev_csv.to_csv(root_dir/'cafe-data.csv', mode='w', index=False)
 
             return redirect(
                 url_for('add_cafe',  is_submited=True)

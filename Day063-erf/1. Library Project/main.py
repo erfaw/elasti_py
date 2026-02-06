@@ -24,7 +24,7 @@ def add():
         all_books.append(book_record)
 
         return redirect(
-                url_for('add', is_submited=True)
+                url_for('home', is_submited=True)
             )
 
     return render_template('add.html')

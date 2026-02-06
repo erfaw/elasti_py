@@ -3,6 +3,15 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import String
 from pathlib import Path
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, SelectField
+from wtforms.validators import DataRequired
+
+class BookEntry(FlaskForm):
+    book_name = StringField(label="Book:", validators=[DataRequired(),])
+    book_author = StringField(label="Author:", validators= [DataRequired()])
+    book_rate = SelectField(label="Rate:", validators= [DataRequired()], choices=[])
+    submit = SubmitField('Submit')
 
 class Base(DeclarativeBase): pass
 
@@ -15,6 +24,7 @@ ROOT_DIR = Path(__file__).resolve().parent
 db_path = (ROOT_DIR/"instance"/"library_books.db").as_posix()
 
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
+app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 db.init_app(app)
 
 class Books(Base):
@@ -41,9 +51,9 @@ def home():
 def add():
     if request.method == "POST":
         book_record = {
-            "book_name" : request.form.get('book_name'),
-            "book_author" : request.form.get('book_author'),
-            "book_rate" : request.form.get('book_rate'),
+            "book_name" : book_entry_form.get('book_name'),
+            "book_author" : book_entry_form.get('book_author'),
+            "book_rate" : book_entry_form.get('book_rate'),
         }
         all_books.append(book_record)
 
@@ -55,8 +65,8 @@ def add():
         return redirect(
                 url_for('home', is_submited=True)
             )
-
-    return render_template('add.html')
+    book_entry_form = BookEntry()
+    return render_template('add.html', form= book_entry_form)
 
 if __name__ == "__main__":
     app.run(debug=True)

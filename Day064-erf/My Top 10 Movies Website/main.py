@@ -40,7 +40,11 @@ with app.app_context():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    current_movies = db.session.execute(
+        db.select(Movie).order_by(Movie.title)
+    ).scalars().all()
+
+    return render_template("index.html", movies= current_movies)
 
 
 if __name__ == '__main__':

@@ -24,7 +24,7 @@
           {% for book in all_books: %}
             
             <li>
-              {{ book.name }} - {{ book.author }} - {{ book.rate }}/10 - <span><a href=" {{ url_for('delete', id=book.id) }} ">Delete</a></span> - <span><a href=" {{ url_for('edit_rate', id=book.id) }} ">Edit Rating</a>
+              {{ book.name }} - {{ book.author }} - <span class="btn btn-info rounded-pill px-3">{{ book.rate }}/10</span> - <span><a class="btn btn-danger rounded-pill px-3" href=" {{ url_for('delete', id=book.id) }} ">Delete</a></span> - <span><a class="btn btn-secondary rounded-pill px-3" href=" {{ url_for('edit_rate', id=book.id) }} ">Edit Rating</a>
               </span> 
             </li>
           {% endfor %}

@@ -21,7 +21,7 @@ db = SQLAlchemy(model_class= Base)
 app = Flask(__name__)
 
 bootstrap = Bootstrap5(app)
-
+ 
 ROOT_DIR = Path(__file__).resolve().parent
 (ROOT_DIR / "instance").mkdir(exist_ok=True)
 db_path = (ROOT_DIR/"instance"/"library_books.db").as_posix()

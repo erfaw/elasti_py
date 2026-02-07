@@ -6,6 +6,7 @@ from pathlib import Path
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
+from flask_bootstrap import Bootstrap5
 
 class BookEntry(FlaskForm):
     book_name = StringField(label="Book:", validators=[DataRequired(),])
@@ -18,6 +19,8 @@ class Base(DeclarativeBase): pass
 db = SQLAlchemy(model_class= Base)
 
 app = Flask(__name__)
+
+bootstrap = Bootstrap5(app)
 
 ROOT_DIR = Path(__file__).resolve().parent
 (ROOT_DIR / "instance").mkdir(exist_ok=True)
@@ -49,11 +52,15 @@ def home():
 
 @app.route("/add", methods=["POST", "GET"])
 def add():
-    if request.method == "POST":
+    book_entry_form = BookEntry()
+    book_entry_form.book_rate.choices = [ _ for _ in range(0, 11)]
+    # if request.method == "POST":
+    if book_entry_form.validate_on_submit():
         book_record = {
-            "book_name" : book_entry_form.get('book_name'),
-            "book_author" : book_entry_form.get('book_author'),
-            "book_rate" : book_entry_form.get('book_rate'),
+            # "book_name" : book_entry_form.get('book_name'),
+            "book_name" : book_entry_form.book_name.data,
+            "book_author" : book_entry_form.book_author.data,
+            "book_rate" : book_entry_form.book_rate.data,
         }
         all_books.append(book_record)
 
@@ -65,7 +72,7 @@ def add():
         return redirect(
                 url_for('home', is_submited=True)
             )
-    book_entry_form = BookEntry()
+    
     return render_template('add.html', form= book_entry_form)
 
 if __name__ == "__main__":

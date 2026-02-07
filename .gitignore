@@ -8,3 +8,4 @@ __pycache__/
 /archive(not to commit)
 /.idea
 *.tmp
+**/instance/

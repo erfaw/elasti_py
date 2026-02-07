@@ -83,11 +83,19 @@ def add():
     
     return render_template('add.html', form= book_entry_form)
 
-@app.route('/edit_rate')
+@app.route('/edit_rate', methods=["POST", "GET"])
 def edit_rate():
     form= EditRateEntry()
     form.book_rate.choices= [ _ for _ in range(0, 11)]
     book_to_update = db.get_or_404(Books, request.args.get('id'))
+    
+    if form.validate_on_submit():
+        book_to_update.rate = form.book_rate.data
+        db.session.commit()
+        return redirect(
+            url_for('home', is_rate_change=True)
+        )
+    
     return render_template(
         'edit_rate.html',
         form= form,

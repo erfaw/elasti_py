@@ -1,26 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <title>Library</title>
+    {{ bootstrap.load_css() }}
   </head>
   <body>
-    {% if request.args.get('is_submited'): %}
-      <h1 class="badge text-bg-success">Your record successfully recieved! Thanks !</h1>
-    {% endif %}
-    <h1>My Library</h1>
-    <ul>
-      {% if not all_books|length == 0  %}
-        {% for book in all_books: %}
-          <li>
-            {{ book.name }} - {{ book.author }} - {{ book.rate }}/10 
-          </li>
-        {% endfor %}
-      {% else: %}
-          <p>Library is empty.</p>
+    <div class="d-flex justify-content-center vh-100 pt-5">
+      <div class="container justify-content-center align-items-center col-6">
+      {% if request.args.get('is_submited'): %}
+        <h1 class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Your record successfully recieved! Thanks !</h1>
       {% endif %}
-    </ul>
+      <h1>My Library</h1>
+      <ul>
+        {% if not all_books|length == 0  %}
+          {% for book in all_books: %}
+            <li>
+              {{ book.name }} - {{ book.author }} - {{ book.rate }}/10 
+            </li>
+          {% endfor %}
+        {% else: %}
+            <p>Library is empty.</p>
+        {% endif %}
+      </ul>
 
-    <a href="{{ url_for('add') }}">Add New Book</a>
+      <a class="btn btn-outline-primary" href="{{ url_for('add') }}">Add New Book</a>
+
+      {{ bootstrap.load_css() }}
+      </div>
+    </div>
   </body>
 </html>

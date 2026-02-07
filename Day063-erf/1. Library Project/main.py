@@ -36,14 +36,19 @@ class Books(Base):
     name: Mapped[str] = mapped_column(String(250),nullable= False, unique=True)
     author: Mapped[str] = mapped_column(String(250), nullable= False)
     rate: Mapped[float] = mapped_column(nullable=False)
+    def __repr__(self):
+        return f"<Book: id={self.id}, name={self.name}, author={self.author}, rate={self.rate}>"
 
 with app.app_context():
     db.create_all()
 
-all_books = []
 
 @app.route('/')
 def home():
+    with app.app_context():
+        all_books = db.session.execute(
+            db.select(Books).order_by(Books.name)
+        ).scalars().all()
     return render_template(
             'index.html',
             all_books= all_books,
@@ -62,7 +67,6 @@ def add():
             "book_author" : book_entry_form.book_author.data,
             "book_rate" : book_entry_form.book_rate.data,
         }
-        all_books.append(book_record)
 
         book_obj = Books(name=book_record['book_name'], author=book_record['book_author'], rate= book_record['book_rate'])
         with app.app_context():

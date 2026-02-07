@@ -12,6 +12,9 @@
       {% if request.args.get('is_submited'): %}
         <h1 class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Your record successfully recieved! Thanks !</h1>
       {% endif %}
+      {% if request.args.get('is_removed'): %}
+        <h1 class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill">Record removed!</h1>
+      {% endif %}
       {% if request.args.get('is_rate_change'): %}
         <h1 class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Your record's changed!</h1>
       {% endif %}
@@ -19,9 +22,11 @@
       <ul>
         {% if not all_books|length == 0  %}
           {% for book in all_books: %}
+            
             <li>
-              {{ book.name }} - {{ book.author }} - {{ book.rate }}/10 
-            </li><a href=" {{ url_for('edit_rate', id=book.id) }} ">Edit Rating</a>
+              {{ book.name }} - {{ book.author }} - {{ book.rate }}/10 - <span><a href=" {{ url_for('delete', id=book.id) }} ">Delete</a></span> - <span><a href=" {{ url_for('edit_rate', id=book.id) }} ">Edit Rating</a>
+              </span> 
+            </li>
           {% endfor %}
           <!-- {{ render_table(all_books) }} -->
         {% else: %}

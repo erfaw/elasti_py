@@ -13,18 +13,18 @@
         <h1 class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Your record successfully recieved! Thanks !</h1>
       {% endif %}
       <h1>My Library</h1>
-      <!-- <ul> -->
+      <ul>
         {% if not all_books|length == 0  %}
-          <!-- {% for book in all_books: %}
+          {% for book in all_books: %}
             <li>
               {{ book.name }} - {{ book.author }} - {{ book.rate }}/10 
             </li>
-          {% endfor %} -->
-          {{ render_table(all_books) }}
+          {% endfor %}
+          <!-- {{ render_table(all_books) }} -->
         {% else: %}
             <p>Library is empty.</p>
         {% endif %}
-      <!-- </ul> -->
+      </ul>
 
 
 

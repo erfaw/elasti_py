@@ -14,6 +14,10 @@ class BookEntry(FlaskForm):
     book_rate = SelectField(label="Rate:", validators= [DataRequired()], choices=[])
     submit = SubmitField('Submit')
 
+class EditRateEntry(FlaskForm):
+    book_rate = SelectField(label="Rate:", validators= [DataRequired()], choices=[])
+    submit = SubmitField('Submit')
+
 class Base(DeclarativeBase): pass
 
 db = SQLAlchemy(model_class= Base)
@@ -78,6 +82,17 @@ def add():
             )
     
     return render_template('add.html', form= book_entry_form)
+
+@app.route('/edit_rate')
+def edit_rate():
+    form= EditRateEntry()
+    form.book_rate.choices= [ _ for _ in range(0, 11)]
+    book_to_update = db.get_or_404(Books, request.args.get('id'))
+    return render_template(
+        'edit_rate.html',
+        form= form,
+        book= book_to_update,
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

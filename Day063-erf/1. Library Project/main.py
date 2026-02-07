@@ -21,7 +21,7 @@ db = SQLAlchemy(model_class= Base)
 app = Flask(__name__)
 
 bootstrap = Bootstrap5(app)
- 
+
 ROOT_DIR = Path(__file__).resolve().parent
 (ROOT_DIR / "instance").mkdir(exist_ok=True)
 db_path = (ROOT_DIR/"instance"/"library_books.db").as_posix()
@@ -35,7 +35,7 @@ class Books(Base):
     id: Mapped[int] = mapped_column(primary_key= True)
     name: Mapped[str] = mapped_column(String(250),nullable= False, unique=True)
     author: Mapped[str] = mapped_column(String(250), nullable= False)
-    rate: Mapped[float] = mapped_column(nullable=False)
+    rate: Mapped[int] = mapped_column(nullable=False)
     def __repr__(self):
         return f"<Book: id={self.id}, name={self.name}, author={self.author}, rate={self.rate}>"
 

@@ -8,9 +8,12 @@
   </head>
   <body>
     <div class="d-flex justify-content-center vh-100 pt-5">
-      <div class="container justify-content-center align-items-center col-6">
+      <div class="container justify-content-center align-items-center">
       {% if request.args.get('is_submited'): %}
         <h1 class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Your record successfully recieved! Thanks !</h1>
+      {% endif %}
+      {% if request.args.get('is_rate_change'): %}
+        <h1 class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">Your record's changed!</h1>
       {% endif %}
       <h1>My Library</h1>
       <ul>
@@ -18,7 +21,7 @@
           {% for book in all_books: %}
             <li>
               {{ book.name }} - {{ book.author }} - {{ book.rate }}/10 
-            </li>
+            </li><a href=" {{ url_for('edit_rate', id=book.id) }} ">Edit Rating</a>
           {% endfor %}
           <!-- {{ render_table(all_books) }} -->
         {% else: %}

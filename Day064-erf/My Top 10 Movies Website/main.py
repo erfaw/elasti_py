@@ -153,7 +153,7 @@ def add():
 @app.route('/add_db')
 def add_db():
     edit_form = RateMovieForm()
-    
+
     imdb_id = request.args.get('imdb_id')
     selected_movie = get_movie_by_id(imdb_id= imdb_id)
     movie_record = Movie(
@@ -161,7 +161,7 @@ def add_db():
         year= selected_movie['Year'],
         description= selected_movie['Plot'],
         rating= selected_movie['imdbRating'],
-        ranking= AVAILABLE_RANK,
+        ranking= 'nothing',
         review= 'Write some!',
         img_url= selected_movie['Poster']
     )

@@ -48,15 +48,13 @@ class AddMovieForm(FlaskForm):
     title = StringField(label="Movie Title", validators=[DataRequired()])
     submit = SubmitField(label="Add Movie")
 
-def get_movie_data(movie_title:str) -> list[dict]:
+def search_movie(movie_title:str) -> list[dict]:
     """
     makes a get request to
     
         "http://www.omdbapi.com"
     
     in order to get data about a specific movie name
-
-    **NOTICE** : not work with normal network in Iran!
     
     :param movie_title:
     :type movie_title: str
@@ -73,6 +71,30 @@ def get_movie_data(movie_title:str) -> list[dict]:
         url= api_url,
         params= params,
     ).json()['Search']
+    return result
+
+def get_movie_by_id(imdb_id:str) -> dict:
+    """
+    makes a get request to
+    
+        "http://www.omdbapi.com"
+    
+    in order to get data about a specific movie name
+    
+    :param imdb_id:
+    :type imdb_id: str
+    :return: Request response with dict(json) format
+    :rtype: dict
+    """
+    api_url = "http://www.omdbapi.com"
+    params = {
+        "apikey": os.environ.get('omdb_api_key'),
+        "i": imdb_id,
+    }
+    result = requests.get(
+        url= api_url,
+        params= params,
+    ).json()
     return result
 
 
@@ -117,7 +139,7 @@ def add():
     add_movie_form = AddMovieForm()
     if add_movie_form.validate_on_submit():
         add_movie_name_str = add_movie_form.title.data
-        movie_responses:list = get_movie_data(add_movie_name_str)
+        movie_responses:list = search_movie(add_movie_name_str)
         return render_template(
                 'select.html',
                 movies= movie_responses,
@@ -125,6 +147,16 @@ def add():
     return render_template(
         'add.html',
         form= add_movie_form,
+    )
+
+@app.route('/add_db')
+def add_db():
+    imdb_id = request.args.get('imdb_id')
+    selected_movie = get_movie_by_id(imdb_id= imdb_id)
+    print(selected_movie)
+    ## TODO: add to DB
+    return redirect(
+        url_for('home')
     )
 
 if __name__ == '__main__':

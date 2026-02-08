@@ -97,14 +97,15 @@ def get_movie_by_id(imdb_id:str) -> dict:
     ).json()
     return result
 
-AVAILABLE_RANK = 1
 @app.route("/")
 def home():
     current_movies = db.session.execute(
-        db.select(Movie).order_by(Movie.title)
+        db.select(Movie).order_by(Movie.rating.desc())
     ).scalars().all()
-
-    return render_template("index.html", movies= current_movies)
+    return render_template(
+            "index.html", 
+            movies= current_movies
+        )
 
 @app.route('/edit', methods=["POST", "GET"])
 def edit():
@@ -151,8 +152,8 @@ def add():
 
 @app.route('/add_db')
 def add_db():
-    global AVAILABLE_RANK
     edit_form = RateMovieForm()
+    
     imdb_id = request.args.get('imdb_id')
     selected_movie = get_movie_by_id(imdb_id= imdb_id)
     movie_record = Movie(
@@ -166,7 +167,7 @@ def add_db():
     )
     db.session.add(movie_record)
     db.session.commit()
-    AVAILABLE_RANK+=1
+
     movie_to_edit = db.session.execute(
         db.select(Movie).where(Movie.title == movie_record.title)
     ).scalar()

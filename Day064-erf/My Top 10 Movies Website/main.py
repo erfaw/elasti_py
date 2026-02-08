@@ -59,7 +59,7 @@ def edit():
     movie_to_edit = db.get_or_404(Movie, movie_to_edit_id)
     return render_template(
         "edit.html",
-        edit_form= edit_form,
+        form= edit_form,
         movie= movie_to_edit,
     )
 

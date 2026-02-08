@@ -83,9 +83,14 @@ def delete():
         url_for('home', is_removed=True)
     )
 
-@app.route('/add')
+@app.route('/add', methods=["POST", "GET"])
 def add():
     add_movie_form = AddMovieForm()
+    if add_movie_form.validate_on_submit():
+        add_movie_name_str = add_movie_form.title.data
+        return redirect(
+            url_for('home')
+        )
     return render_template(
         'add.html',
         form= add_movie_form,

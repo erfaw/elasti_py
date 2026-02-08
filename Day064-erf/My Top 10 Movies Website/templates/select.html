@@ -7,7 +7,7 @@
     <h1 class="heading">Select Movie</h1>
     {% for movie in movies: %}
       <p>
-        <a href="#"> {{ movie['Title'] }} - {{ movie['Year'] }}</a>
+        <a href=" {{ url_for('add_db', imdb_id=movie['imdbID']) }} "> {{ movie['Title'] }} - {{ movie['Year'] }}</a>
       </p>
     {% endfor %}
 

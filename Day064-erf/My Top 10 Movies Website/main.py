@@ -55,12 +55,12 @@ def home():
 def edit():
     edit_form = RateMovieForm()
     edit_form.rating.choices = [_ for _ in range(10, -1, -1)]
-    book_to_edit_id = request.args.get('id')
-    book_to_edit = db.get_or_404(Movie, book_to_edit_id)
+    movie_to_edit_id = request.args.get('id')
+    movie_to_edit = db.get_or_404(Movie, movie_to_edit_id)
     return render_template(
         "edit.html",
         edit_form= edit_form,
-        book_to_edit= book_to_edit,
+        movie= movie_to_edit,
     )
 
 if __name__ == '__main__':

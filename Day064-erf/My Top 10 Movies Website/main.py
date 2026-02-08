@@ -31,11 +31,10 @@ class Movie(Base):
     year: Mapped[int] = mapped_column(nullable=False, )
     description: Mapped[str] = mapped_column(String(250) ,nullable=True)
     rating: Mapped[float] = mapped_column(nullable=False,)
-    ranking: Mapped[int] = mapped_column(nullable=False,)
     review: Mapped[str] = mapped_column(String(1000) ,nullable=False,)
     img_url: Mapped[str] = mapped_column(String(500), nullable=False,)
     def __repr__(self):
-        return f"<Movie: id={self.id}, title={self.title}, year={self.year}, description={self.description}, rating={self.rating}, ranking={self.ranking}, review={self.review}, img_url={self.img_url}>"
+        return f"<Movie: id={self.id}, title={self.title}, year={self.year}, description={self.description}, rating={self.rating}, review={self.review}, img_url={self.img_url}>"
 
 with app.app_context():
     db.create_all()
@@ -161,7 +160,6 @@ def add_db():
         year= selected_movie['Year'],
         description= selected_movie['Plot'],
         rating= selected_movie['imdbRating'],
-        ranking= 'nothing',
         review= 'Write some!',
         img_url= selected_movie['Poster']
     )

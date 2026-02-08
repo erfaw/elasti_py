@@ -152,6 +152,7 @@ def add():
 @app.route('/add_db')
 def add_db():
     global AVAILABLE_RANK
+    edit_form = RateMovieForm()
     imdb_id = request.args.get('imdb_id')
     selected_movie = get_movie_by_id(imdb_id= imdb_id)
     movie_record = Movie(
@@ -166,8 +167,13 @@ def add_db():
     db.session.add(movie_record)
     db.session.commit()
     AVAILABLE_RANK+=1
-    return redirect(
-        url_for('home')
+    movie_to_edit = db.session.execute(
+        db.select(Movie).where(Movie.title == movie_record.title)
+    ).scalar()
+    return render_template(
+        "edit.html",
+        form= edit_form,
+        movie= movie_to_edit,
     )
 
 if __name__ == '__main__':

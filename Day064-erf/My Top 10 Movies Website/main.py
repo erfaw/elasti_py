@@ -97,7 +97,7 @@ def get_movie_by_id(imdb_id:str) -> dict:
     ).json()
     return result
 
-
+AVAILABLE_RANK = 1
 @app.route("/")
 def home():
     current_movies = db.session.execute(
@@ -151,10 +151,21 @@ def add():
 
 @app.route('/add_db')
 def add_db():
+    global AVAILABLE_RANK
     imdb_id = request.args.get('imdb_id')
     selected_movie = get_movie_by_id(imdb_id= imdb_id)
-    print(selected_movie)
-    ## TODO: add to DB
+    movie_record = Movie(
+        title= selected_movie['Title'],
+        year= selected_movie['Year'],
+        description= selected_movie['Plot'],
+        rating= selected_movie['imdbRating'],
+        ranking= AVAILABLE_RANK,
+        review= 'Write some!',
+        img_url= selected_movie['Poster']
+    )
+    db.session.add(movie_record)
+    db.session.commit()
+    AVAILABLE_RANK+=1
     return redirect(
         url_for('home')
     )

@@ -8,8 +8,10 @@ from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import DataRequired, Length, NumberRange
 import requests
 from pathlib import Path
-
+from dotenv import load_dotenv
+import os
 ROOT_DIR = Path(__file__).resolve().parent
+load_dotenv(ROOT_DIR/'.env')
 (ROOT_DIR / 'instance').mkdir(exist_ok=True)
 db_path = (ROOT_DIR/"instance"/"movies.db").as_posix()
 
@@ -46,11 +48,11 @@ class AddMovieForm(FlaskForm):
     title = StringField(label="Movie Title", validators=[DataRequired()])
     submit = SubmitField(label="Add Movie")
 
-def get_movie_data(movie_title:str) -> dict:
+def get_movie_data(movie_title:str) -> list[dict]:
     """
     makes a get request to
     
-        "https://api.themoviedb.org/3/search/movie"
+        "http://www.omdbapi.com"
     
     in order to get data about a specific movie name
 
@@ -61,20 +63,16 @@ def get_movie_data(movie_title:str) -> dict:
     :return: Request response with dict(json) format
     :rtype: dict
     """
-    the_movie_db_api_url = "https://api.themoviedb.org/3/search/movie"
-    headers = {
-        "accept": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyZWRlYmYxY2RjOWM4MWRhZTk2ZDk4YTU1YjE1MjljMiIsIm5iZiI6MTc3MDU1MTE0Ny4xNjksInN1YiI6IjY5ODg3NzZiOWU0OTBhYjczNThlNmQ4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g9IFxhXG04MxpBKu5XizjQ8CLJq-3jptcXHXIu4Rmf0"
-    }
+    api_url = "http://www.omdbapi.com"
     params = {
-        "query": movie_title,
-        "include_adult": True,
+        "apikey": os.environ.get('omdb_api_key'),
+        "s": movie_title,
+        "type": "movie",
     }
     result = requests.get(
-        url= the_movie_db_api_url,
-        headers= headers,
+        url= api_url,
         params= params,
-    ).json()
+    ).json()['Search']
     return result
 
 
@@ -119,11 +117,11 @@ def add():
     add_movie_form = AddMovieForm()
     if add_movie_form.validate_on_submit():
         add_movie_name_str = add_movie_form.title.data
-        # add_movie_data_response = get_movie_data(add_movie_name_str)
-        # print(add_movie_data_response)
-        return redirect(
-            url_for('home')
-        )
+        movie_responses:list = get_movie_data(add_movie_name_str)
+        return render_template(
+            'select.html',
+            movies= movie_responses,
+            )
     return render_template(
         'add.html',
         form= add_movie_form,

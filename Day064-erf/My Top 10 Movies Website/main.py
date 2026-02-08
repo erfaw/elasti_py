@@ -46,6 +46,37 @@ class AddMovieForm(FlaskForm):
     title = StringField(label="Movie Title", validators=[DataRequired()])
     submit = SubmitField(label="Add Movie")
 
+def get_movie_data(movie_title:str) -> dict:
+    """
+    makes a get request to
+    
+        "https://api.themoviedb.org/3/search/movie"
+    
+    in order to get data about a specific movie name
+
+    **NOTICE** : not work with normal network in Iran!
+    
+    :param movie_title:
+    :type movie_title: str
+    :return: Request response with dict(json) format
+    :rtype: dict
+    """
+    the_movie_db_api_url = "https://api.themoviedb.org/3/search/movie"
+    headers = {
+        "accept": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyZWRlYmYxY2RjOWM4MWRhZTk2ZDk4YTU1YjE1MjljMiIsIm5iZiI6MTc3MDU1MTE0Ny4xNjksInN1YiI6IjY5ODg3NzZiOWU0OTBhYjczNThlNmQ4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.g9IFxhXG04MxpBKu5XizjQ8CLJq-3jptcXHXIu4Rmf0"
+    }
+    params = {
+        "query": movie_title,
+        "include_adult": True,
+    }
+    result = requests.get(
+        url= the_movie_db_api_url,
+        headers= headers,
+        params= params,
+    ).json()
+    return result
+
 
 @app.route("/")
 def home():
@@ -88,6 +119,8 @@ def add():
     add_movie_form = AddMovieForm()
     if add_movie_form.validate_on_submit():
         add_movie_name_str = add_movie_form.title.data
+        # add_movie_data_response = get_movie_data(add_movie_name_str)
+        # print(add_movie_data_response)
         return redirect(
             url_for('home')
         )

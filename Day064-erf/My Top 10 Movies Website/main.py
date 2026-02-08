@@ -119,8 +119,8 @@ def add():
         add_movie_name_str = add_movie_form.title.data
         movie_responses:list = get_movie_data(add_movie_name_str)
         return render_template(
-            'select.html',
-            movies= movie_responses,
+                'select.html',
+                movies= movie_responses,
             )
     return render_template(
         'add.html',

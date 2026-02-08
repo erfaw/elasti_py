@@ -2,10 +2,10 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import Integer, String, Float
+from sqlalchemy import String
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Length, URL
+from wtforms import StringField, SubmitField, SelectField
+from wtforms.validators import DataRequired, Length
 import requests
 from pathlib import Path
 
@@ -38,6 +38,11 @@ class Movie(Base):
 with app.app_context():
     db.create_all()
 
+class RateMovieForm(FlaskForm):
+    rating = SelectField(label="Your Rating Out of 10", validators=[DataRequired()])
+    review = StringField(label="Your Review", validators=[DataRequired(), Length(max= 70)])
+    submit = SubmitField(label="Done")
+
 @app.route("/")
 def home():
     current_movies = db.session.execute(
@@ -46,6 +51,17 @@ def home():
 
     return render_template("index.html", movies= current_movies)
 
+@app.route('/edit')
+def edit():
+    edit_form = RateMovieForm()
+    edit_form.rating.choices = [_ for _ in range(10, -1, -1)]
+    book_to_edit_id = request.args.get('id')
+    book_to_edit = db.get_or_404(Movie, book_to_edit_id)
+    return render_template(
+        "edit.html",
+        edit_form= edit_form,
+        book_to_edit= book_to_edit,
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -37,6 +37,10 @@ with app.app_context():
 def home():
     return render_template("index.html")
 
+@app.route('/random')
+def random():
+    return "Just a Random Result!"
+
 # HTTP GET - Read Record
 
 # HTTP POST - Create Record

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import Integer, String, Boolean
+from sqlalchemy import Integer, String, Boolean, func
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent
@@ -32,14 +32,30 @@ class Cafe(db.Model):
 
 with app.app_context():
     db.create_all()
-
+print()
 @app.route("/")
 def home():
     return render_template("index.html")
 
 @app.route('/random')
 def random():
-    return "Just a Random Result!"
+    random_cafe = db.session.execute(
+        db.select(Cafe).order_by(func.random()).limit(1)
+    ).scalar_one_or_none()
+    result: dict = {
+        'id': random_cafe.id,
+        'name': random_cafe.name,
+        'img_url': random_cafe.img_url,
+        'has_toilet': random_cafe.has_toilet,
+        'has_sockets': random_cafe.has_sockets,
+        'coffee_price': random_cafe.coffee_price,
+        'map_url': random_cafe.map_url,
+        'location': random_cafe.location,
+        'seats': random_cafe.seats,
+        'has_wifi': random_cafe.has_wifi,
+        'can_take_calls': random_cafe.can_take_calls,
+    }
+    return result
 
 # HTTP GET - Read Record
 

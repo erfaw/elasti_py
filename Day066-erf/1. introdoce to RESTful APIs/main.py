@@ -3,11 +3,16 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Boolean, func
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
 
 ROOT_DIR = Path(__file__).resolve().parent
 (ROOT_DIR / "instance").mkdir(exist_ok= True)
 db_path = ROOT_DIR / 'instance' / 'cafes.db'
 db_path.as_posix()
+
+load_dotenv(ROOT_DIR/'.env')
 
 app = Flask(__name__)
 
@@ -115,6 +120,14 @@ def update_price(cafe_id):
     
 @app.route('/report-closed/<int:cafe_id>', methods=["DELETE"])
 def delete_cafe(cafe_id):
+    recieved_api_key = request.args.get('api_key')
+    true_api_key = os.environ.get('api_key')
+    if recieved_api_key != true_api_key:
+        return jsonify(
+            result={
+                "Unauthorized": "Your client doesn't have access to do that."
+            }
+        ), 403
     record_to_delete = db.session.execute(
         db.select(Cafe).where(Cafe.id == cafe_id)
     ).scalar_one_or_none()

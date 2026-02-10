@@ -11,6 +11,7 @@ from datetime import date
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import datetime as dt
 
 ROOT_DIR = Path(__file__).resolve().parent
 (ROOT_DIR / "instance").mkdir(exist_ok= True)
@@ -88,7 +89,34 @@ def add_new_post():
         form= form,
     )
 
-# TODO: edit_post() to change an existing blog post
+@app.route('/edit-post/<int:post_id>', methods=["POST", "GET"])
+def edit_post(post_id):
+    post_to_edit = db.get_or_404(BlogPost, post_id)
+    form= MakePostForm()
+
+    if form.validate_on_submit():
+        post_to_edit.title = form.title.data 
+        post_to_edit.subtitle = form.subtitle.data
+        post_to_edit.date = form.date.data
+        post_to_edit.body = form.body.data
+        post_to_edit.author = form.author.data
+        post_to_edit.img_url = form.img_url.data
+        db.session.commit()
+        return redirect(
+            url_for('show_post', post_id=post_to_edit.id )
+        )
+
+    form.title.data = post_to_edit.title
+    form.subtitle.data = post_to_edit.subtitle
+    form.date = dt.datetime.strptime(post_to_edit.date, r'%Y-%m-%d').date()
+    form.body.data = post_to_edit.body
+    form.author.data = post_to_edit.author
+    form.img_url.data = post_to_edit.img_url    
+    return render_template(
+        'make-post.html',
+        form= form,
+        is_edit = True,
+    )
 
 # TODO: delete_post() to remove a blog post from the database
 

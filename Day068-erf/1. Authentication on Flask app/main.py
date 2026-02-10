@@ -40,8 +40,19 @@ with app.app_context():
 def home():
     return render_template("index.html")
 
-@app.route('/register')
+@app.route('/register', methods=["POST", "GET"])
 def register():
+    if request.method == "POST":
+        new_user = User(
+            name= request.form['name'],
+            email= request.form['email'],
+            password= request.form['password'],
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(
+            url_for('secrets')
+        )
     return render_template("register.html")
 
 @app.route('/login')

@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Text
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, DateField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
 from datetime import date
@@ -60,9 +60,10 @@ def show_post(post_id):
 class MakePostForm(FlaskForm):
     title= StringField(label="Title", validators=[DataRequired()])
     subtitle= StringField(label="Subtitle", validators=[DataRequired()])
+    date= DateField(label="Date", validators=[DataRequired()])
+    body= CKEditorField(label="Main Content", validators=[DataRequired()])
     author= StringField(label="Author", validators=[DataRequired()])
     img_url= StringField(label="Image URL", validators=[DataRequired(), URL()])
-    body= CKEditorField(label="Main Content", validators=[DataRequired()])
     submit= SubmitField(label="Submit")
 
 @app.route('/new-post', methods=["POST", "GET"])

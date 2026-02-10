@@ -111,7 +111,7 @@ def update_price(cafe_id):
             result={
                 "Not Found": f"Sorry a cafe with that id=<{cafe_id}> was not found in the database.>"
             }
-        )
+        ), 404
 
 if __name__ == '__main__':
     app.run(debug=True)

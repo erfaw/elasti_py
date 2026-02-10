@@ -26,6 +26,7 @@ class Base(DeclarativeBase): pass
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
+app.config['CKEDITOR_PKG_TYPE'] = 'full'
 ckeditor = CKEditor(app)
 
 class BlogPost(db.Model):
@@ -61,14 +62,15 @@ class MakePostForm(FlaskForm):
     subtitle= StringField(label="Subtitle", validators=[DataRequired()])
     author= StringField(label="Author", validators=[DataRequired()])
     img_url= StringField(label="Image URL", validators=[DataRequired(), URL()])
-    body= StringField(label="Main Content", validators=[DataRequired()])
+    body= CKEditorField(label="Main Content", validators=[DataRequired()])
     submit= SubmitField(label="Submit")
 
 @app.route('/new-post', methods=["POST", "GET"])
 def add_new_post():
+    form= MakePostForm()
     return render_template(
         'make-post.html',
-        form= None,
+        form= form,
     )
 
 # TODO: edit_post() to change an existing blog post

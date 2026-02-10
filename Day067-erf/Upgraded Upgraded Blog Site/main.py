@@ -55,8 +55,13 @@ def show_post(post_id):
     requested_post = db.get_or_404(BlogPost, post_id)
     return render_template("post.html", post=requested_post)
 
+@app.route('/new-post', methods=["POST", "GET"])
+def add_new_post():
+    return render_template(
+        'make-post.html',
+        form= None,
+    )
 
-# TODO: add_new_post() to create a new blog post
 
 # TODO: edit_post() to change an existing blog post
 

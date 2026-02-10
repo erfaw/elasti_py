@@ -112,6 +112,28 @@ def update_price(cafe_id):
                 "Not Found": f"Sorry a cafe with that id=<{cafe_id}> was not found in the database.>"
             }
         ), 404
+    
+@app.route('/report-closed/<int:cafe_id>', methods=["DELETE"])
+def delete_cafe(cafe_id):
+    record_to_delete = db.session.execute(
+        db.select(Cafe).where(Cafe.id == cafe_id)
+    ).scalar_one_or_none()
+    if record_to_delete:
+        deleted_name = record_to_delete.name
+        deleted_id = record_to_delete.id
+        db.session.delete(record_to_delete)
+        db.session.commit()
+        return jsonify(
+            result={
+                "success": f"cafe <{deleted_name}> (id={deleted_id}) successfully deleted."
+            }
+        ), 200
+    else: 
+        return jsonify(
+            result={
+                "Not Found": f"Sorry a cafe with that id=<{cafe_id}> was not found in the database.>"
+            }
+        ), 404
 
 if __name__ == '__main__':
     app.run(debug=True)

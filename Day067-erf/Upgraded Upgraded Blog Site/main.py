@@ -8,33 +8,25 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
 from datetime import date
+from pathlib import Path
+import os
+from dotenv import load_dotenv
 
-'''
-Make sure the required packages are installed: 
-Open the Terminal in PyCharm (bottom left). 
+ROOT_DIR = Path(__file__).resolve().parent
+(ROOT_DIR / "instance").mkdir(exist_ok= True)
+db_path = ROOT_DIR / 'instance' / 'posts.db'
+db_path.as_posix()
 
-On Windows type:
-python -m pip install -r requirements.txt
-
-On MacOS type:
-pip3 install -r requirements.txt
-
-This will install the packages from the requirements.txt for this project.
-'''
+load_dotenv(ROOT_DIR/'.env')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 Bootstrap5(app)
-
-# CREATE DATABASE
-class Base(DeclarativeBase):
-    pass
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+class Base(DeclarativeBase): pass
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
-
-# CONFIGURE TABLE
 class BlogPost(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
@@ -43,11 +35,13 @@ class BlogPost(db.Model):
     body: Mapped[str] = mapped_column(Text, nullable=False)
     author: Mapped[str] = mapped_column(String(250), nullable=False)
     img_url: Mapped[str] = mapped_column(String(250), nullable=False)
-
+    def __repr__(self):
+        return f"<BlogPost: id={self.id}, title={self.title}>"
+    def to_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
 with app.app_context():
     db.create_all()
-
 
 @app.route('/')
 def get_all_posts():
@@ -74,11 +68,9 @@ def show_post(post_id):
 def about():
     return render_template("about.html")
 
-
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
-
 
 if __name__ == "__main__":
     app.run(debug=True, port=5003)

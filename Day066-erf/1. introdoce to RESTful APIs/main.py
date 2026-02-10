@@ -127,7 +127,7 @@ def delete_cafe(cafe_id):
             result={
                 "Unauthorized": "Your client doesn't have access to do that."
             }
-        ), 403
+        ), 403 
     record_to_delete = db.session.execute(
         db.select(Cafe).where(Cafe.id == cafe_id)
     ).scalar_one_or_none()

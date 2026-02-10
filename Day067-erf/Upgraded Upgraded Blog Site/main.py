@@ -69,6 +69,20 @@ class MakePostForm(FlaskForm):
 @app.route('/new-post', methods=["POST", "GET"])
 def add_new_post():
     form= MakePostForm()
+    if form.validate_on_submit():
+        new_blog_post = BlogPost(
+            title= form.title.data,
+            subtitle= form.subtitle.data,
+            date= form.date.data,
+            body= form.body.data,
+            author= form.author.data,
+            img_url= form.img_url.data,
+        )
+        db.session.add(new_blog_post)
+        db.session.commit()
+        return redirect(
+            url_for('get_all_posts')
+        )
     return render_template(
         'make-post.html',
         form= form,

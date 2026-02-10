@@ -26,6 +26,7 @@ class Base(DeclarativeBase): pass
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
+ckeditor = CKEditor(app)
 
 class BlogPost(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

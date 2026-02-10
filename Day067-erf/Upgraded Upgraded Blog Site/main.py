@@ -55,13 +55,20 @@ def show_post(post_id):
     requested_post = db.get_or_404(BlogPost, post_id)
     return render_template("post.html", post=requested_post)
 
+class MakePostForm(FlaskForm):
+    title= StringField(label="Title", validators=[DataRequired()])
+    subtitle= StringField(label="Subtitle", validators=[DataRequired()])
+    author= StringField(label="Author", validators=[DataRequired()])
+    img_url= StringField(label="Image URL", validators=[DataRequired(), URL()])
+    body= StringField(label="Main Content", validators=[DataRequired()])
+    submit= SubmitField(label="Submit")
+
 @app.route('/new-post', methods=["POST", "GET"])
 def add_new_post():
     return render_template(
         'make-post.html',
         form= None,
     )
-
 
 # TODO: edit_post() to change an existing blog post
 

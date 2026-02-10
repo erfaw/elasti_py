@@ -49,13 +49,14 @@ def random():
     if random_cafe:
         return jsonify(random_cafe.to_dict())
 
-# HTTP GET - Read Record
-
-# HTTP POST - Create Record
-
-# HTTP PUT/PATCH - Update Record
-
-# HTTP DELETE - Delete Record
+@app.route('/all_cafes')
+def all_cafes():
+    all_cafes_records = db.session.execute(
+        db.select(Cafe).order_by(Cafe.id)
+    ).scalars().all()
+    return jsonify(
+            [cafe.to_dict() for cafe in all_cafes_records]
+        )
 
 if __name__ == '__main__':
     app.run(debug=True)

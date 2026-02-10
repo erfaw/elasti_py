@@ -47,7 +47,7 @@ def random():
         db.select(Cafe).order_by(func.random()).limit(1)
     ).scalar_one_or_none()
     if random_cafe:
-        return jsonify(random_cafe.to_dict())
+        return jsonify(cafe= random_cafe.to_dict())
 
 @app.route('/all_cafes')
 def all_cafes():
@@ -70,6 +70,27 @@ def search():
         )
     else: 
         return jsonify(error={'Not Found': "Sorry, we don't have a cafe at that location."})
+
+@app.route('/add', methods=["POST"])
+def add():
+    new_record = Cafe(
+        name= request.form.get('name'),
+        map_url= request.form.get('map_url'),
+        img_url= request.form.get('img_url'),
+        location= request.form.get('location'),
+        seats= request.form.get('seats'),
+        has_toilet= bool(int(request.form.get('has_toilet'))),
+        has_wifi= bool(int(request.form.get('has_wifi'))),
+        has_sockets= bool(int(request.form.get('has_sockets'))),
+        can_take_calls= bool(int(request.form.get('can_take_calls'))),            
+    )
+    db.session.add(new_record)
+    db.session.commit()
+    return jsonify(
+        result = {
+            "success": "Successfully added the new cafe."
+        }
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)

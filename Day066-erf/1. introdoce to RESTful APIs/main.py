@@ -55,8 +55,18 @@ def all_cafes():
         db.select(Cafe).order_by(Cafe.id)
     ).scalars().all()
     return jsonify(
-            [cafe.to_dict() for cafe in all_cafes_records]
+            all_cafes = [cafe.to_dict() for cafe in all_cafes_records]
         )
+
+@app.route('/search')
+def search():
+    loc = request.args.get('loc').title()
+    result = db.session.execute(
+        db.select(Cafe).where(Cafe.location == loc)
+    ).scalars().all()
+    return jsonify(
+        [cafe.to_dict() for cafe in result]
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)

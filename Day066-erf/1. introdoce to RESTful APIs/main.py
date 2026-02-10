@@ -95,14 +95,23 @@ def add():
 @app.route('/update-price/<int:cafe_id>', methods=["PATCH"])
 def update_price(cafe_id):
     new_price = request.args.get('new_price')
-    record_to_update = db.get_or_404(Cafe, cafe_id)
-    record_to_update.coffee_price = new_price
-    db.session.commit()
-    return jsonify(
-        result={
-            "success": f"cafe_price successfully updated for <{record_to_update.name}> to <{new_price}>"
-        }
-    )
+    record_to_update = db.session.execute(
+        db.select(Cafe).where(Cafe.id == cafe_id)
+    ).scalar_one_or_none()
+    if record_to_update:
+        record_to_update.coffee_price = new_price
+        db.session.commit()
+        return jsonify(
+            result={
+                "success": f"cafe_price successfully updated for <{record_to_update.name}> to <{new_price}>"
+            }
+        )
+    else: 
+        return jsonify(
+            result={
+                "Not Found": f"Sorry a cafe with that id=<{cafe_id}> was not found in the database.>"
+            }
+        )
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -64,9 +64,12 @@ def search():
     result = db.session.execute(
         db.select(Cafe).where(Cafe.location == loc)
     ).scalars().all()
-    return jsonify(
-        [cafe.to_dict() for cafe in result]
-    )
+    if len(result) != 0:
+        return jsonify(
+            cafe = [cafe.to_dict() for cafe in result]
+        )
+    else: 
+        return jsonify(error={'Not Found': "Sorry, we don't have a cafe at that location."})
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -75,11 +75,29 @@ def register():
 
     return render_template("register.html")
 
-@app.route('/login')
+@app.route('/login', methods=["POST", "GET"])
 def login():
+    if request.method == "POST":
+        email = request.form['email']
+        password = request.form['password']
+        user_by_email = db.session.execute(
+            db.select(User).where(User.email == email)
+        ).scalar_one()
+        if check_password_hash(
+            user_by_email.password,
+            password
+        ):
+            if login_user(user= user_by_email):
+                # flash('Logged in successfully.')
+                next = request.args.get('next')
+                # if not url_has_allowed_host_and_scheme(next, request.host):
+                #     return abort(400)
+                return redirect(next or 
+                    url_for('secrets'))
     return render_template("login.html")
 
 @app.route('/secrets')
+@login_required
 def secrets():
     user_id = request.args.get('user_logged_id')
     user_logged = db.get_or_404(User, user_id)
@@ -89,10 +107,12 @@ def secrets():
         )
 
 @app.route('/logout')
+@login_required
 def logout():
     pass
 
 @app.route('/download/<path:file_path>')
+@login_required
 def download(file_path):
     return send_from_directory(
         'static',

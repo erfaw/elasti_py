@@ -99,11 +99,11 @@ def login():
 @app.route('/secrets')
 @login_required
 def secrets():
-    user_id = request.args.get('user_logged_id')
-    user_logged = db.get_or_404(User, user_id)
+    # user_id = request.args.get('user_logged_id')
+    # user_logged = db.get_or_404(User, user_id)
     return render_template(
             "secrets.html",
-            user= user_logged,
+            user= current_user,
         )
 
 @app.route('/logout')
@@ -122,7 +122,7 @@ def download(file_path):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return db.get_or_404(user_id)
+    return db.get_or_404(User, user_id)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String
+from sqlalchemy.exc import IntegrityError
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from pathlib import Path
 import os
@@ -48,11 +49,17 @@ def register():
             email= request.form['email'],
             password= request.form['password'],
         )
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(
-            url_for('secrets', user_logged_id= new_user.id)
-        )
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+            return redirect(
+                url_for('secrets', user_logged_id= new_user.id)
+            )
+        except IntegrityError as e:
+            return redirect(
+                url_for('register', is_registered_before=True)
+            )
+
     return render_template("register.html")
 
 @app.route('/login')

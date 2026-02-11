@@ -89,18 +89,15 @@ def login():
         ):
             if login_user(user= user_by_email):
                 # flash('Logged in successfully.')
-                next = request.args.get('next')
+                # next = request.args.get('next')
                 # if not url_has_allowed_host_and_scheme(next, request.host):
                 #     return abort(400)
-                return redirect(next or 
-                    url_for('secrets'))
+                return redirect(url_for('secrets'))
     return render_template("login.html")
 
 @app.route('/secrets')
 @login_required
 def secrets():
-    # user_id = request.args.get('user_logged_id')
-    # user_logged = db.get_or_404(User, user_id)
     return render_template(
             "secrets.html",
             user= current_user,
@@ -109,7 +106,10 @@ def secrets():
 @app.route('/logout')
 @login_required
 def logout():
-    pass
+    logout_user()
+    return redirect(
+        url_for('home')
+    )
 
 @app.route('/download/<path:file_path>')
 @login_required

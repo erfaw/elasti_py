@@ -79,9 +79,13 @@ def secrets():
 def logout():
     pass
 
-@app.route('/download')
-def download():
-    pass
+@app.route('/download/<path:file_path>')
+def download(file_path):
+    return send_from_directory(
+        'static',
+        file_path,
+        as_attachment=True,
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

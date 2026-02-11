@@ -108,7 +108,7 @@ def edit_post(post_id):
 
     form.title.data = post_to_edit.title
     form.subtitle.data = post_to_edit.subtitle
-    form.date = dt.datetime.strptime(post_to_edit.date, r'%Y-%m-%d').date()
+    # form.date.data = dt.datetime.strptime(post_to_edit.date, r'%Y-%m-%d').date()
     form.body.data = post_to_edit.body
     form.author.data = post_to_edit.author
     form.img_url.data = post_to_edit.img_url    

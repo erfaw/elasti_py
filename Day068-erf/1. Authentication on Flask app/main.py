@@ -23,16 +23,25 @@ class Base(DeclarativeBase): pass
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 class User(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(100), unique=True)
     password: Mapped[str] = mapped_column(String(150))
     name: Mapped[str] = mapped_column(String(1000))
+    is_authenticated = True
+    is_active = True
+    is_anonymous = False
     def __repr__(self):
         return f"<User: id={self.id}, name={self.name}, email={self.email}>"
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
+    
+    def get_id(self)->str:
+        return str(self.id)
+    
 
 with app.app_context():
     db.create_all()
@@ -90,6 +99,10 @@ def download(file_path):
         file_path,
         as_attachment=True,
     )
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.get_or_404(user_id)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -27,7 +27,7 @@ db.init_app(app)
 class User(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(100), unique=True)
-    password: Mapped[str] = mapped_column(String(100))
+    password: Mapped[str] = mapped_column(String(150))
     name: Mapped[str] = mapped_column(String(1000))
     def __repr__(self):
         return f"<User: id={self.id}, name={self.name}, email={self.email}>"

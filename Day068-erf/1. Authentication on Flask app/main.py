@@ -65,6 +65,7 @@ def register():
         try:
             db.session.add(new_user)
             db.session.commit()
+            login_user(user= new_user)
             return redirect(
                 url_for('secrets', user_logged_id= new_user.id)
             )

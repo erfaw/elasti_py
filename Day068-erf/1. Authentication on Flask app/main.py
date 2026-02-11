@@ -29,7 +29,7 @@ class User(db.Model):
     password: Mapped[str] = mapped_column(String(100))
     name: Mapped[str] = mapped_column(String(1000))
     def __repr__(self):
-        return f"<BlogPost: id={self.id}, title={self.title}>"
+        return f"<User: id={self.id}, name={self.name}, email={self.email}>"
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
@@ -51,7 +51,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         return redirect(
-            url_for('secrets')
+            url_for('secrets', user_logged_id= new_user.id)
         )
     return render_template("register.html")
 
@@ -61,7 +61,12 @@ def login():
 
 @app.route('/secrets')
 def secrets():
-    return render_template("secrets.html")
+    user_id = request.args.get('user_logged_id')
+    user_logged = db.get_or_404(User, user_id)
+    return render_template(
+            "secrets.html",
+            user= user_logged,
+        )
 
 @app.route('/logout')
 def logout():

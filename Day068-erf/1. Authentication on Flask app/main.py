@@ -63,9 +63,8 @@ def register():
                 url_for('secrets')
             )
         except IntegrityError as e:
-            return redirect(
-                url_for('register', is_registered_before=True)
-            )
+            flash("You've already signed up with that email, Login instead!")
+            return redirect(url_for('register'))
 
     return render_template("register.html")
 

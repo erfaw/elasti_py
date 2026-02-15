@@ -57,8 +57,6 @@ class User(UserMixin, db.Model):
 with app.app_context():
     db.create_all()
 
-
-# TODO: Use Werkzeug to hash the user's password when creating a new user.
 @app.route('/register', methods= ["POST", "GET"])
 def register():
     register_form= RegisterForm()
@@ -72,7 +70,9 @@ def register():
             ),
             name = register_form.name.data
         )
-        print(new_user.to_dict())
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('get_all_posts'))
     return render_template("register.html", form= register_form)
 
 

@@ -87,20 +87,25 @@ def login():
     login_form= LoginForm()
     if login_form.validate_on_submit():
         user= db.session.execute(db.select(User).where(User.email == login_form.email.data)).scalar_one_or_none()
-        if check_password_hash(user.password, login_form.password.data):
+        if user and check_password_hash(user.password, login_form.password.data):
             if login_user(user):
                 flash(f"Successfully logged in as {user.name}")
                 return redirect(url_for('get_all_posts'))
             else: 
                 return "There is a Problem!"
-        else: 
-            flash("Password is incorrect! please try again.")
+        else:
+            if not user:
+                flash("Email or Password is incorrect! please try again.")
+            else: 
+                flash("Password is incorrect! please try again.")
             return redirect(url_for('login'))
     return render_template("login.html", form= login_form)
 
 
 @app.route('/logout')
 def logout():
+    logout_user()
+    flash("User succussfully logged out.")
     return redirect(url_for('get_all_posts'))
 
 

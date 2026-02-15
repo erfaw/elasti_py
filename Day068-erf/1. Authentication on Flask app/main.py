@@ -85,10 +85,6 @@ def login():
             password
         ):
             if login_user(user= user_by_email):
-                # flash('Logged in successfully.')
-                # next = request.args.get('next')
-                # if not url_has_allowed_host_and_scheme(next, request.host):
-                #     return abort(400)
                 return redirect(url_for('secrets'))
         else:
             flash("Password incorrect, please try again.")

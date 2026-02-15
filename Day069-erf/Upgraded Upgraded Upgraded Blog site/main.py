@@ -25,7 +25,8 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
-# TODO: Configure Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 class Base(DeclarativeBase):
     pass
@@ -43,7 +44,7 @@ class BlogPost(db.Model):
     author: Mapped[str] = mapped_column(String(250), nullable=False)
     img_url: Mapped[str] = mapped_column(String(250), nullable=False)
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id: Mapped[int] = mapped_column(primary_key= True)
     email: Mapped[str] = mapped_column(String(300), nullable= False, unique= True,)
     password: Mapped[str] = mapped_column(nullable= False)
@@ -150,6 +151,9 @@ def about():
 def contact():
     return render_template("contact.html")
 
+@login_manager.user_loader
+def load_user(user_id):
+    return db.get_or_404(User, user_id)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5002)

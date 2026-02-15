@@ -10,7 +10,7 @@ from sqlalchemy import Integer, String, Text
 from sqlalchemy.exc import IntegrityError
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import CreatePostForm, RegisterForm
+from forms import CreatePostForm, RegisterForm, LoginForm
 from dotenv import load_dotenv
 from pathlib import Path
 import os
@@ -82,9 +82,21 @@ def register():
 
 
 # TODO: Retrieve a user from the database based on their email. 
-@app.route('/login')
+@app.route('/login', methods= ["POST", "GET"])
 def login():
-    return render_template("login.html")
+    login_form= LoginForm()
+    if login_form.validate_on_submit():
+        user= db.session.execute(db.select(User).where(User.email == login_form.email.data)).scalar_one_or_none()
+        if check_password_hash(user.password, login_form.password.data):
+            if login_user(user):
+                flash(f"Successfully logged in as {user.name}")
+                return redirect(url_for('get_all_posts'))
+            else: 
+                return "There is a Problem!"
+        else: 
+            flash("Password is incorrect! please try again.")
+            return redirect(url_for('login'))
+    return render_template("login.html", form= login_form)
 
 
 @app.route('/logout')

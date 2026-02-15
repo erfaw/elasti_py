@@ -75,13 +75,11 @@ def register():
             db.session.add(new_user)
             db.session.commit()
         except IntegrityError as e:
-            flash("This email registered already, please try again.")
-            return redirect(url_for('register'))
+            flash("This email registered already, please try to Login instead.")
+            return redirect(url_for('login'))
         return redirect(url_for('get_all_posts'))
     return render_template("register.html", form= register_form)
 
-
-# TODO: Retrieve a user from the database based on their email. 
 @app.route('/login', methods= ["POST", "GET"])
 def login():
     login_form= LoginForm()
@@ -101,13 +99,11 @@ def login():
             return redirect(url_for('login'))
     return render_template("login.html", form= login_form)
 
-
 @app.route('/logout')
 def logout():
     logout_user()
     flash("User succussfully logged out.")
     return redirect(url_for('get_all_posts'))
-
 
 @app.route('/')
 def get_all_posts():

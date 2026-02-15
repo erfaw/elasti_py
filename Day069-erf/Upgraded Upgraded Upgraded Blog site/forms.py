@@ -10,7 +10,8 @@ class CreatePostForm(FlaskForm):
     body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
 
-# TODO: Create a RegisterForm to register new users
+class RegisterForm(FlaskForm):
+    submit = SubmitField("Register!")
 
 
 # TODO: Create a LoginForm to login existing users

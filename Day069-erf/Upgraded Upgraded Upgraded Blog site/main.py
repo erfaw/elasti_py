@@ -27,16 +27,12 @@ Bootstrap5(app)
 
 # TODO: Configure Flask-Login
 
-
-# CREATE DATABASE
 class Base(DeclarativeBase):
     pass
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
-
-# CONFIGURE TABLES
 class BlogPost(db.Model):
     __tablename__ = "blog_posts"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

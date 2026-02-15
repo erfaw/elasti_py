@@ -91,6 +91,9 @@ def login():
                 # if not url_has_allowed_host_and_scheme(next, request.host):
                 #     return abort(400)
                 return redirect(url_for('secrets'))
+        else:
+            flash("Password incorrect, please try again.")
+            return redirect(url_for('login'))
     return render_template("login.html")
 
 @app.route('/secrets')

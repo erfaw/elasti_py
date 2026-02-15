@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, NoResultFound
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from pathlib import Path
 import os
@@ -74,9 +74,13 @@ def login():
     if request.method == "POST":
         email = request.form['email']
         password = request.form['password']
-        user_by_email = db.session.execute(
-            db.select(User).where(User.email == email)
-        ).scalar_one()
+        try:
+            user_by_email = db.session.execute(
+                db.select(User).where(User.email == email)
+            ).scalar_one()
+        except NoResultFound: 
+            flash("The email doesn't exist, please try again.")
+            return redirect(url_for('login'))
         if check_password_hash(
             user_by_email.password,
             password

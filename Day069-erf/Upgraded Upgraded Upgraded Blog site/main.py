@@ -43,10 +43,15 @@ class BlogPost(db.Model):
     author: Mapped[str] = mapped_column(String(250), nullable=False)
     img_url: Mapped[str] = mapped_column(String(250), nullable=False)
 
-
-# TODO: Create a User table for all your registered users. 
-# class User(db.Model):
-#     pass
+class User(db.Model):
+    id: Mapped[int] = mapped_column(primary_key= True)
+    email: Mapped[str] = mapped_column(String(300), nullable= False, unique= True,)
+    password: Mapped[str] = mapped_column(nullable= False)
+    name: Mapped[str] = mapped_column(String(300), nullable= False,)
+    def __repr__(self):
+        return f"<User object: id={self.id}, email={self.email}, name={self.name}>"
+    def to_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
 with app.app_context():
     db.create_all()

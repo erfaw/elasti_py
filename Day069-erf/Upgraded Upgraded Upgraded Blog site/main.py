@@ -63,7 +63,16 @@ with app.app_context():
 def register():
     register_form= RegisterForm()
     if register_form.validate_on_submit():
-        print(register_form.data)
+        new_user = User(
+            email = register_form.email.data,
+            password = generate_password_hash(
+                password= register_form.password.data,
+                method= 'pbkdf2',
+                salt_length= 8,
+            ),
+            name = register_form.name.data
+        )
+        print(new_user.to_dict())
     return render_template("register.html", form= register_form)
 
 

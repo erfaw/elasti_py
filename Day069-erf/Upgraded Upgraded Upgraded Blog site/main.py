@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Text
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import CreatePostForm
+from forms import CreatePostForm, RegisterForm
 from dotenv import load_dotenv
 from pathlib import Path
 import os
@@ -59,7 +59,8 @@ with app.app_context():
 # TODO: Use Werkzeug to hash the user's password when creating a new user.
 @app.route('/register')
 def register():
-    return render_template("register.html")
+    register_form= RegisterForm()
+    return render_template("register.html", form= register_form)
 
 
 # TODO: Retrieve a user from the database based on their email. 

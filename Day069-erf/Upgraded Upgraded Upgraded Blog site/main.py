@@ -7,6 +7,7 @@ from flask_login import UserMixin, login_user, LoginManager, current_user, logou
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Text
+from sqlalchemy.exc import IntegrityError
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import CreatePostForm, RegisterForm
@@ -70,8 +71,12 @@ def register():
             ),
             name = register_form.name.data
         )
-        db.session.add(new_user)
-        db.session.commit()
+        try: 
+            db.session.add(new_user)
+            db.session.commit()
+        except IntegrityError as e:
+            flash("This email registered already, please try again.")
+            return redirect(url_for('register'))
         return redirect(url_for('get_all_posts'))
     return render_template("register.html", form= register_form)
 

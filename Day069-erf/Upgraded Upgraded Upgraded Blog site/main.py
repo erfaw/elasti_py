@@ -62,6 +62,9 @@ class User(UserMixin, db.Model):
     
 class Comment(db.Model):
     # TODO make it related to BlogPost and Users
+    id: Mapped[int] = mapped_column(primary_key=True)
+    text: Mapped[str] = mapped_column(Text, nullable= False)
+    
     def __repr__(self):
         return f"<Comment object: >"
     def to_dict(self):

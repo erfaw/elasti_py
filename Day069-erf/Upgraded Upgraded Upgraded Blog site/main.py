@@ -55,16 +55,19 @@ class User(UserMixin, db.Model):
     password: Mapped[str] = mapped_column(nullable= False)
     name: Mapped[str] = mapped_column(String(300), nullable= False,)
     posts: Mapped[List["BlogPost"]] = relationship(back_populates= "author")
+    comments: Mapped[List["Comment"]] = relationship(back_populates= "user")
     def __repr__(self):
         return f"<User object: id={self.id}, email={self.email}, name={self.name}>"
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
     
 class Comment(db.Model):
-    # TODO make it related to BlogPost and Users
+    __tablename__ = "comments"
     id: Mapped[int] = mapped_column(primary_key=True)
     text: Mapped[str] = mapped_column(Text, nullable= False)
-    
+    user_id = mapped_column(ForeignKey("user.id"))
+    user: Mapped[User] = relationship(back_populates= "comments")
+
     def __repr__(self):
         return f"<Comment object: >"
     def to_dict(self):

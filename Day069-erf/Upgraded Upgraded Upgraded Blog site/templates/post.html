@@ -35,6 +35,7 @@
         </div>
 
         <!-- Comments Area -->
+        {{ ckeditor.load() }} {{ ckeditor.config(name='user_comment') }}
         {{ render_form(form, novalidate=True) }}
         <div class="comment">
           <!-- TODO: Show all the comments on a post -->

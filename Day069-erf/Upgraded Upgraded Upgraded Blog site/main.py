@@ -56,7 +56,7 @@ class User(UserMixin, db.Model):
     password: Mapped[str] = mapped_column(nullable= False)
     name: Mapped[str] = mapped_column(String(300), nullable= False,)
     posts: Mapped[List["BlogPost"]] = relationship(back_populates= "author")
-    comments: Mapped[List["Comment"]] = relationship(back_populates= "user")
+    comments: Mapped[List["Comment"]] = relationship(back_populates= "comment_author")
     def __repr__(self):
         return f"<User object: id={self.id}, email={self.email}, name={self.name}>"
     def to_dict(self):
@@ -67,7 +67,7 @@ class Comment(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     text: Mapped[str] = mapped_column(Text, nullable= False)
     user_id = mapped_column(ForeignKey("user.id"))
-    user: Mapped[User] = relationship(back_populates= "comments")
+    comment_author: Mapped[User] = relationship(back_populates= "comments")
     post_id = mapped_column(ForeignKey("blog_posts.id"))
     post: Mapped[BlogPost] = relationship(back_populates= "comments")
 

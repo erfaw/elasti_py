@@ -145,7 +145,6 @@ def get_all_posts():
     return render_template("index.html", all_posts=posts)
 
 @app.route("/post/<int:post_id>", methods= ["POST", "GET"])
-@login_required
 def show_post(post_id):
     comment_form = CommentForm()
     requested_post = db.get_or_404(BlogPost, post_id)

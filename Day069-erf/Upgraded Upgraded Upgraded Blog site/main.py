@@ -48,7 +48,7 @@ class BlogPost(db.Model):
     author_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     author = relationship("User", back_populates="posts")
     img_url: Mapped[str] = mapped_column(String(250), nullable=False)
-    comments: Mapped[List[Comment]] = relationship(back_populates= "post")
+    comments: Mapped[List["Comment"]] = relationship(back_populates= "post")
 
 class User(UserMixin, db.Model):
     id: Mapped[int] = mapped_column(primary_key= True)

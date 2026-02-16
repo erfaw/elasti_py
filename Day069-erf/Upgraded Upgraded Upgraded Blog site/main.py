@@ -148,9 +148,19 @@ def get_all_posts():
 @login_required
 def show_post(post_id):
     comment_form = CommentForm()
-    if comment_form.validate_on_submit():
-        return f'{comment_form.data}'
     requested_post = db.get_or_404(BlogPost, post_id)
+    if comment_form.validate_on_submit():
+        new_comment = Comment(
+            text= comment_form.user_comment.data,
+            comment_author= current_user,
+            post= requested_post,
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+        flash("Thanks for your Comment!")
+        return redirect(
+            url_for('show_post', post_id= post_id)
+        )
     return render_template("post.html", post=requested_post, form= comment_form)
 
 @app.route("/new-post", methods=["GET", "POST"])

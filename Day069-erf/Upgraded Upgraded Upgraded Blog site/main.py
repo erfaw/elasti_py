@@ -1,4 +1,5 @@
 from datetime import date
+from typing import List
 from flask import Flask, abort, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
@@ -6,7 +7,7 @@ from flask_ckeditor import CKEditor
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import Integer, String, Text
+from sqlalchemy import Integer, String, Text, ForeignKey
 from sqlalchemy.exc import IntegrityError
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -43,7 +44,8 @@ class BlogPost(db.Model):
     subtitle: Mapped[str] = mapped_column(String(250), nullable=False)
     date: Mapped[str] = mapped_column(String(250), nullable=False)
     body: Mapped[str] = mapped_column(Text, nullable=False)
-    author: Mapped[str] = mapped_column(String(250), nullable=False)
+    author_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    author = relationship("User", back_populates="posts")
     img_url: Mapped[str] = mapped_column(String(250), nullable=False)
 
 class User(UserMixin, db.Model):
@@ -51,6 +53,7 @@ class User(UserMixin, db.Model):
     email: Mapped[str] = mapped_column(String(300), nullable= False, unique= True,)
     password: Mapped[str] = mapped_column(nullable= False)
     name: Mapped[str] = mapped_column(String(300), nullable= False,)
+    posts: Mapped[List["BlogPost"]] = relationship(back_populates= "author")
     def __repr__(self):
         return f"<User object: id={self.id}, email={self.email}, name={self.name}>"
     def to_dict(self):

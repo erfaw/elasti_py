@@ -59,6 +59,13 @@ class User(UserMixin, db.Model):
         return f"<User object: id={self.id}, email={self.email}, name={self.name}>"
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
+    
+class Comment(db.Model):
+    # TODO make it related to BlogPost and Users
+    def __repr__(self):
+        return f"<Comment object: >"
+    def to_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
 with app.app_context():
     db.create_all()

@@ -149,6 +149,9 @@ def show_post(post_id):
     comment_form = CommentForm()
     requested_post = db.get_or_404(BlogPost, post_id)
     if comment_form.validate_on_submit():
+        if not current_user.is_authenticated:
+            flash("You need to login first in order to submit a comment.")
+            return redirect(url_for('login'))
         new_comment = Comment(
             text= comment_form.user_comment.data,
             comment_author= current_user,

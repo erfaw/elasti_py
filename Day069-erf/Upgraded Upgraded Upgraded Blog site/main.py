@@ -26,6 +26,7 @@ load_dotenv(ROOT_DIR/'.env')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 ckeditor = CKEditor(app)
+app.config['CKEDITOR_PKG_TYPE'] = 'full'
 Bootstrap5(app)
 
 login_manager = LoginManager()
@@ -91,6 +92,7 @@ def register():
         except IntegrityError as e:
             flash("This email registered already, please try to Login instead.")
             return redirect(url_for('login'))
+        flash("User registered Successfully!")
         return redirect(url_for('get_all_posts'))
     return render_template("register.html", form= register_form)
 

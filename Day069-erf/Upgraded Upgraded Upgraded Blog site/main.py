@@ -48,6 +48,7 @@ class BlogPost(db.Model):
     author_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     author = relationship("User", back_populates="posts")
     img_url: Mapped[str] = mapped_column(String(250), nullable=False)
+    comments: Mapped[List[Comment]] = relationship(back_populates= "post")
 
 class User(UserMixin, db.Model):
     id: Mapped[int] = mapped_column(primary_key= True)
@@ -67,6 +68,8 @@ class Comment(db.Model):
     text: Mapped[str] = mapped_column(Text, nullable= False)
     user_id = mapped_column(ForeignKey("user.id"))
     user: Mapped[User] = relationship(back_populates= "comments")
+    post_id = mapped_column(ForeignKey("blog_posts.id"))
+    post: Mapped[BlogPost] = relationship(back_populates= "comments")
 
     def __repr__(self):
         return f"<Comment object: >"
